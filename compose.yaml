@@ -1,0 +1,6 @@
+﻿services:
+  kelburg_frontend:
+    image: kelburg_frontend
+    build:
+      context: .
+      dockerfile: Kelburg_frontend/Dockerfile
