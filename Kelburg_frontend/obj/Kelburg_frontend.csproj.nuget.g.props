@@ -12,4 +12,7 @@
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <SourceRoot Include="/Users/mathias.germandsen/.nuget/packages/" />
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)blazor.bootstrap/3.3.1/buildTransitive/Blazor.Bootstrap.props" Condition="Exists('$(NuGetPackageRoot)blazor.bootstrap/3.3.1/buildTransitive/Blazor.Bootstrap.props')" />
+  </ImportGroup>
 </Project>
