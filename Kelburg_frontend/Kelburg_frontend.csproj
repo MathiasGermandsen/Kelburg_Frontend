@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <PackageReference Include="Blazor.Bootstrap" Version="3.3.1" />
+
     </ItemGroup>
 
 </Project>
