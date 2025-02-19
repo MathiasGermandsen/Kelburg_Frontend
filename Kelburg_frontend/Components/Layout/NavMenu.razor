@@ -1,29 +1,72 @@
-﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
+﻿<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #D9D9D9;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            Menu
-        </a>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="btn" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                aria-controls="offcanvasMenu">
             <span class="navbar-toggler-icon"></span>
+            <span class="ms-2">Menu</span>
         </button>
-        
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="mx-auto text-center">
-                <img src="images/logo.png" alt="Kelburg Hotel" style="max-height: 40px;" class="center"/>
-            </div>
-            
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/signup">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/booking">Book Room</a>
-                </li>
-            </ul>
-        </div>
+
+        <a class="navbar-brand mx-auto" href="#" style="color: black;">
+            <img src="images/logo.png" style="max-height: 50px">
+        </a>
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item px-2">
+                <NavLink class="nav-link" href="#" style="color: black;">Sign Up</NavLink>
+            </li>
+            <li class="nav-item px-2">
+                <NavLink class="nav-link" href="#" style="color: black;">Book Room</NavLink>
+            </li>
+        </ul>
     </div>
 </nav>
 
+<div class="offcanvas offcanvas-start" tabindex="-1"
+     id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel"
+     style="background-color: #D9D9D9; color: black;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasMenuLabel" style="color: black;">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/rooms" style="color: black;">Rooms</NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/activities" style="color: black;">Activities</NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/facilities" style="color: black;">Facilities</NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/photolibrary" style="color: black;">Photo library</NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/career" style="color: black;">Career</NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/createinquiry" style="color: black;">Create Inquiry</NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/aboutus" style="color: black;">About us</NavLink>
+            </li>
+        </ul>
+    </div>
+</div>
 
+<style>
+    .offcanvas .navbar-nav .nav-link {
+        transition: background-color 0.3s;
+        border-radius: 15px;
+        font-size: 1.2rem;  /* Increased font size */
+        padding: 12px 20px; /* More padding for a larger clickable area */
+    }
+
+    .offcanvas .navbar-nav .nav-link:hover {
+        background-color: #bfbfbf;
+        color: black;
+    }
+</style>
