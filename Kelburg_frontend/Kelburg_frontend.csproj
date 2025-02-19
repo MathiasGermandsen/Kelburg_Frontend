@@ -15,7 +15,13 @@
 
     <ItemGroup>
       <PackageReference Include="Blazor.Bootstrap" Version="3.3.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Components\Pages\AdminPages\" />
     </ItemGroup>
 
 </Project>

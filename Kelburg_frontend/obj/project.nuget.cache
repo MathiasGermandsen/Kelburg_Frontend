@@ -1,10 +1,31 @@
 {
   "version": 2,
-  "dgSpecHash": "gcpx4hB0rdo=",
+  "dgSpecHash": "V3VC0ctJutM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ary\\Desktop\\Skole\\Kelburg Hotel\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
+  "projectFilePath": "C:\\Users\\Alexander\\RiderProjects\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ary\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\Alexander\\.nuget\\packages\\blazor.bootstrap\\3.3.1\\blazor.bootstrap.3.3.1.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.11\\microsoft.aspnetcore.authorization.8.0.11.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.11\\microsoft.aspnetcore.components.8.0.11.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\8.0.11\\microsoft.aspnetcore.components.analyzers.8.0.11.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\8.0.11\\microsoft.aspnetcore.components.forms.8.0.11.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.aspnetcore.components.web\\8.0.11\\microsoft.aspnetcore.components.web.8.0.11.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.11\\microsoft.aspnetcore.metadata.8.0.11.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.2\\microsoft.entityframeworkcore.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.2\\microsoft.entityframeworkcore.abstractions.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.2\\microsoft.entityframeworkcore.analyzers.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.2\\microsoft.extensions.caching.abstractions.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.caching.memory\\9.0.2\\microsoft.extensions.caching.memory.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.2\\microsoft.extensions.dependencyinjection.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.2\\microsoft.extensions.dependencyinjection.abstractions.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.logging\\9.0.2\\microsoft.extensions.logging.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.2\\microsoft.extensions.logging.abstractions.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.options\\9.0.2\\microsoft.extensions.options.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.2\\microsoft.extensions.primitives.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\microsoft.jsinterop\\8.0.11\\microsoft.jsinterop.8.0.11.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\system.diagnostics.diagnosticsource\\9.0.2\\system.diagnostics.diagnosticsource.9.0.2.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }
