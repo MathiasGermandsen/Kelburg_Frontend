@@ -24,7 +24,7 @@ public partial class SignUp : ComponentBase
             { "Country", newUser.Country },
             { "PostalCode", newUser.PostalCode },
             { "Email", newUser.Email },
-            { "PasswordBackdoor", newUser.PasswordBackdoor },
+            { "Password", newUser.PasswordBackdoor },
             { "AccountType", "user" },
         };
         try
