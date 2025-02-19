@@ -13,37 +13,48 @@ public partial class SignUp : ComponentBase
     {
         isSubmitting = true;
         message = "string.Empty";
-        
+
         Dictionary<string, object?> queryParams = new()
         {
-            {"FirstName", newUser.FirstName},
-            {"LastName", newUser.LastName},
-            {"PhoneNumber", newUser.PhoneNumber},
-            {"Address", newUser.Address},
-            {"City", newUser.City},
-            {"Country", newUser.Country},
-            {"PostalCode", newUser.PostalCode},
-            {"Email", newUser.Email},
-            {"PasswordBackdoor", newUser.PasswordBackdoor},
-            {"AccountType", "user"},
+            { "FirstName", newUser.FirstName },
+            { "LastName", newUser.LastName },
+            { "PhoneNumber", newUser.PhoneNumber },
+            { "Address", newUser.Address },
+            { "City", newUser.City },
+            { "Country", newUser.Country },
+            { "PostalCode", newUser.PostalCode },
+            { "Email", newUser.Email },
+            { "PasswordBackdoor", newUser.PasswordBackdoor },
+            { "AccountType", "user" },
         };
-        
-        Users userCreated = await APIHandler.RequestAPI<Users>(eTables.Users.Create, queryParams, HttpMethod.Post);
+        try
+        {
+            List<Users> userCreated = await APIHandler.RequestAPI<List<Users>>(eTables.Users.Create, queryParams, HttpMethod.Post);
 
-        if (userCreated != null)
-        {
-            message = "Account created successfully";
-            await Task.Delay(2000);
-            NavigationManager.NavigateTo("/UserPages/UserPages/Home");
+            if (userCreated != null)
+            {
+                message = "Account created successfully";
+                await Task.Delay(2000);
+                NavigationManager.NavigateTo("/UserPages/UserPages/Home");
+            }
+            else
+            {
+                message = "Account creation failed: nu user data returned";
+            }
         }
-        else
+        catch (HttpRequestException httpException)
         {
-            message = "Account creation failed";
+            message = $"HTTP Error: {httpException.StatusCode}-{httpException.Message}";
         }
-        
-        isSubmitting = false;
+        catch (Exception ex)
+        {
+            message = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
     }
-
     private void GoBack()
     {
         NavigationManager.NavigateTo("/UserPages/UserPages/Home");
