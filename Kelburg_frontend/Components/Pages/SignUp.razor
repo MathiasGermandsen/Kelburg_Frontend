@@ -1,0 +1,33 @@
+@page "/SignUp"
+<h3>SignUp</h3>
+
+<div class="form-container">
+    <h3>Create Account</h3>
+    <EditForm Model="newUser" OnValidSubmit="CreateAccount">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="form-row">
+        <input placeholder="FirstName" @bind="newUser.FirstName" />
+        <input placeholder="LastName" @bind="newUser.LastName" />
+    </div>
+    
+    <div class="form-row">
+        <input placeholder="Phone" @bind="newUser.PhoneNumber" />    
+    </div>
+    
+    <div class="form-row">
+        <input placeholder="Address" @bind="newUser.Address">
+        <input placeholder="City" @bind="newUser.City">
+    </div>
+    
+    <div class="form-row">
+        <input placeholder="Postal Code">
+    </div>
+    </EditForm>
+</div>
+
+
+
+@code {
+    
+}
