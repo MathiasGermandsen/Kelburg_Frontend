@@ -47,6 +47,22 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Blazor.Bootstrap": {
+              "target": "Package",
+              "version": "[3.3.1, )"
+            },
+            "Blazorise.Bootstrap5": {
+              "target": "Package",
+              "version": "[1.7.4, )"
+            },
+            "Blazorise.Icons.FontAwesome": {
+              "target": "Package",
+              "version": "[1.7.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
