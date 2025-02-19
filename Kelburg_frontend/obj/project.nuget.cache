@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "z+v/QnJ8rZg=",
+  "dgSpecHash": "gcpx4hB0rdo=",
   "success": true,
-  "projectFilePath": "/Users/mathias.germandsen/RiderProjects/Kelburg_frontend/Kelburg_frontend/Kelburg_frontend.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\ary\\Desktop\\Skole\\Kelburg Hotel\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ary\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
