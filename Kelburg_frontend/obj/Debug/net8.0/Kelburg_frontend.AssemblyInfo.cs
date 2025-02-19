@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Kelburg_frontend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5374929cf59982c15bde28691a3af495d24b62da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e85a9dc7c14cba4eab4521de2aa677fa5a296954")]
 [assembly: System.Reflection.AssemblyProductAttribute("Kelburg_frontend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Kelburg_frontend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

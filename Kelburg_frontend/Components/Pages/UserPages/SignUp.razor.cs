@@ -35,7 +35,7 @@ public partial class SignUp : ComponentBase
             {
                 message = "Account created successfully";
                 await Task.Delay(2000);
-                NavigationManager.NavigateTo("/UserPages/UserPages/Home");
+                NavigationManager.NavigateTo("/UserPages/UserPages/");
             }
             else
             {
@@ -57,6 +57,6 @@ public partial class SignUp : ComponentBase
     }
     private void GoBack()
     {
-        NavigationManager.NavigateTo("/UserPages/UserPages/Home");
+        NavigationManager.NavigateTo("/UserPages/UserPages/");
     }
 }
