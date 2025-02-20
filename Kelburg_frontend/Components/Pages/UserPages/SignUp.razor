@@ -1,7 +1,10 @@
 @inject NavigationManager NavigationManager
 
 @page "/SignUp"
-<div class="container">
+
+<link rel="stylesheet" href="overflowhidden.css"/>
+
+<section class="hero">
     <div class="form-container">
         <h3>Create Account</h3>
         <EditForm Model="newUser" OnValidSubmit="CreateAccount">
@@ -51,5 +54,5 @@
         }
 
     </div>
-</div>
+</section>
 

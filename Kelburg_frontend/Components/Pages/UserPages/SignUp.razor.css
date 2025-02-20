@@ -3,20 +3,18 @@ body {
     width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
+}
+
+/* Container styles */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen */
     background-image: url('images/Hotel/Hotel3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-}
-
-/* Container styles */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    border:0;
 }
 
 /* Form container */
@@ -69,10 +67,11 @@ input[placeholder="Postal Code"] {
     color: black;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%;
+    width: 50%;
+    max-width: 50%;
 }
 
 .submit-button:hover {
