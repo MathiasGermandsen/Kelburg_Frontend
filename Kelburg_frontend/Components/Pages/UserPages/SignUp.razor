@@ -1,8 +1,6 @@
 @inject NavigationManager NavigationManager
 
 @page "/SignUp"
-<h3>SignUp</h3>
-
 <div class="container">
     <div class="form-container">
         <h3>Create Account</h3>
@@ -16,27 +14,33 @@
             </div>
 
             <div class="form-row">
-                <input placeholder="Phone" @bind="newUser.PhoneNumber"/>
+                <input placeholder="Country" @bind="newUser.Country">
+                <input placeholder="City" @bind="newUser.City"/>
+
             </div>
 
             <div class="form-row">
                 <input placeholder="Address" @bind="newUser.Address"/>
-                <input placeholder="City" @bind="newUser.City"/>
-               <input placeholder="Country" @bind="newUser.Country">
+                <input placeholder="Postal Code" @bind="newUser.PostalCode"/>
             </div>
 
+
             <div class="form-row">
-                <input placeholder="Postal Code" @bind="newUser.PostalCode"/>
+                <input placeholder="Phone" @bind="newUser.PhoneNumber"/>
             </div>
 
             <div class="form-row">
                 <input placeholder="Email" @bind="newUser.Email"/>
+            </div>
+
+            <div class="form-row">
                 <input placeholder="Password" @bind="newUser.PasswordBackdoor">
             </div>
 
+
             <button class="submit-button" type="submit" disabled="@isSubmitting">Create And Login</button>
         </EditForm>
-        
+
         @if (isSubmitting)
         {
             <p>Creating Account...</p>
@@ -45,6 +49,7 @@
         {
             <p>@message</p>
         }
-        
+
     </div>
 </div>
+

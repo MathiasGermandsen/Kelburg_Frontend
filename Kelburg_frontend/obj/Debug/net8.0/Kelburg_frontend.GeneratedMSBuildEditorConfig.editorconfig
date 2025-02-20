@@ -54,6 +54,10 @@ build_metadata.AdditionalFiles.CssScope = b-0q29kwayge
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-o44di7gql9
 
+[C:/Users/Alexander/RiderProjects/Kelburg_Frontend/Kelburg_frontend/Components/Pages/UserPages/Rooms.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZXNcUm9vbXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-1yg97d7tf8
+
 [C:/Users/Alexander/RiderProjects/Kelburg_Frontend/Kelburg_frontend/Components/Pages/UserPages/SignUp.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZXNcU2lnblVwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-qpoz2j5k8l

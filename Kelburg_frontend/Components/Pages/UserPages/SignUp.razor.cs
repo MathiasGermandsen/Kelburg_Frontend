@@ -27,37 +27,27 @@ public partial class SignUp : ComponentBase
             { "Password", newUser.PasswordBackdoor },
             { "AccountType", "user" },
         };
-        
-        try
-        {
-            List<Users> userCreated = await APIHandler.RequestAPI<List<Users>>(eTables.Users.Create, queryParams, HttpMethod.Post);
 
-            if (userCreated.Any())
-            {
-                message = "Account created successfully";
-                await Task.Delay(2000);
-                NavigationManager.NavigateTo("/UserPages/UserPages/");
-            }
-            else
-            {
-                message = "Account creation failed: nu user data returned";
-            }
-        }
-        catch (HttpRequestException httpException)
+        Users? userCreated = await APIHandler.RequestAPI<Users>(eTables.Users.Create, queryParams, HttpMethod.Post);
+        Console.WriteLine(userCreated);
+
+        if (userCreated != null)
         {
-            message = $"HTTP Error: {httpException.StatusCode}-{httpException.Message}";
+            message = "Account created successfully";
+            await Task.Delay(2000);
+            NavigationManager.NavigateTo("/");
         }
-        catch (Exception ex)
+        else
         {
-            message = $"Error: {ex.Message}";
+            message = "Account creation failed: nu user data returned";
         }
-        finally
-        {
-            isSubmitting = false;
-        }
+
+        isSubmitting = false;
+        StateHasChanged();
     }
+
     private void GoBack()
     {
-        NavigationManager.NavigateTo("/UserPages/UserPages/");
+        NavigationManager.NavigateTo("/");
     }
 }
