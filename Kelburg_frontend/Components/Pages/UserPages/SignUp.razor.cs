@@ -27,6 +27,7 @@ public partial class SignUp : ComponentBase
             { "Password", newUser.PasswordBackdoor },
             { "AccountType", "user" },
         };
+        
         try
         {
             List<Users> userCreated = await APIHandler.RequestAPI<List<Users>>(eTables.Users.Create, queryParams, HttpMethod.Post);
