@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 using System.Text;
+using Kelburg_frontend.Models;
 
 namespace Kelburg_frontend;
 
@@ -19,6 +20,7 @@ public class RoomsAPI : APIData
     public RoomsAPI(string urlPath) : base("Rooms", urlPath) {}
     
     public string ChangePrice => $"{_urlPath}/changePrice";
+    public string AvailableBetweenDates => $"{_urlPath}/availableBetweenDates";
 }
 
 public class ServicesAPI : APIData

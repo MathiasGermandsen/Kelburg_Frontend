@@ -1,0 +1,118 @@
+.hero-section {
+    position: relative;
+    background: url('images/hero_image.jpg') no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px; /* If you want spacing below the hero */
+    overflow: hidden; /* Ensures the SVG stays clipped inside */
+}
+
+/* Position the SVG shape at the bottom */
+.hero-curve {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 0; /* Removes unwanted space around inline SVG */
+    z-index: 2; /* Above the background but below the hero content */
+}
+
+.hero-curve svg {
+    display: block;
+    width: 100%;
+    height: 150px; /* Adjust to control how “tall” the curve is */
+}
+
+/* Optional: Dark overlay if needed */
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Make sure the overlay is beneath the text but above the background */
+}
+
+.hero-content {
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 3; /* Above the overlay and the SVG */
+    padding: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+}
+
+/* Responsive text sizes */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+}
+
+.feature-card {
+    position: relative;
+    width: 70%;
+    height: 250px;
+    border-radius: 25px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.feature-card span {
+    color: white;
+    /* Using clamp to set a responsive font-size that scales with viewport width */
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.feature-card:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+/* Additional responsiveness for the card container */
+@media (max-width: 768px) {
+    .feature-card {
+        width: 90%;
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .feature-card {
+        width: 100%;
+        height: 150px;
+    }
+}
+
+
+/* --- FOOTER --- */
+.landing-footer {
+    background-color: #f8f9fa; /* Light gray or use your site color */
+    border-top: 1px solid #ddd;
+}
+
+.landing-footer .text-muted {
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.landing-footer .text-muted:hover {
+    text-decoration: underline;
+}
