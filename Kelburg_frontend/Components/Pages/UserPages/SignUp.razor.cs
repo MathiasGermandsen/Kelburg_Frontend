@@ -31,7 +31,7 @@ public partial class SignUp : ComponentBase
         {
             List<Users> userCreated = await APIHandler.RequestAPI<List<Users>>(eTables.Users.Create, queryParams, HttpMethod.Post);
 
-            if (userCreated != null)
+            if (userCreated.Any())
             {
                 message = "Account created successfully";
                 await Task.Delay(2000);
