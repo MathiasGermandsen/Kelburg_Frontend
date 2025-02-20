@@ -1,0 +1,98 @@
+
+
+body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    font-family: 'Albert Sans', sans-serif;
+}
+
+/* Container styles */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    background-image: url('images/Hotel/Hotel3.jpg');
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Make sure the overlay is beneath the text but above the background */
+}
+
+/* Form container */
+.form-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 50%;
+    z-index: 2;
+}
+
+/* Form title */
+.form-container h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form row */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    font-size: 14px;
+}
+
+/* Full-width inputs */
+input[placeholder="First Name"],
+input[placeholder="Last Name"],
+input[placeholder="Country"],
+input[placeholder="City"],
+input[placeholder="Address"],
+input[placeholder="Postal Code"] {
+    width: 48%;
+    margin-top: 10px;
+}
+
+/* Submit button */
+.submit-button {
+    background-color: #C9A66B;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 50%;
+    max-width: 50%;
+}
+
+.submit-button:hover {
+    background-color: #b18f3a;
+}
+
+.submit-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
