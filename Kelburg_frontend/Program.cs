@@ -14,6 +14,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<RoomsService>();
+builder.Services.AddScoped<BookingService>();
 
 builder.Services
     .AddBlazorise( options =>

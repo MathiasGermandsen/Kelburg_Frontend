@@ -11,15 +11,18 @@ public partial class Rooms : ComponentBase
    private int pageSize = 12;
    private int pageNumber = 1;
 
-   protected override async Task OnInitializedAsync()
-   {
-      await SearchRooms(pageSize, 1);
-      StateHasChanged();
-   }
-
    private async Task ClickRedirect(Models.Rooms room)
    {
+      Bookings bookingStart = new Bookings()
+      {
+         StartDate = dateRange[0].Value.Date,
+         EndDate = dateRange[1].Value.Date,
+         PeopleCount = occupantsNumber,
+         RoomId = room.Id
+      };
+      
       RoomsService.SetSelectedRoom(room);
+      BookingService.SetNewBooking(bookingStart);
       
       if (true) // Should eventually be User.LoggedIn ALEXANDER MAKE IT
       {
@@ -50,8 +53,6 @@ public partial class Rooms : ComponentBase
 
    private async Task SearchRooms(int pageSize, int pageNumber)
    {
-      string endpointToUse = eTables.Rooms.AvailableBetweenDates;
-
       Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
       {
          {"pageSize", pageSize},
@@ -60,7 +61,7 @@ public partial class Rooms : ComponentBase
       
       if (dateRange == null)
       {
-         endpointToUse = eTables.Rooms.Read;
+         return;
       }
       else
       {
@@ -73,7 +74,7 @@ public partial class Rooms : ComponentBase
          queryParams.Add("roomSize", occupantsNumber);
       }
       
-      availableRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(endpointToUse, queryParams, HttpMethod.Get);
+      availableRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.AvailableBetweenDates, queryParams, HttpMethod.Get);
       
       foreach (Models.Rooms room in availableRooms)
       {

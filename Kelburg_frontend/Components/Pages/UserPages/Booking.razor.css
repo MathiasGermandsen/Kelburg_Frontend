@@ -1,0 +1,11 @@
+﻿.hrLine {
+    border: 2px solid black;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.bookingTitle {
+    font-weight: bold;
+    margin-left: 20px;
+    font-family: 'Albert Sans', sans-serif;
+}

@@ -1,6 +1,7 @@
 ﻿@page "/Rooms"
 @inject NavigationManager NavigationManager
 @inject RoomsService RoomsService
+@inject BookingService BookingService
 @using Blazorise
 @using Kelburg_frontend.Services
 
@@ -16,30 +17,37 @@
     </div>
 
     <h3 style="font-weight: bold;">Browse Rooms</h3>
+    
+    @if (!availableRooms.Any())
+    {
+        <h1>Select a Start/End Date</h1>
+    }
+    else
+    {
+        <div class="room-grid">
+            @foreach (Models.Rooms room in availableRooms)
+            {
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(room.RoomImagePath))
+                    {
+                        <img src="@room.RoomImagePath" alt="Room Image" class="card-img"/>
+                    }
+                    else
+                    {
+                        <div class="no-image-placeholder">No Image Available</div>
+                    }
 
-    <div class="room-grid">
-        @foreach (Models.Rooms room in availableRooms)
-        {
-            <div class="card">
-                @if (!string.IsNullOrEmpty(room.RoomImagePath))
-                {
-                    <img src="@room.RoomImagePath" alt="Room Image" class="card-img"/>
-                }
-                else
-                {
-                    <div class="no-image-placeholder">No Image Available</div>
-                }
-
-                <div class="card-body">
-                    <h5 class="card-title">@room.RoomType</h5>
-                    <p class="card-text">
-                        <strong>Size:</strong> @room.Size occupants
-                    </p>
-                    <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
+                    <div class="card-body">
+                        <h5 class="card-title">@room.RoomType</h5>
+                        <p class="card-text">
+                            <strong>Size:</strong> @room.Size occupants
+                        </p>
+                        <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
     <nav class="pagination-container">
         <ul class="pagination">
             <li class="page-item">
