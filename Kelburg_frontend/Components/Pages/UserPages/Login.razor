@@ -1,6 +1,38 @@
 @page "/Login"
-<h3>Login</h3>
+@using Blazored.LocalStorage
+@using Kelburg_frontend.Services
+@inject HttpClient Http
+@inject NavigationManager NavigationManger
 
-@code {
-    
-}
+
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="form-container">
+        <h3>Create Account</h3>
+        <EditForm Model="LoggedInUsers" OnValidSubmit="LoggingIn">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            
+            <div class="form-row">
+                <input placeholder="Email" @bind="LoggedInUsers.Email"/>
+            </div>
+
+            <div class="form-row">
+                <input placeholder="Password" @bind="LoggedInUsers.PasswordBackdoor">
+            </div>
+
+
+            <button class="submit-button" type="submit" disabled="@isLogginIn">Login</button>
+        </EditForm>
+
+        @if (isLogginIn)
+        {
+            <p>Logging In...</p>
+        }
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <p>@message</p>
+        }
+
+    </div>
+</section>

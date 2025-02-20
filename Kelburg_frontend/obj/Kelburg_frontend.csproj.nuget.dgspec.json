@@ -48,6 +48,14 @@
               "target": "Package",
               "version": "[3.3.1, )"
             },
+            "Blazored.LocalStorage": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "Blazored.SessionStorage": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
             "Blazorise.Bootstrap5": {
               "target": "Package",
               "version": "[1.7.4, )"

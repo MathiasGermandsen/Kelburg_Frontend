@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "bjT+OSK04xk=",
+  "dgSpecHash": "ot9Dbw9qKig=",
   "success": true,
   "projectFilePath": "C:\\Users\\Alexander\\RiderProjects\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alexander\\.nuget\\packages\\blazor.bootstrap\\3.3.1\\blazor.bootstrap.3.3.1.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\blazored.localstorage\\4.5.0\\blazored.localstorage.4.5.0.nupkg.sha512",
+    "C:\\Users\\Alexander\\.nuget\\packages\\blazored.sessionstorage\\2.4.0\\blazored.sessionstorage.2.4.0.nupkg.sha512",
     "C:\\Users\\Alexander\\.nuget\\packages\\blazorise\\1.7.4\\blazorise.1.7.4.nupkg.sha512",
     "C:\\Users\\Alexander\\.nuget\\packages\\blazorise.bootstrap5\\1.7.4\\blazorise.bootstrap5.1.7.4.nupkg.sha512",
     "C:\\Users\\Alexander\\.nuget\\packages\\blazorise.icons.fontawesome\\1.7.4\\blazorise.icons.fontawesome.1.7.4.nupkg.sha512",
