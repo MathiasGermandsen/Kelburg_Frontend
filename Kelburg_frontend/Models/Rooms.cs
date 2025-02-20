@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
+﻿
 namespace Kelburg_frontend.Models;
 
 public class Rooms : Common
@@ -8,36 +7,27 @@ public class Rooms : Common
     public string RoomType { get; set; }
     public string ViewType { get; set; }
     public int PricePrNight { get; set; }
+    public string RoomImagePath { get; set; }
 
-    public bool IsRoomAvailableAtDate(List<Bookings> allExistingBookings, Rooms selectedRoom, Bookings bookingToBeCreated)
+    private static readonly List<string> RoomImages = new List<string>()
     {
-        List<Bookings> bookingsUsingRoom = allExistingBookings.Where(x => x.RoomId == selectedRoom.Id).ToList();
+        "/images/rooms/room1/room1.jpg",
+        "/images/rooms/room2/room2.jpg",
+        "/images/rooms/room3/room3.jpg",
+        "/images/rooms/room4/room4.jpg",
+        "/images/rooms/room5/room5.jpg",
+        "/images/rooms/room6/room6.jpg",
+        "/images/rooms/room7/room7.jpg",
+        "/images/rooms/room8/room8.jpg",
+        "/images/rooms/room9/room9.jpg",
+    };
 
-        foreach (Bookings booking in bookingsUsingRoom)
-        {
-            if (booking.CheckBookingOverlap(booking, bookingToBeCreated))
-            {
-                return false;
-            }
-        }
-        var latestBooking = bookingsUsingRoom.OrderByDescending(b => b.EndDate).FirstOrDefault();
-        if (latestBooking != null)
-        {
-            DateTime latestEndDatePlus3Hours = latestBooking.EndDate.AddHours(3);
-            if (bookingToBeCreated.StartDate < latestEndDatePlus3Hours)
-            {
-                return false;
-            }
-        }
-
-        return true;
+    public string GetRandomImagePath()
+    {
+        Random random = new Random();
+        
+        int index = random.Next(0, RoomImages.Count);
+        string imagePath = RoomImages[index];
+        return imagePath;
     }
-}
-
-public class RoomCreateDTO
-{
-    public int Size { get; set; }
-    public string RoomType { get; set; }
-    public string ViewType { get; set; }
-    public int PricePrNight { get; set; }  
 }

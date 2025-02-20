@@ -2,6 +2,8 @@ using Kelburg_frontend.Components;
 using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
+using Kelburg_frontend.Models;
+using Kelburg_frontend.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddBlazorBootstrap();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<RoomsService>();
 
 builder.Services
     .AddBlazorise( options =>
