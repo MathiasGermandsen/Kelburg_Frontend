@@ -3,8 +3,12 @@
 @page "/SignUp"
 
 <link rel="stylesheet" href="overflowhidden.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+
 
 <section class="hero">
+    <div class="hero-overlay"></div>
     <div class="form-container">
         <h3>Create Account</h3>
         <EditForm Model="newUser" OnValidSubmit="CreateAccount">
