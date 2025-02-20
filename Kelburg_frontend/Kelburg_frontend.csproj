@@ -17,7 +17,6 @@
       <PackageReference Include="Blazor.Bootstrap" Version="3.3.1" />
       <PackageReference Include="Blazorise.Bootstrap5" Version="1.7.4" />
       <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.7.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
 
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
@@ -25,6 +24,44 @@
 
     <ItemGroup>
       <Folder Include="Components\Pages\AdminPages\" />
+      <Folder Include="wwwroot\images\rooms\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room1\værelse1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room1\værelse1_1.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room1\værelse1_2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room1\værelse1_3.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room3\værelse3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room3\værelse3_1.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room3\værelse3_2.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room3\værelse3_3.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room3\værelse3_4.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room5\værelse5.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room7\værelse7.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room7\værelse7_1.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room7\værelse7_2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room9\værelse9.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room9\værelse9_1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room9\værelse9_2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room2\værelse2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room4\værelse4.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room4\værelse4_1.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room4\værelse4_2.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room6\værelse6.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room6\værelse6_1.jpeg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room6\værelse6_2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room6\værelse6_3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room6\værelse6_4.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room8\værelse8.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room8\værelse8_1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room8\værelse8_2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room10\værelse10.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room10\værelse10_1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room10\værelse10_2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room10\værelse10_3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room10\værelse10_4.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\rooms\room10\værelse10_5.png" />
     </ItemGroup>
 
 </Project>
