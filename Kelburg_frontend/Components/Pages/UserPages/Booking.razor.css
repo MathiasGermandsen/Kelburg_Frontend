@@ -6,6 +6,92 @@
 
 .bookingTitle {
     font-weight: bold;
-    margin-left: 20px;
     font-family: 'Albert Sans', sans-serif;
+    font-size: 36px;
+    margin-left: 2%;
+}
+
+.infoDiv {
+    background-color: #D9D9D9;
+    width: 90%;
+    max-width: 45%;
+    margin-left: 2%;
+    margin-bottom: 1%;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    height: 100px;
+    gap: 20px;
+}
+
+.icon {
+    display: inline-block;
+}
+
+.init-booking-info {
+    margin: 0;
+}
+
+.userInfoDiv {
+    margin-left: 2%;
+    font-family: 'Albert Sans', sans-serif;
+}
+
+.user-info {
+    font-weight: bold;
+}
+
+.custom-hr {
+    width: 45%;
+    border: none;
+    border-top: 2px solid #000;
+}
+
+@media (max-width: 768px) {
+    .bookingTitle {
+        font-size: 24px;
+        margin-left: 10px;
+    }
+
+    .infoDiv {
+        max-width: 90%;
+        font-size: 20px;
+        height: auto;
+    }
+
+    .userInfoDiv {
+        margin-left: 2%;
+    }
+
+    .custom-hr {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .bookingTitle {
+        font-size: 18px;
+        margin-left: 10px;
+    }
+
+    .infoDiv {
+        font-size: 16px;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .userInfoDiv {
+        margin-left: 0;
+    }
+
+    .custom-hr {
+        width: 100%;
+    }
 }

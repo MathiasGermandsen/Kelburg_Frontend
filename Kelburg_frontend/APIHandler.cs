@@ -38,12 +38,19 @@ public class UsersAPI : APIData
     public string Login => $"{_urlPath}/login";
 }
 
+public class CarsAPI : APIData
+{
+    public CarsAPI(string urlPath) : base("HotelCars", urlPath) {}
+    
+    public string AvailableBetweenDates => $"{_urlPath}/availableBetweenDates";
+}
+
 public static class eTables
 {
     private const string APIBaseUrl = "https://localhost:44306/api";
 
     public static readonly BookingsAPI Bookings = new($"{APIBaseUrl}/Bookings");
-    public static readonly APIData HotelCars = new ("HotelCars", $"{APIBaseUrl}/HotelCars");
+    public static readonly CarsAPI HotelCars = new($"{APIBaseUrl}/HotelCars");
     public static readonly RoomsAPI Rooms = new($"{APIBaseUrl}/Rooms"); 
     public static readonly ServicesAPI Services = new($"{APIBaseUrl}/Services");
     public static readonly APIData Tickets = new("Tickets", $"{APIBaseUrl}/Tickets");
@@ -59,10 +66,10 @@ public static class APIHandler
     {
         string queryParamString = string.Join("&", queryParams.Select(kvp => $"{HttpUtility.UrlEncode(kvp.Key)}={HttpUtility.UrlEncode(kvp.Value.ToString())}"));
         string completeApiUrl = $"{apiUrl}?{queryParamString}";
-        
+        Uri uri = new Uri(completeApiUrl);
         try
         {
-            using HttpRequestMessage request = new HttpRequestMessage(method, completeApiUrl);
+            using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);
             HttpResponseMessage response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
 

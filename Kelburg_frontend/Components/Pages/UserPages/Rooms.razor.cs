@@ -65,8 +65,8 @@ public partial class Rooms : ComponentBase
       }
       else
       {
-         queryParams.Add("startDate", dateRange[0].Value.Date.ToString("yyyy-MM-dd"));
-         queryParams.Add("endDate", dateRange[1].Value.Date.ToString("yyyy-MM-dd"));
+         queryParams.Add("startDate", dateRange[0].Value.ToString("yyyy-MM-dd"));
+         queryParams.Add("endDate", dateRange[1].Value.ToString("yyyy-MM-dd"));
       }
       
       if (occupantsNumber >= 1)
