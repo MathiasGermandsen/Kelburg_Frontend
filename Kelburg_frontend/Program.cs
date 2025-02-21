@@ -4,14 +4,22 @@ using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using Kelburg_frontend.Models;
 using Kelburg_frontend.Services;
+using Blazored.SessionStorage;
+using System.Net.Http;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient();
+builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddBlazorBootstrap();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<HttpClient>(sp =>
+    new HttpClient { BaseAddress = new Uri("https://localhost:44306/swagger/v1/swagger.json") }); // Replace with your API URL
 
 builder.Services.AddScoped<RoomsService>();
 

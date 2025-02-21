@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using System.Text;
 using Kelburg_frontend.Models;
 
+
+
 namespace Kelburg_frontend;
 
 public class BookingsAPI : APIData
@@ -62,6 +64,12 @@ public static class APIHandler
         try
         {
             using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);
+            
+            if (body != null)
+            {
+                request.Content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
+            }
+            
             HttpResponseMessage response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
 

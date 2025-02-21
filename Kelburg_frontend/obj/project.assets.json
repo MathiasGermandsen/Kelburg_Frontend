@@ -20,6 +20,18 @@
           "buildMultiTargeting/Blazor.Bootstrap.props": {}
         }
       },
+      "Blazored.SessionStorage/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "7.0.1"
+        },
+        "compile": {
+          "lib/net7.0/Blazored.SessionStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/Blazored.SessionStorage.dll": {}
+        }
+      },
       "Blazorise/1.7.4": {
         "type": "package",
         "dependencies": {
@@ -350,6 +362,20 @@
         "staticwebassets/icon/128X128.png",
         "staticwebassets/pdfjs-4.0.379.min.js",
         "staticwebassets/pdfjs-4.0.379.worker.min.js"
+      ]
+    },
+    "Blazored.SessionStorage/2.4.0": {
+      "sha512": "e3XXH+zGGxDq1zC7YzLDD8mfvtoC6ESwTWOGD25H+FbPJlB7yQeL72hDY76tqkcrh98fh+y12r4BNhyQVV9YKw==",
+      "type": "package",
+      "path": "blazored.sessionstorage/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blazored.sessionstorage.2.4.0.nupkg.sha512",
+        "blazored.sessionstorage.nuspec",
+        "icon.png",
+        "lib/net6.0/Blazored.SessionStorage.dll",
+        "lib/net7.0/Blazored.SessionStorage.dll"
       ]
     },
     "Blazorise/1.7.4": {
@@ -899,6 +925,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Blazor.Bootstrap >= 3.3.1",
+      "Blazored.SessionStorage >= 2.4.0",
       "Blazorise.Bootstrap5 >= 1.7.4",
       "Blazorise.Icons.FontAwesome >= 1.7.4",
       "Newtonsoft.Json >= 13.0.3"
@@ -911,11 +938,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alexander\\RiderProjects\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
+      "projectUniqueName": "C:\\Users\\Alexander\\source\\repos\\NewbankoCheats\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
       "projectName": "Kelburg_frontend",
-      "projectPath": "C:\\Users\\Alexander\\RiderProjects\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
+      "projectPath": "C:\\Users\\Alexander\\source\\repos\\NewbankoCheats\\Kelburg_Frontend\\Kelburg_frontend\\Kelburg_frontend.csproj",
       "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alexander\\RiderProjects\\Kelburg_Frontend\\Kelburg_frontend\\obj\\",
+      "outputPath": "C:\\Users\\Alexander\\source\\repos\\NewbankoCheats\\Kelburg_Frontend\\Kelburg_frontend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -951,6 +978,10 @@
           "Blazor.Bootstrap": {
             "target": "Package",
             "version": "[3.3.1, )"
+          },
+          "Blazored.SessionStorage": {
+            "target": "Package",
+            "version": "[2.4.0, )"
           },
           "Blazorise.Bootstrap5": {
             "target": "Package",
