@@ -16,7 +16,6 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<RoomsService>();
-builder.Services.AddScoped<LoginService>();
 
 builder.Services.AddScoped<HttpClient>(sp =>
     new HttpClient { BaseAddress = new Uri("https://localhost:44306/swagger/v1/swagger.json") }); // Replace with your API URL

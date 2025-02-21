@@ -1,0 +1,82 @@
+/* Full-page hero section */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('images/Hotel/Hotel3.jpg'); /* Add your actual image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Overlay effect */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+}
+
+/* Login form container */
+.form-container {
+    position: relative;
+    background-color: #f0f0f0;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 400px;
+    z-index: 2;
+}
+
+.form-container h3 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+}
+
+/* Input fields */
+.form-row input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+/* Submit button */
+.submit-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 20px;
+    background-color: #c9a34f;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #b08a3e;
+}
+
+/* Disabled button style */
+.submit-button:disabled {
+    background-color: #dcdcdc;
+    cursor: not-allowed;
+}
+
+/* Feedback messages */
+p {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+}

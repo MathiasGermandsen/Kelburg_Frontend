@@ -64,7 +64,7 @@ public static class APIHandler
             using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);
             
             if (body != null)
-            {
+            {   
                 request.Content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
             }
             

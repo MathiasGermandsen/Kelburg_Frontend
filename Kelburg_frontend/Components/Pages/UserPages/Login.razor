@@ -5,10 +5,12 @@
 @inject NavigationManager NavigationManger
 
 
+<link rel="stylesheet" href="overflowhidden.css"/>
+
 <section class="hero">
     <div class="hero-overlay"></div>
     <div class="form-container">
-        <h3>Create Account</h3>
+        <h3>Login</h3>
         <EditForm Model="LoggedInUsers" OnValidSubmit="LoggingIn">
             <DataAnnotationsValidator/>
             <ValidationSummary/>
