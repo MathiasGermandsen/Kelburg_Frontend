@@ -1,4 +1,7 @@
-﻿<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #D9D9D9;">
+﻿@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #D9D9D9;">
     <div class="container-fluid">
         <button class="btn" type="button"
                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
@@ -7,14 +10,23 @@
             <span class="ms-2">Menu</span>
         </button>
 
-        <a class="navbar-brand mx-auto" href="#" style="color: black;">
-            <img src="images/logo.png" style="max-height: 50px" href="/">
+        <a class="navbar-brand position-absolute start-50 translate-middle-x" href="#" style="color: black;">
+            <img src="images/logo.png" style="max-height: 50px;">
         </a>
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item px-2">
-                <NavLink class="nav-link" href="/SignUp" style="color: black;">Sign Up</NavLink>
-            </li>
+            @if (string.IsNullOrEmpty(loggedInUserName))
+            {
+                <li class="nav-item px-2">
+                    <NavLink class="nav-link" href="/Login" style="color: black;">Login</NavLink>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item px-2">
+                    <span class="nav-link px-2" style="color: black;">@loggedInUserName</span>
+                </li>
+            }
             <li class="nav-item px-2">
                 <NavLink class="nav-link" href="#" style="color: black;">Book Room</NavLink>
             </li>
@@ -34,25 +46,39 @@
         <ul class="navbar-nav">
             <!-- Added onClick handler to each NavLink -->
             <li class="nav-item">
-                <NavLink class="nav-link" to="/rooms" href="/rooms" onClick="closeOffcanvas()" style="color: black;">Rooms</NavLink>
+                <NavLink class="nav-link" to="/rooms" href="/rooms" onClick="closeOffcanvas()" style="color: black;">
+                    Rooms
+                </NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" to="/activities" href="/activities" onClick="closeOffcanvas()" style="color: black;">Activities</NavLink>
+                <NavLink class="nav-link" to="/activities" href="/activities" onClick="closeOffcanvas()"
+                         style="color: black;">Activities
+                </NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" to="/facilities" href="/facilities" onClick="closeOffcanvas()" style="color: black;">Facilities</NavLink>
+                <NavLink class="nav-link" to="/facilities" href="/facilities" onClick="closeOffcanvas()"
+                         style="color: black;">Facilities
+                </NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" to="/photolibrary" href="/photolibrary" onClick="closeOffcanvas()" style="color: black;">Photo library</NavLink>
+                <NavLink class="nav-link" to="/photolibrary" href="/photolibrary" onClick="closeOffcanvas()"
+                         style="color: black;">Photo library
+                </NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" to="/career" href="/career" onClick="closeOffcanvas()" style="color: black;">Career</NavLink>
+                <NavLink class="nav-link" to="/career" href="/career" onClick="closeOffcanvas()" style="color: black;">
+                    Career
+                </NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" to="/createinquiry" href="/createinquiry" onClick="closeOffcanvas()" style="color: black;">Create Inquiry</NavLink>
+                <NavLink class="nav-link" to="/createinquiry" href="/createinquiry" onClick="closeOffcanvas()"
+                         style="color: black;">Create Inquiry
+                </NavLink>
             </li>
             <li class="nav-item">
-                <NavLink class="nav-link" to="/aboutus" href="/aboutus" onClick="closeOffcanvas()" style="color: black;">About us</NavLink>
+                <NavLink class="nav-link" to="/aboutus" href="/aboutus" onClick="closeOffcanvas()"
+                         style="color: black;">About us
+                </NavLink>
             </li>
         </ul>
     </div>
@@ -62,7 +88,7 @@
     .offcanvas .navbar-nav .nav-link {
         transition: background-color 0.3s;
         border-radius: 15px;
-        font-size: 1.2rem;  /* Increased font size */
+        font-size: 1.2rem; /* Increased font size */
         padding: 12px 20px; /* More padding for a larger clickable area */
         background-color: #D9D9D9;
     }
@@ -81,4 +107,20 @@
         const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement) || new bootstrap.Offcanvas(offcanvasElement);
         offcanvasInstance.hide();
     }
+
+    window.getLoggedInUserName = () => {
+        return sessionStorage.getItem("loggedInUserName");
+    };
+    
+    window.getIsReloaded = () => {
+        
+    }
+    
+    
 </script>
+
+@code
+{
+
+    private string loggedInUserName;
+}
