@@ -1,45 +1,61 @@
 ﻿@page "/Rooms"
-@inject NavigationManager NavigationManager
-@inject RoomsService RoomsService
 @using Blazorise
 @using Kelburg_frontend.Services
+@inject NavigationManager NavigationManager
+@inject RoomsService RoomsService
+@inject BookingService BookingService
 
 <PageTitle>Browse Rooms</PageTitle>
 
 <div class="container">
     <div class="filter-div">
-        <p class="date-input">Start/End Date</p>
-        <DatePicker class="date-input" TValue="DateTime?" @bind-Dates="dateRange" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range"/>
-        <p class="occ-text">Occupants</p>
+        <p class="date-input">*Start/End Date</p>
+        <DatePicker class="date-input" Placeholder="Select Dates" TValue="DateTime?" @bind-Dates="dateRange" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range"/>
+        <p class="occ-text">*Occupants</p>
         <input class="occ-input" type="number" @bind="occupantsNumber"/>
         <button @onclick="SearchClicked" class="search-btn">Search</button>
     </div>
 
     <h3 style="font-weight: bold;">Browse Rooms</h3>
+    
+    @if (isSearching)
+    {
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    }
+    else if (!availableRooms.Any())
+    {
+        <h1 class="select-date-title">Select a Start/End Date and Occupants</h1>
+    }
+    
+    @if (availableRooms.Any())
+    {
+        <div class="room-grid">
+            @foreach (Models.Rooms room in availableRooms)
+            {
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(room.RoomImagePath))
+                    {
+                        <img src="@room.RoomImagePath" alt="Room Image" class="card-img"/>
+                    }
+                    else
+                    {
+                        <div class="no-image-placeholder">No Image Available</div>
+                    }
 
-    <div class="room-grid">
-        @foreach (Models.Rooms room in availableRooms)
-        {
-            <div class="card">
-                @if (!string.IsNullOrEmpty(room.RoomImagePath))
-                {
-                    <img src="@room.RoomImagePath" alt="Room Image" class="card-img"/>
-                }
-                else
-                {
-                    <div class="no-image-placeholder">No Image Available</div>
-                }
-
-                <div class="card-body">
-                    <h5 class="card-title">@room.RoomType</h5>
-                    <p class="card-text">
-                        <strong>Size:</strong> @room.Size occupants
-                    </p>
-                    <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
+                    <div class="card-body">
+                        <h5 class="card-title">@room.RoomType</h5>
+                        <p class="card-text">
+                            <strong>Size:</strong> @room.Size occupants
+                        </p>
+                        <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
+
     <nav class="pagination-container">
         <ul class="pagination">
             <li class="page-item">
