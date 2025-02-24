@@ -7,7 +7,6 @@ using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Identity.Data;
 
-
 namespace Kelburg_frontend.Components.Pages.UserPages;
 
 public partial class Login : ComponentBase
@@ -22,9 +21,11 @@ public partial class Login : ComponentBase
     Users LoggedInUsers = new Users();
     private bool isLogginIn = false;
     private string message = string.Empty;
-
+    private string loggedInUserName = string.Empty;
     [Inject] private IJSRuntime JSRuntime { get; set; }
-
+    [Inject] private NavigationManager NavigationManager { get; set; }
+    
+    
     private async Task LoggingIn()
     {
         isLogginIn = true;
@@ -51,15 +52,24 @@ public partial class Login : ComponentBase
 
         if (loginResponse != null)
         {
+            loggedInUserName = $"{loginResponse.FirstName} {loginResponse.LastName}";
+
             message = "Logged in as: " + loginResponse.FirstName + " " + loginResponse.LastName;
+
 
             string jwtToken = loginResponse.Token;
 
             Console.WriteLine($"JWT Token: {jwtToken}");
-            
-            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "authToken", jwtToken);
 
+            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "authToken", jwtToken);
+            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "loggedInUserName",
+                loggedInUserName); // Store name for later use
+
+            StateHasChanged();
+            
             await Task.Delay(2000);
+            
+            NavigationManager.NavigateTo("/");
         }
         else
         {
