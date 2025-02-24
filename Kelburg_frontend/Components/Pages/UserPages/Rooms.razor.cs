@@ -10,6 +10,8 @@ public partial class Rooms : ComponentBase
    private List<Models.Rooms> availableRooms = new List<Models.Rooms>();
    private int pageSize = 12;
    private int pageNumber = 1;
+   bool isSearching = false;
+
 
    private async Task ClickRedirect(Models.Rooms room)
    {
@@ -48,7 +50,20 @@ public partial class Rooms : ComponentBase
 
    private async Task SearchClicked()
    {
+      if (dateRange == null || occupantsNumber == 0)
+      {
+         return;
+      }
+      
+      Random random = new Random();
+      
+      availableRooms.Clear();
+      isSearching = true;
       await SearchRooms(pageSize, 1);
+      
+      Thread.Sleep(random.Next(350, 750));
+      
+      isSearching = false;
    }
 
    private async Task SearchRooms(int pageSize, int pageNumber)
@@ -57,22 +72,10 @@ public partial class Rooms : ComponentBase
       {
          {"pageSize", pageSize},
          {"pageNumber", pageNumber},
+         {"startDate", dateRange[0].Value.ToString("yyyy-MM-dd")},
+         {"endDate", dateRange[1].Value.ToString("yyyy-MM-dd")},
+         {"roomSize", occupantsNumber}
       };
-      
-      if (dateRange == null)
-      {
-         return;
-      }
-      else
-      {
-         queryParams.Add("startDate", dateRange[0].Value.ToString("yyyy-MM-dd"));
-         queryParams.Add("endDate", dateRange[1].Value.ToString("yyyy-MM-dd"));
-      }
-      
-      if (occupantsNumber >= 1)
-      {
-         queryParams.Add("roomSize", occupantsNumber);
-      }
       
       availableRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.AvailableBetweenDates, queryParams, HttpMethod.Get);
       

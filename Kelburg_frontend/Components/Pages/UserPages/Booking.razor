@@ -2,6 +2,7 @@
 @using Kelburg_frontend.Models
 @using Kelburg_frontend.Services
 @inject BookingService BookingService
+@inject RoomsService RoomsService
 
 <PageTitle>Create Booking</PageTitle>
 
@@ -9,55 +10,131 @@
 <h3 class="bookingTitle">Booking Details →</h3>
 <hr class="hrLine"/>
 
-<div class="infoDiv">
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-        <path d="M16 3v4" />
-        <path d="M8 3v4" />
-        <path d="M4 11h16" />
-        <path d="M7 14h.013" />
-        <path d="M10.01 14h.005" />
-        <path d="M13.01 14h.005" />
-        <path d="M16.015 14h.005" />
-        <path d="M13.015 17h.005" />
-        <path d="M7.01 17h.005" />
-        <path d="M10.01 17h.005" />
-    </svg>    
-    <p class="init-booking-info">@currentBooking.StartDate.ToString("yyyy-MM-dd") ⭢ @currentBooking.EndDate.ToString("yyyy-MM-dd")</p>
+<div class="mainGrid">
+    <div class="leftGrid">
+        <div class="infoDiv">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                <path d="M16 3v4" />
+                <path d="M8 3v4" />
+                <path d="M4 11h16" />
+                <path d="M7 14h.013" />
+                <path d="M10.01 14h.005" />
+                <path d="M13.01 14h.005" />
+                <path d="M16.015 14h.005" />
+                <path d="M13.015 17h.005" />
+                <path d="M7.01 17h.005" />
+                <path d="M10.01 17h.005" />
+            </svg>
+            <p class="init-booking-info">@currentBooking.StartDate.ToString("yyyy-MM-dd") ⭢ @currentBooking.EndDate.ToString("yyyy-MM-dd")</p>
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-        <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/>
-        <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-        <path d="M17 10h2a2 2 0 0 1 2 2v1"/>
-        <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-        <path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>
-    </svg>
-    <p class="init-booking-info">@currentBooking.PeopleCount Occupants</p>
-</div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/>
+                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                <path d="M17 10h2a2 2 0 0 1 2 2v1"/>
+                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                <path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>
+            </svg>
+            <p class="init-booking-info">@currentBooking.PeopleCount Occupants</p>
+        </div>
 
-<div class="userInfoDiv">
-    <h2 class="user-info">@placeholderUser.FirstName @placeholderUser.LastName</h2>
-    <hr class="custom-hr">
-    <h2 class="user-info">@placeholderUser.Email - @placeholderUser.PhoneNumber</h2>
-    <hr class="custom-hr">
-</div>
+        <div class="userInfoDiv">
+            <h2 class="user-info">@placeholderUser.FirstName @placeholderUser.LastName</h2>
+            <hr class="custom-hr">
+            <h2 class="user-info">@placeholderUser.Email - @placeholderUser.PhoneNumber</h2>
+            <hr class="custom-hr">
+        </div>
 
-<div class="selectablesDiv">
-    <select class="serviceList" @bind="selectedService"> 
-        @foreach (Models.Services service in availableServices)
-        {
-            <option value="@service">@service.PricePrPersonPrNight DKK/night/person @service.PrettyName</option> // This gives TypeConverter error in APIHandler line 73
-        }
-    </select>
+        <div class="selectablesDiv">
+            <p class="selectText">*Select Service:</p>
+            <select class="serviceList" @onchange="OnServiceChanged">
+                <option value="0">Select Service</option>
+                @foreach (Models.Services service in availableServices)
+                {
+                    <option value="@service.Id">@service.PrettyName - @service.PricePrPersonPrNight DKK/nt/p </option>
+                }
+            </select>
+
+            <p class="selectText">Select Car: (optional)</p>
+            <select class="carList" @onchange="OnCarChanged">
+                <option value="0">No Car</option>
+                @foreach (HotelCars car in availableCars)
+                {
+                    <option value="@car.Id">@car.Manufacturer @car.Model - Size: @car.Size - @car.PricePrNight DKK/nt</option>
+                }
+            </select>
+        </div>
+
+    </div>
+
+    <div class="centerGrid">
+        <div class="card">
+            @if (!string.IsNullOrEmpty(currentRoom.RoomImagePath))
+            {
+                <img src="@currentRoom.RoomImagePath" alt="Room Image" class="card-img"/>
+            }
+            else
+            {
+                <div class="no-image-placeholder">No Image Available</div>
+            }
+
+            <div class="card-body">
+                <h5 class="card-title">@currentRoom.RoomType</h5>
+                <p class="card-text">
+                    <strong>Size:</strong> @currentRoom.Size occupants
+                    <strong>Price:</strong> @currentRoom.PricePrNight DKK pr.night
+                </p>
+            </div>
+        </div>
+    </div>
     
-    <select class="carList" @bind="selectedCar">
-        @foreach (HotelCars car in availableCars)
-        {
-            <option value="@car">@car.PricePrNight DKK/night - @car.Manufacturer @car.Model - Size: @car.Size</option>
-        }
-    </select>
-</div>
+    <div class="rightGrid">
+        <h2>YOUR BOOKING</h2>
+        <hr/>
+        <h3>Kelburg Hotel</h3>
+        <hr/>
+        
+        <div class="dates">
+            <div class="check-in">
+                <p>Check In</p>
+                <span>@currentBooking.StartDate.ToString("yyyy-MM-dd")<br>@currentBooking.StartDate.DayOfWeek</span>
+            </div>
+            <div class="arrow">→</div>
+            <div class="check-out">
+                <p>Check Out</p>
+                <span>@currentBooking.EndDate.ToString("yyyy-MM-dd")<br>@currentBooking.EndDate.DayOfWeek</span>
+            </div>
+        </div>
 
+        <p><strong>Room Size:</strong> @currentRoom.Size</p>
+        <p><strong>Room Price:</strong> @currentRoom.PricePrNight DKK pr.night</p>
+        <ul>
+            <li>Days: @amountOfDays</li>
+            <li>@currentRoom.RoomType</li>
+            <li>@currentBooking.PeopleCount Occupants</li>
+
+            @if (selectedService != null)
+            {
+                <li>@selectedService.PrettyName @selectedService.PricePrPersonPrNight DKK pr.night.pr.person</li>
+            }
+
+            @if (selectedCar != null)
+            {
+                <li>@selectedCar.Manufacturer @selectedCar.Model - Size: @selectedCar.Size - @selectedCar.PricePrNight DKK pr.night</li>
+            }
+        </ul>
+        
+        <hr/>
+        <div class="total">
+            <p>Total @currentBooking.BookingPrice DKK</p>
+        </div>
+        <hr/>
+        
+        <div class="proceed-div">
+            <button class="proceed-btn">Proceed →</button>
+        </div>
+    </div>
+</div>

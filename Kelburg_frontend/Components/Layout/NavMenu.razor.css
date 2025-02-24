@@ -1,3 +1,7 @@
+.navbar, .offcanvas, .offcanvas-body, .navbar-nav, .nav-link, .offcanvas-title {
+    font-family: 'Albert Sans', sans-serif;
+}
+
 .offcanvas .navbar-nav .nav-link {
     transition: background-color 0.3s;
     border-radius: 15px
@@ -6,5 +10,5 @@
 .offcanvas .navbar-nav .nav-link:hover {
     background-color: #bfbfbf;
     color: black;
-    
 }
+

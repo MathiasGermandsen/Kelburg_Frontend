@@ -9,20 +9,27 @@
 
 <div class="container">
     <div class="filter-div">
-        <p class="date-input">Start/End Date</p>
+        <p class="date-input">*Start/End Date</p>
         <DatePicker class="date-input" Placeholder="Select Dates" TValue="DateTime?" @bind-Dates="dateRange" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range"/>
-        <p class="occ-text">Occupants</p>
+        <p class="occ-text">*Occupants</p>
         <input class="occ-input" type="number" @bind="occupantsNumber"/>
         <button @onclick="SearchClicked" class="search-btn">Search</button>
     </div>
 
     <h3 style="font-weight: bold;">Browse Rooms</h3>
     
-    @if (!availableRooms.Any())
+    @if (isSearching)
     {
-        <h1 class="select-date-title">Select a Start/End Date</h1>
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
     }
-    else
+    else if (!availableRooms.Any())
+    {
+        <h1 class="select-date-title">Select a Start/End Date and Occupants</h1>
+    }
+    
+    @if (availableRooms.Any())
     {
         <div class="room-grid">
             @foreach (Models.Rooms room in availableRooms)
@@ -48,6 +55,7 @@
             }
         </div>
     }
+
     <nav class="pagination-container">
         <ul class="pagination">
             <li class="page-item">

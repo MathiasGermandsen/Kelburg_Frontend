@@ -15,7 +15,7 @@ public class Bookings : Common
     public int CalculateBookingPrice(Bookings currentBooking, Rooms selectedRoom, HotelCars selectedCar, List<Services> services)
     {
         int bookingPrice = 0;
-        int vacationDays = (currentBooking.EndDate - currentBooking.StartDate).Days;
+        int vacationDays = (currentBooking.EndDate - currentBooking.StartDate).Days+1; // +1 Because it shows 1 day less???
 
         if (vacationDays == 0)
         {
@@ -23,17 +23,24 @@ public class Bookings : Common
         }
 
         int serviceIndex = currentBooking.ServiceId - 1;
-        Services selectedService = services[serviceIndex];
-        
-        int totalServicePrices = selectedService.PricePrPersonPrNight * currentBooking.PeopleCount * vacationDays;        
-        int totalRoomPrice = selectedRoom.PricePrNight * vacationDays;
+        Services selectedService = null;
+
+        int totalServicePrices = 0;
         int totalCarPrice = 0;
 
+        if (serviceIndex >= 0)
+        {
+            selectedService = services[serviceIndex];
+            totalServicePrices = selectedService.PricePrPersonPrNight * currentBooking.PeopleCount * vacationDays;        
+        }
+        
         if (selectedCar != null)
         {
             totalCarPrice = selectedCar.PricePrNight * vacationDays;
         }
         
+        int totalRoomPrice = selectedRoom.PricePrNight * vacationDays;
+
         bookingPrice = totalServicePrices + totalRoomPrice + totalCarPrice;
         
         return bookingPrice;
