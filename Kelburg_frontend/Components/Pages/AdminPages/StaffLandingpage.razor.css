@@ -3,31 +3,23 @@
     background: url('images/hero_image.jpg') no-repeat center center;
     background-size: cover;
     width: 100%;
-    height: 100vh; /* Full viewport height */
+    height: 100vh; 
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #fff;
-    overflow: hidden; /* Ensures the SVG stays clipped inside */
+    overflow: hidden; 
 }
 
-/* Position the SVG shape at the bottom */
 .hero-curve {
     position: absolute;
     bottom: 0;
     width: 100%;
-    line-height: 0; /* Removes unwanted space around inline SVG */
-    z-index: 2; /* Above the background but below the hero content */
+    line-height: 0;
+    z-index: 2;
 }
 
-.hero-curve svg {
-    display: block;
-    width: 100%;
-    height: 150px; /* Adjust to control how “tall” the curve is */
-}
-
-/* Optional: Dark overlay if needed */
 .hero-overlay {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
@@ -35,19 +27,18 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1; /* Make sure the overlay is beneath the text but above the background */
+    z-index: 1; 
 }
 
 .hero-content {
     margin-bottom: 80px;
     position: relative;
-    z-index: 3; /* Above the overlay and the SVG */
+    z-index: 3; 
     padding: 2rem;
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
 }
 
-/* Responsive text sizes */
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2rem;
@@ -57,9 +48,7 @@
     }
 }
 
-
 .staff-button {
-    /* Default (mobile-first) styles */
     border-radius: 25px;
     padding: 1rem 3rem;
     font-size: 1.25rem;
@@ -67,7 +56,6 @@
     text-transform: uppercase;
 }
 
-/* Small screens (up to 576px) */
 @media (max-width: 576px) {
     .staff-button {
         font-size: 1rem;
@@ -75,7 +63,6 @@
     }
 }
 
-/* Medium screens (576px to 768px) */
 @media (min-width: 576px) and (max-width: 768px) {
     .staff-button {
         font-size: 1.1rem;
@@ -83,7 +70,6 @@
     }
 }
 
-/* Larger tablets (768px to 992px) */
 @media (min-width: 768px) and (max-width: 992px) {
     .staff-button {
         font-size: 1.2rem;
@@ -91,11 +77,9 @@
     }
 }
 
-/* Desktops (992px and up) */
 @media (min-width: 992px) {
     .staff-button {
         font-size: 1.25rem;
         padding: 1rem 3rem;
     }
-}
-    
+}   
