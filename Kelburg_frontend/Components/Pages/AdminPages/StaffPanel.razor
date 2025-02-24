@@ -1,4 +1,95 @@
 @page "/StaffPanel"
 
-<h3>StaffPanel</h3>
+<div class="container my-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <!-- Bookings Card -->
+        <div class="col">
+            <div class="card text-center card-custom">
+                <div class="card-body card-custom-body">
+                    <div class="card-img-container">
+                        <img src="cardIcon/booking.png" alt="Bookings Icon" />
+                    </div>
+                    <h5 class="card-title">Bookings</h5>
+                    <NavLink href="/bookings" class="btn" style="background-color: #C9A66B;">View All</NavLink>
+                </div>
+            </div>
+        </div>
 
+        <!-- Rooms Card -->
+        <div class="col">
+            <div class="card text-center card-custom">
+                <div class="card-body card-custom-body">
+                    <div class="card-img-container">
+                        <img src="cardIcon/rooms.png" alt="Rooms Icon" />
+                    </div>
+                    <h5 class="card-title">Rooms</h5>
+                    <NavLink href="/admin-rooms" class="btn" style="background-color: #C9A66B;">View All</NavLink>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Search Card -->
+        <div class="col">
+            <div class="card text-center card-custom">
+                <div class="card-body card-custom-body">
+                    <div class="card-img-container">
+                        <img src="cardIcon/users.png" alt="User Search Icon" />
+                    </div>
+                    <h5 class="card-title">User Search</h5>
+                    <NavLink href="/users" class="btn" style="background-color: #C9A66B;">View All</NavLink>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tickets Search Card -->
+        <div class="col">
+            <div class="card text-center card-custom">
+                <div class="card-body card-custom-body">
+                    <div class="card-img-container">
+                        <img src="cardIcon/tickets.png" alt="Tickets Search Icon" />
+                    </div>
+                    <h5 class="card-title">Tickets Search</h5>
+                    <NavLink href="/tickets" class="btn" style="background-color: #C9A66B;">View All</NavLink>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* Custom card styling */
+    .card-custom {
+        background-color: #D9D9D9;         /* Default background */
+        border-radius: 25px;              /* Rounded corners for the card */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15); /* Initial box shadow */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        /* Optional: If you want a taller card, use min-height or padding. */
+        /* min-height: 300px; */
+    }
+
+    .card-custom:hover {
+        background-color: #E8E8E8;         /* Slightly darker on hover */
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+    }
+
+    .card-custom-body {
+        padding: 2rem; /* Extra padding to make the card visually taller */
+    }
+
+    /* Container around the image to give it a white background with 25px radius */
+    .card-img-container {
+        background-color: #fff;
+        border-radius: 25px;
+        padding: 10px;
+        display: inline-block;
+        margin-bottom: 1rem; /* spacing below the image */
+    }
+
+    /* The image itself also gets rounded corners, if desired */
+    .card-img-container img {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+    }
+</style>
