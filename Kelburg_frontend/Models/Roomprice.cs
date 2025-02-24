@@ -1,4 +1,4 @@
-namespace KelBurgAPI.Models;
+namespace Kelburg_frontend.Models;
 
 public class HotelPricing
 {

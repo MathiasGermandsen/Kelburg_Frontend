@@ -59,14 +59,13 @@ public static class eTables
 
 public static class APIHandler
 {
-    private static readonly HttpClient _httpClient = new HttpClient(
-        new HttpClientHandler { ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true }
-    );
+    private static readonly HttpClient _httpClient = new HttpClient();
     public static async Task<T?> RequestAPI<T>(string apiUrl, Dictionary<string, object?> queryParams, HttpMethod method, object? body = null)
     {
         string queryParamString = string.Join("&", queryParams.Select(kvp => $"{HttpUtility.UrlEncode(kvp.Key)}={HttpUtility.UrlEncode(kvp.Value.ToString())}"));
         string completeApiUrl = $"{apiUrl}?{queryParamString}";
         Uri uri = new Uri(completeApiUrl);
+      
         try
         {
             using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);

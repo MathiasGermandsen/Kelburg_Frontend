@@ -1,0 +1,62 @@
+@inject NavigationManager NavigationManager
+
+@page "/SignUp"
+
+<link rel="stylesheet" href="overflowhidden.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+
+
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="form-container">
+        <h3>Create Account</h3>
+        <EditForm Model="newUser" OnValidSubmit="CreateAccount">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+
+            <div class="form-row">
+                <input placeholder="First Name" @bind="newUser.FirstName"/>
+                <input placeholder="Last Name" @bind="newUser.LastName"/>
+            </div>
+
+            <div class="form-row">
+                <input placeholder="Country" @bind="newUser.Country">
+                <input placeholder="City" @bind="newUser.City"/>
+
+            </div>
+
+            <div class="form-row">
+                <input placeholder="Address" @bind="newUser.Address"/>
+                <input placeholder="Postal Code" @bind="newUser.PostalCode"/>
+            </div>
+
+
+            <div class="form-row">
+                <input placeholder="Phone" @bind="newUser.PhoneNumber"/>
+            </div>
+
+            <div class="form-row">
+                <input placeholder="Email" @bind="newUser.Email"/>
+            </div>
+
+            <div class="form-row">
+                <input placeholder="Password" @bind="newUser.PasswordBackdoor">
+            </div>
+
+
+            <button class="submit-button" type="submit" disabled="@isSubmitting">Create And Login</button>
+        </EditForm>
+
+        @if (isSubmitting)
+        {
+            <p>Creating Account...</p>
+        }
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <p>@message</p>
+        }
+
+    </div>
+</section>
+
