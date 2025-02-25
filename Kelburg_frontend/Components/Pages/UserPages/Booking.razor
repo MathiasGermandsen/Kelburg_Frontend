@@ -3,6 +3,8 @@
 @using Kelburg_frontend.Services
 @inject BookingService BookingService
 @inject RoomsService RoomsService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Create Booking</PageTitle>
 
@@ -42,9 +44,9 @@
         </div>
 
         <div class="userInfoDiv">
-            <h2 class="user-info">@placeholderUser.FirstName @placeholderUser.LastName</h2>
+            <h2 class="user-info">@User.FirstName @User.LastName</h2>
             <hr class="custom-hr">
-            <h2 class="user-info">@placeholderUser.Email - @placeholderUser.PhoneNumber</h2>
+            <h2 class="user-info">@User.Email - @User.PhoneNumber</h2>
             <hr class="custom-hr">
         </div>
 
@@ -134,7 +136,16 @@
         <hr/>
         
         <div class="proceed-div">
-            <button class="proceed-btn">Proceed →</button>
+            @if (!isCheckingOut)
+            {
+                <button class="proceed-btn" @onclick="CheckoutOrder">Proceed →</button>
+            }
+            else
+            {
+                <button class="proceed-btn">
+                    <div class="loader"></div>
+                </button>
+            }
         </div>
     </div>
 </div>

@@ -36,6 +36,7 @@ public class UsersAPI : APIData
     public UsersAPI(string urlPath) : base("Users", urlPath) {}
     
     public string Login => $"{_urlPath}/login";
+    public string GetUserFromToken => $"{_urlPath}/getUserFromToken";
 }
 
 public class CarsAPI : APIData
@@ -43,6 +44,13 @@ public class CarsAPI : APIData
     public CarsAPI(string urlPath) : base("HotelCars", urlPath) {}
     
     public string AvailableBetweenDates => $"{_urlPath}/availableBetweenDates";
+}
+
+public class PaymentAPI : APIData
+{
+    public PaymentAPI(string urlPath) : base("Payment", urlPath) {}
+    
+    public string Checkout => $"{_urlPath}/checkout";
 }
 
 public static class eTables
@@ -55,6 +63,7 @@ public static class eTables
     public static readonly ServicesAPI Services = new($"{APIBaseUrl}/Services");
     public static readonly APIData Tickets = new("Tickets", $"{APIBaseUrl}/Tickets");
     public static readonly UsersAPI Users = new($"{APIBaseUrl}/Users");
+    public static readonly PaymentAPI Payment = new($"{APIBaseUrl}/Payment");
 }
 
 public static class APIHandler
@@ -89,5 +98,14 @@ public static class APIHandler
             Console.WriteLine($"API Request Failed - {ex.Message}");
             return default;
         }
+    }
+
+    public static async Task<string> GetCheckoutSession(string apiUrl, Bookings booking)
+    {
+        string completeApiUrl = $"{apiUrl}";
+        Uri uri = new Uri(completeApiUrl);
+        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(uri.AbsoluteUri, booking);
+        string url = await response.Content.ReadAsStringAsync();
+        return url;
     }
 }

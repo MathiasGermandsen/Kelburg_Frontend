@@ -7,7 +7,6 @@ using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Identity.Data;
 
-
 namespace Kelburg_frontend.Components.Pages.UserPages;
 
 public partial class Login : ComponentBase
@@ -42,12 +41,10 @@ public partial class Login : ComponentBase
             Password = LoggedInUsers.PasswordBackdoor
         };
 
-
         Console.WriteLine($"Request Data: {JsonSerializer.Serialize(queryParams)}");
 
         LoginResponse? loginResponse =
             await APIHandler.RequestAPI<LoginResponse>(eTables.Users.Login, queryParams, HttpMethod.Post, loginRequest);
-
 
         if (loginResponse != null)
         {
@@ -57,7 +54,7 @@ public partial class Login : ComponentBase
 
             Console.WriteLine($"JWT Token: {jwtToken}");
             
-            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "authToken", jwtToken);
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", jwtToken);
 
             await Task.Delay(2000);
         }

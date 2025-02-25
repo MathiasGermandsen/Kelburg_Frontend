@@ -1,20 +1,34 @@
-﻿namespace Kelburg_frontend.Services;
+﻿using Blazored.LocalStorage;
+using Kelburg_frontend.Models;
+namespace Kelburg_frontend.Services;
 
 public class BookingService
 {
-    private Models.Bookings newBooking { get; set; }
+    private readonly ILocalStorageService _localStorage;
 
+    public BookingService(ILocalStorageService localStorage)
+    {
+        _localStorage = localStorage;
+    }
+    
     public event Action OnChange;
 
-    public void SetNewBooking(Models.Bookings booking)
+    public async Task SetNewBooking(Models.Bookings booking)
     {
-        newBooking = booking;
+        await _localStorage.SetItemAsync("booking", booking);
         NotifyStateChanged();
     }
 
-    public Models.Bookings GetBooking()
+    public async Task<Models.Bookings> GetBooking()
     {
-        return newBooking;
+        Bookings returnBooking = await _localStorage.GetItemAsync<Bookings>("booking");
+        return returnBooking;
+    }
+
+    public async Task<string> GetCheckout()
+    {
+        string sessionUrl = await APIHandler.GetCheckoutSession(eTables.Payment.Checkout, await GetBooking());
+        return sessionUrl;
     }
     
     private void NotifyStateChanged() => OnChange?.Invoke();
