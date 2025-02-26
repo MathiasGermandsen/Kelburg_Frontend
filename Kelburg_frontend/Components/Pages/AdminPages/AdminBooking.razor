@@ -1,0 +1,46 @@
+@page "/AdminBooking"
+
+<div class="container">
+    <div class="filter-div">
+        <p class="bookingid-text">BookingID</p>
+        <input class="bookingid-inp" type="number" @bind="bookingsID"/>
+
+        <p class="bookingid-text">RoomID</p>
+        <input class="roomid-inp" type="number" @bind="roomsID"/>
+
+        <p class="bookingid-text">UserID</p>
+        <input class="useridid-inp" type="number" @bind="usersID"/>
+
+        <button @onclick="() => SearchBookings(pageSize, pageNumber)" class="search-btn">Search</button>
+    </div>
+</div>
+
+@if (isSearching)
+{
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+}
+else if (!availableBookings.Any())
+{
+    <h1 class="select-date-title">No Bookings Found</h1>
+}
+
+@if (availableBookings.Any())
+{
+    <div class="booking-grid">
+        @foreach (Models.Bookings booking in availableBookings)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Booking ID: @booking.Id</h5>
+                    <p class="card-text">
+                        <strong>User ID:</strong> @booking.UserId <br/>
+                        <strong>Room ID:</strong> @booking.RoomId <br/>
+                    </p>
+                    <button @onclick="() => ClickRedirect(booking)" class="edit-btn">Edit Booking</button>
+                </div>
+            </div>
+        }
+    </div>
+}
