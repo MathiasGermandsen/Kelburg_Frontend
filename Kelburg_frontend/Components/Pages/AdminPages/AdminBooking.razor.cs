@@ -9,9 +9,9 @@ public partial class AdminBooking : ComponentBase
     private int pageSize = 12;
     private int pageNumber = 1;
     private bool isSearching = false;
-    private int? bookingsID = null;
-    private int? roomsID = null;
-    private int? usersID = null;
+    private int? bookingsID;
+    private int? roomsID;
+    private int? usersID;
 
     [Inject]
     private NavigationManager NavigationManager { get; set; }
@@ -22,13 +22,6 @@ public partial class AdminBooking : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         await LoadInitialBookings();
-    }
-    
-    private void NormalizeFilters()
-    {
-        if (bookingsID == 0) bookingsID = null;
-        if (roomsID == 0) roomsID = null;
-        if (usersID == 0) usersID = null;
     }
 
     private async Task LoadInitialBookings()
@@ -62,15 +55,26 @@ public partial class AdminBooking : ComponentBase
 
     private async Task SearchBookings(int pageSize, int pageNumber)
     {
+        
         Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
             {"pageSize", pageSize},
             {"pageNumber", pageNumber},
-            {"bookingId", bookingsID},
-            {"usersId", usersID},
-            {"roomId", roomsID}
         };
 
+        if (bookingsID != 0 && bookingsID != null)
+        {
+            queryParams.Add("bookingId", bookingsID);
+        }
+        if (usersID != 0 && usersID != null)
+        {
+            queryParams.Add("userId", usersID);
+        }
+        if (roomsID != 0 && roomsID != null)
+        {
+            queryParams.Add("roomId", roomsID);
+        }
+        
         try
         {
             var response = await APIHandler.RequestAPI<List<Models.Bookings>>(eTables.Bookings.Read, queryParams, HttpMethod.Get);
