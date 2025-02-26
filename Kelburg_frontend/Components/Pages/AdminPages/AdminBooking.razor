@@ -13,34 +13,50 @@
 
         <button @onclick="() => SearchBookings(pageSize, pageNumber)" class="search-btn">Search</button>
     </div>
+    
+    @if (isSearching)
+    {
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    }
+    else if (!availableBookings.Any())
+    {
+        <h1 class="select-date-title">No Bookings Found</h1>
+    }
+
+    @if (availableBookings.Any())
+    {
+        <div class="room-grid">
+            @foreach (Models.Bookings booking in availableBookings)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Booking ID: @booking.Id</h5>
+                        <p class="card-text">
+                            <strong>User ID:</strong> @booking.UserId <br/>
+                            <strong>Room ID:</strong> @booking.RoomId <br/>
+                        </p>
+                        <button @onclick="() => ClickRedirect(booking)" class="book-btn">Edit Booking</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    
+    
+    <nav class="pagination-container">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" @onclick="PreviousPage" disabled="@(pageNumber <= 1)">←</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" @onclick="NextPage" disabled="@(availableBookings.Count < pageSize)">→</a>
+            </li>
+        </ul>
+    </nav>
+
 </div>
 
-@if (isSearching)
-{
-    <div class="loader-container">
-        <div class="loader"></div>
-    </div>
-}
-else if (!availableBookings.Any())
-{
-    <h1 class="select-date-title">No Bookings Found</h1>
-}
 
-@if (availableBookings.Any())
-{
-    <div class="booking-grid">
-        @foreach (Models.Bookings booking in availableBookings)
-        {
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Booking ID: @booking.Id</h5>
-                    <p class="card-text">
-                        <strong>User ID:</strong> @booking.UserId <br/>
-                        <strong>Room ID:</strong> @booking.RoomId <br/>
-                    </p>
-                    <button @onclick="() => ClickRedirect(booking)" class="edit-btn">Edit Booking</button>
-                </div>
-            </div>
-        }
-    </div>
-}
+
