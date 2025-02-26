@@ -4,13 +4,12 @@
 @inject NavigationManager NavigationManager
 
 <div class="thank-you-container">
-    @if (_successfullyCreated)
-    {
-        <div class="thank-you-card">
+    <div class="thank-you-card">
+        @if (_successfullyCreated)
+        {
             <h3 class="bookingTitle">Thank You for Your Booking!</h3>
             <p class="thank-you-message">We are thrilled to have you stay with us at Kelburg Hotel. We look forward to making your stay a memorable one!</p>
             <div class="hrLine"></div>
-
             <div class="booking-details-card">
                 <div class="user-info-section">
                     <h4>Your Booking Information:</h4>
@@ -19,27 +18,47 @@
                             <span class="detail-title">Room Type:</span> <span>@roomUsed.RoomType</span>
                         </div>
                         <div class="detail-item">
+                            <span class="detail-title">Room View:</span> <span>@roomUsed.ViewType</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-title">Occupants:</span> <span>@bookingToCreate.PeopleCount</span>
+                        </div>
+                        <div class="detail-item">
                             <span class="detail-title">Check-in:</span> <span>@bookingToCreate.StartDate.ToString("yyyy-MM-dd")</span>
                         </div>
                         <div class="detail-item">
                             <span class="detail-title">Check-out:</span> <span>@bookingToCreate.EndDate.ToString("yyyy-MM-dd")</span>
                         </div>
+                        <div class="detail-item">
+                            <span class="detail-title">Service:</span> <span>@serviceUsed.PrettyName</span>
+                        </div>
+                        @if (carUsed != null)
+                        {
+                            <div class="detail-item">
+                                <span class="detail-title">Car:</span> <span>@carUsed.Manufacturer @carUsed.Model - Size: @carUsed.Size</span>
+                            </div>
+                        }
                         <div class="detail-item price">
                             <span class="detail-title">Total Price:</span> <span>@bookingToCreate.BookingPrice DKK</span>
                         </div>
                     </div>
                 </div>
             </div>
-
+            
             <button class="proceed-btn" @onclick="ClickRedirect">
                 Go to Home
             </button>
-        </div>
-    }
-    else
-    {
-        <h1>Error Occured</h1>
-        <p>Booking not created. Contact support!</p>
-    }
-    
+        }
+        else if (!_successfullyCreated && _errorCreating)
+        {
+            <div class="booking-details-card">
+                <h1>Error Occured</h1>
+                <p>Booking not created. Contact support! (No refunds)</p>
+            </div>
+            
+            <button class="proceed-btn" @onclick="ClickRedirect">
+                Go to Home
+            </button>
+        }
+    </div>
 </div>
