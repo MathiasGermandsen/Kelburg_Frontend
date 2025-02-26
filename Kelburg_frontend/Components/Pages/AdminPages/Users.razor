@@ -1,0 +1,76 @@
+﻿@page "/users"
+@using Kelburg_frontend.Services
+@inject NavigationManager NavigationManager
+@inject AuthService AuthService
+
+
+<PageTitle>Browse Users</PageTitle>
+
+<div class="container">
+    <div class="filter-div">
+        <p class="date-input">First Name</p>
+        <input @bind="FirstName"/>
+        <p class="date-input">Last Name</p>
+        <input @bind="LastName"/>
+        <p class="date-input">UserId</p>
+        <input type="number" @bind="UserId"/>
+        <button @onclick="SearchClicked" class="search-btn">Search</button>
+    </div>
+
+    <h3 style="font-weight: bold;">Browse Users</h3>
+
+    @if (isSearching)
+    {
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+    }
+    
+    @if (UsersList.Any())
+    {
+        <div class="user-grid">
+            @foreach (Models.Users user in UsersList)
+            {
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(user.Email))
+                    {
+                        <img src="/cardIcon/user.png" alt="User Avatar" class="card-img"/>
+                    }
+                    else
+                    {
+                        <div class="no-image-placeholder">No Image Available</div>
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title">@user.FirstName @user.LastName</h5>
+                        <p class="card-text">
+                            <strong>Email:</strong> @user.Email
+                        </p>
+                        <p class="card-text">
+                            <strong>Phone:</strong> @user.PhoneNumber
+                        </p>
+                        <p class="card-text">
+                            <strong>UserId:</strong> @user.Id
+                        </p>
+                        <button @onclick="() => ClickRedirect(user)" class="inspect-btn">View User</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <nav class="pagination-container">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link"
+                   @onclick="PreviousPage"
+                   disabled="@(pageNumber <= 1)">←</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   @onclick="NextPage"
+                   disabled="@(UsersList.Count < pageSize)">→</a>
+            </li>
+        </ul>
+    </nav>
+</div>

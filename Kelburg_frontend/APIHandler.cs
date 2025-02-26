@@ -71,7 +71,7 @@ public static class APIHandler
     private static readonly HttpClient _httpClient = new HttpClient(
         new HttpClientHandler { ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true }
     );    
-    public static async Task<T?> RequestAPI<T>(string apiUrl, Dictionary<string, object?> queryParams, HttpMethod method, object? body = null)
+    public static async Task<T?> RequestAPI<T>(string apiUrl, Dictionary<string, object?> queryParams, HttpMethod method, object? body = null, string? token = null)
     {
         string queryParamString = string.Join("&", queryParams.Select(kvp => $"{HttpUtility.UrlEncode(kvp.Key)}={HttpUtility.UrlEncode(kvp.Value.ToString())}"));
         string completeApiUrl = $"{apiUrl}?{queryParamString}";
@@ -82,6 +82,11 @@ public static class APIHandler
         try
         {
             using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);
+            
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
             
             if (body != null)
             {   

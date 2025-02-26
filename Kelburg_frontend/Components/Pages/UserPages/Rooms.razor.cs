@@ -58,15 +58,20 @@ public partial class Rooms : ComponentBase
          return;
       }
       
-      Random random = new Random();
       
       availableRooms.Clear();
       isSearching = true;
       await SearchRooms(pageSize, 1);
       
-      Thread.Sleep(random.Next(350, 750));
+      await AddDelay(350, 750);
       
       isSearching = false;
+   }
+
+   private async Task AddDelay(int min, int max)
+   {
+      Random random = new Random();
+      Thread.Sleep(random.Next(min, max));
    }
 
    private async Task SearchRooms(int pageSize, int pageNumber)

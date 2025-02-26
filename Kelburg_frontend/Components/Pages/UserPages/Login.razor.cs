@@ -55,12 +55,10 @@ public partial class Login : ComponentBase
 
             string jwtToken = loginResponse.Token;
             Console.WriteLine($"JWT Token: {jwtToken}");
+            
+            AuthService.SetUser(jwtToken, loggedInUserName);
 
-            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", jwtToken);
-            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "loggedInUserName",
-                loggedInUserName); // Store name for later use
-
-            var returnUrl = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "lastPageUrl");
+            string returnUrl = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "lastPageUrl");
 
             if (!string.IsNullOrEmpty(returnUrl))
             {
@@ -76,14 +74,5 @@ public partial class Login : ComponentBase
             message = "Email or password is incorrect.";
             StateHasChanged();
         }
-    }
-
-    private async Task Logout()
-    {
-        await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
-        await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "loggedInUserName");
-
-
-        NavigationManager.NavigateTo("/", forceLoad: true);
     }
 }
