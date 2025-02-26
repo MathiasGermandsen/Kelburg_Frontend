@@ -24,8 +24,7 @@ public partial class Booking : ComponentBase
     
     protected override async Task OnInitializedAsync()
     {
-        await GetUserInfo();
-        
+        User = await AuthService.GetUser();
         currentBooking = await BookingService.GetBooking();
         currentBooking.UserId = User.Id;
         
@@ -36,18 +35,6 @@ public partial class Booking : ComponentBase
         GetPrice();
 
         StateHasChanged();
-    }
-
-    private async Task GetUserInfo()
-    {
-        string? token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new object[] { "authToken" });
-        
-        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
-        {
-            { "jwtToken", token }
-        };
-        
-        User = await APIHandler.RequestAPI<Users>(eTables.Users.GetUserFromToken, queryParams, HttpMethod.Get);
     }
     
     private void GetPrice()

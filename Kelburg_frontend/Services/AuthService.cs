@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Kelburg_frontend.Services;
@@ -5,10 +6,12 @@ namespace Kelburg_frontend.Services;
 public class AuthService
 {
     private readonly IJSRuntime _jsRuntime;
+    private readonly NavigationManager _navigationManager;
 
-    public AuthService(IJSRuntime jsRuntime)
+    public AuthService(IJSRuntime jsRuntime, NavigationManager navigationManager)
     {
         _jsRuntime = jsRuntime;
+        _navigationManager = navigationManager;
     }
 
     public async Task SetUser(string token, string username)
@@ -16,10 +19,34 @@ public class AuthService
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "loggedInUserName", username);
     }
-
-    public async Task<string> GetUserName()
+    
+    public async Task VerifyAdmin()
     {
-        return await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "loggedInUserName");
+        Models.Users? userLoggedIn = await GetUser();
+
+        if (!userLoggedIn.AccountType.ToLower().Contains("admin"))
+        {
+           _navigationManager.NavigateTo("/");
+        }
+    }
+
+    public async Task<Models.Users?> GetUser()
+    {
+        string? token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        
+        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+        {
+            { "jwtToken", token }
+        };
+        
+        Models.Users? userLoggedIn = await APIHandler.RequestAPI<Models.Users>(eTables.Users.GetUserFromToken, queryParams, HttpMethod.Get);
+        return userLoggedIn;
+    }
+
+    public async Task<string> GetToken()
+    {
+        string? token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        return token;
     }
 
     public async Task Logout()
