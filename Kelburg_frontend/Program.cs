@@ -7,15 +7,15 @@ using Kelburg_frontend.Models;
 using Kelburg_frontend.Services;
 using Blazored.LocalStorage;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddBlazorBootstrap();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<RoomsService>();
 builder.Services.AddScoped<BookingService>();
 

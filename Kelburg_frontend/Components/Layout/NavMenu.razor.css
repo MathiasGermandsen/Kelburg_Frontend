@@ -10,5 +10,9 @@
 .offcanvas .navbar-nav .nav-link:hover {
     background-color: #bfbfbf;
     color: black;
+    
 }
 
+.container-fluid {
+    align-items: center;
+}

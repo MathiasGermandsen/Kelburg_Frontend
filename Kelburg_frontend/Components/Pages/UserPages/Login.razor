@@ -3,6 +3,7 @@
 @using Kelburg_frontend.Services
 @inject HttpClient Http
 @inject NavigationManager NavigationManger
+@inject AuthService AuthService
 
 
 <link rel="stylesheet" href="overflowhidden.css"/>
@@ -20,11 +21,14 @@
             </div>
 
             <div class="form-row">
-                <input placeholder="Password" @bind="LoggedInUsers.PasswordBackdoor">
+                <input type="password" placeholder="Password" @bind="LoggedInUsers.PasswordBackdoor">
             </div>
 
 
             <button class="submit-button" type="submit" disabled="@isLogginIn">Login</button>
+            <p></p>
+            <NavLink href="/SignUp">Sign Up?</NavLink>
+            
         </EditForm>
 
         @if (isLogginIn)
