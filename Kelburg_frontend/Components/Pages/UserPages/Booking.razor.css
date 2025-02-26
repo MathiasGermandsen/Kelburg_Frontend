@@ -287,17 +287,31 @@ ul li {
     margin-bottom: 5%;
     cursor: pointer;
     font-weight: bold;
-    display: block;
-    margin: auto;
-}
-
-.proceed-div {
-    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 2%;
+    margin: auto;
 }
 
 .proceed-btn:hover {
     background-color: #b6893d;
 }
- 
+
+.proceed-btn:active {
+    transform: translateY(2px);
+}
+
+.loader {
+    width: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid lightblue;
+    border-right-color: black;
+    animation: l2 1s infinite linear;
+}
+
+@keyframes l2 {
+    to {
+        transform: rotate(1turn);
+    }
+}

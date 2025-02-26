@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Security.Principal;
+using Microsoft.AspNetCore.Components;
 using Kelburg_frontend.Models;
 
 namespace Kelburg_frontend.Components.Pages.UserPages;
@@ -26,11 +27,13 @@ public partial class Rooms : ComponentBase
       RoomsService.SetSelectedRoom(room);
       BookingService.SetNewBooking(bookingStart);
       
-      if (true) // Should eventually be User.LoggedIn ALEXANDER MAKE IT
+      string? token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new object[] { "authToken" });
+      
+      if (!string.IsNullOrEmpty(token)) // User is logged in
       {
          NavigationManager.NavigateTo("/createBooking");
       }
-      else // Will then trigger if the user is NOT logged in
+      else
       {
          NavigationManager.NavigateTo("/login");
       }

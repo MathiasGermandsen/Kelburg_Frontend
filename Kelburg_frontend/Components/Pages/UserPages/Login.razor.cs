@@ -43,12 +43,10 @@ public partial class Login : ComponentBase
             Password = LoggedInUsers.PasswordBackdoor
         };
 
-
         Console.WriteLine($"Request Data: {JsonSerializer.Serialize(queryParams)}");
 
         LoginResponse? loginResponse =
             await APIHandler.RequestAPI<LoginResponse>(eTables.Users.Login, queryParams, HttpMethod.Post, loginRequest);
-
 
         if (loginResponse != null)
         {

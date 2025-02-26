@@ -10,7 +10,8 @@ public partial class Booking : ComponentBase
     Models.Rooms currentRoom = new Models.Rooms();
     List<Models.Services> availableServices = new List<Models.Services>();
     List<HotelCars> availableCars = new List<HotelCars>();
-    
+
+    private bool isCheckingOut = false;
     int amountOfDays;
     
     int selectedServiceId;
@@ -19,17 +20,15 @@ public partial class Booking : ComponentBase
     int selectedCarId;
     HotelCars selectedCar;
     
-    Users placeholderUser = new Users()
-    {
-        FirstName = "John",
-        LastName = "Backflip",
-        Email = "JohnBackflip@gmail.com",
-        PhoneNumber = "22 11 33 11"
-    };
+    Users User = new Users();
     
     protected override async Task OnInitializedAsync()
     {
-        currentBooking = BookingService.GetBooking();
+        await GetUserInfo();
+        
+        currentBooking = await BookingService.GetBooking();
+        currentBooking.UserId = User.Id;
+        
         currentRoom = RoomsService.GetSelectedRoom();
         amountOfDays = (currentBooking.EndDate - DateTime.Now).Days + 2; // +2 Because of startday and endday are not included without
         
@@ -37,6 +36,18 @@ public partial class Booking : ComponentBase
         GetPrice();
 
         StateHasChanged();
+    }
+
+    private async Task GetUserInfo()
+    {
+        string? token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new object[] { "authToken" });
+        
+        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+        {
+            { "jwtToken", token }
+        };
+        
+        User = await APIHandler.RequestAPI<Users>(eTables.Users.GetUserFromToken, queryParams, HttpMethod.Get);
     }
     
     private void GetPrice()
@@ -106,5 +117,15 @@ public partial class Booking : ComponentBase
         }
 
         GetPrice();
+    }
+
+    private async Task CheckoutOrder()
+    {
+        isCheckingOut = true;
+        
+        await BookingService.SetNewBooking(currentBooking);
+        string checkoutUrl = await BookingService.GetCheckout();
+        
+        NavigationManager.NavigateTo(checkoutUrl);
     }
 }
