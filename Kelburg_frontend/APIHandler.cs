@@ -76,6 +76,8 @@ public static class APIHandler
         string queryParamString = string.Join("&", queryParams.Select(kvp => $"{HttpUtility.UrlEncode(kvp.Key)}={HttpUtility.UrlEncode(kvp.Value.ToString())}"));
         string completeApiUrl = $"{apiUrl}?{queryParamString}";
         Uri uri = new Uri(completeApiUrl);
+
+        string json = string.Empty;
       
         try
         {
@@ -87,15 +89,19 @@ public static class APIHandler
             }
             
             HttpResponseMessage response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
 
-            string json = await response.Content.ReadAsStringAsync();
+            json = await response.Content.ReadAsStringAsync();
+            response.EnsureSuccessStatusCode();
             
             return JsonConvert.DeserializeObject<T>(json);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"API Request Failed - {ex.Message}");
+            Console.WriteLine("----------------------------------------------------------");
+            Console.WriteLine(json);
+            Console.WriteLine("----------------------------------------------------------");
+            
             return default;
         }
     }
