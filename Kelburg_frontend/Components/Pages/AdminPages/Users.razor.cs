@@ -15,15 +15,27 @@ public partial class Users : ComponentBase
     private int pageNumber = 1;
 
     private bool isSearching = false;
+    private bool _hasRun = false;
     
     private Models.Users UserLoggedIn = new Models.Users();
     
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await AuthService.VerifyAdmin(); 
-        UserLoggedIn = await AuthService.GetUser();
-        await SearchUsers(pageSize, 1);
+        if (firstRender && !_hasRun)
+        {
+            _hasRun = true;
+
+            isSearching = true;
+            StateHasChanged();
+
+            await AuthService.VerifyAdmin();
+            UserLoggedIn = await AuthService.GetUser();
+            await SearchUsers(pageSize, 1);
+
+            StateHasChanged();
+        }
     }
+
 
     private async Task SearchClicked()
     {

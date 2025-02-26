@@ -23,8 +23,8 @@ public class AuthService
     public async Task VerifyAdmin()
     {
         Models.Users? userLoggedIn = await GetUser();
-
-        if (!userLoggedIn.AccountType.ToLower().Contains("admin"))
+        
+        if (userLoggedIn == null || !userLoggedIn.AccountType.ToLower().Contains("admin"))
         {
            _navigationManager.NavigateTo("/");
         }
@@ -33,6 +33,11 @@ public class AuthService
     public async Task<Models.Users?> GetUser()
     {
         string? token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        
+        if (string.IsNullOrEmpty(token))
+        {
+            return null;
+        }
         
         Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
