@@ -1,0 +1,64 @@
+@page "/AdminRoom"
+@using Kelburg_frontend.Services
+@inject NavigationManager NavigationManager
+@inject RoomsService RoomsService
+@inject IJSRuntime JSRuntime
+@inject BookingService BookingService
+
+<h3>AdminRoom</h3>
+
+<div class="container">
+    <h3 style="font-weight: bold;">Browse All Rooms</h3>
+
+    @if (isLoading)
+    {
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    }
+    else if (!allRooms.Any())
+    {
+        <h1 class="no-rooms-title">No rooms available</h1>
+    }
+    else
+    {
+        <div class="room-grid">
+            @foreach (Models.Rooms room in allRooms)
+            {
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(room.RoomImagePath))
+                    {
+                        <img src="@room.RoomImagePath" alt="Room Image" class="card-img"/>
+                    }
+                    else
+                    {
+                        <div class="no-image-placeholder">No Image Available</div>
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title">@room.RoomType</h5>
+                        <p class="card-text">
+                            <strong>Size:</strong> @room.Size occupants
+                        </p>
+                        <button @onclick="() => ClickRedirect(room)" class="book-btn">View Details</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <nav class="pagination-container">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link"
+                   @onclick="PreviousPage"
+                   disabled="@(pageNumber <= 1)">←</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   @onclick="NextPage"
+                   disabled="@(allRooms.Count < pageSize)">→</a>
+            </li>
+        </ul>
+    </nav>
+</div>
