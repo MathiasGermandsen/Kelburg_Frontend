@@ -16,7 +16,7 @@ public partial class User : ComponentBase
     {
         if (firstRender)
         {
-            await AuthService.VerifyAdmin();
+            await AuthService.EnsureAdminAccess();
             
             if (int.TryParse(idParam, out int userId))
             {

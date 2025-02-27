@@ -8,7 +8,7 @@ public partial class StaffPanel : ComponentBase
     {
         if (firstRender)
         {
-            await AuthService.VerifyAdmin();
+            await AuthService.EnsureAdminAccess();
             StateHasChanged();
         }
     }
