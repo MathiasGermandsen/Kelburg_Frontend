@@ -38,10 +38,6 @@ public class AuthService
         {
            _navigationManager.NavigateTo("/");
         }
-        else
-        {
-            _navigationManager.NavigateTo("/staffLandingpage");
-        }
     }
 
     public async Task<Models.Users?> GetUser(string token = null)
@@ -75,5 +71,6 @@ public class AuthService
     {
         await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
         await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "loggedInUserName");
+        _navigationManager.NavigateTo("/login");
     }
 }
