@@ -21,6 +21,8 @@ public class RoomsAPI : APIData
     
     public string ChangePrice => $"{_urlPath}/changePrice";
     public string AvailableBetweenDates => $"{_urlPath}/availableBetweenDates";
+    public string UnavailableBetweenDates => $"{_urlPath}/unavailableBetweenDates";
+    
 }
 
 public class ServicesAPI : APIData

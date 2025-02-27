@@ -4,11 +4,30 @@
 @inject RoomsService RoomsService
 @inject IJSRuntime JSRuntime
 @inject BookingService BookingService
+@using Blazorise
 
-<h3>AdminRoom</h3>
 
 <div class="container">
     <h3 style="font-weight: bold;">Browse All Rooms</h3>
+
+    <div class="sort-bar">
+        <label for="sortByBooked">Sort by Booked:</label>
+        <select id="sortByBooked" @onchange="SortByBookedChanged">
+            <option value="">All</option>
+            <option value="true">Booked</option>
+            <option value="false">Not Booked</option>
+        </select>
+
+        <p class="date-input">*Start/End Date</p>
+        <DatePicker class="date-input" Placeholder="Select Dates" TValue="DateTime?" @bind-Dates="dateRange" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range"/>
+        
+        <label for="sortByOccupants">Sort by Occupants:</label>
+        <select id="sortByOccupants" @onchange="SortByOccupantsChanged">
+            <option value="">None</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+    </div>
 
     @if (isLoading)
     {
@@ -23,7 +42,7 @@
     else
     {
         <div class="room-grid">
-            @foreach (Models.Rooms room in allRooms)
+            @foreach (Models.Rooms room in filteredRooms.Any() ? filteredRooms : allRooms)
             {
                 <div class="card">
                     @if (!string.IsNullOrEmpty(room.RoomImagePath))
