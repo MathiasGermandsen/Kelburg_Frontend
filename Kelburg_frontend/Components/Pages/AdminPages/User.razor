@@ -1,0 +1,46 @@
+﻿@page "/user/{idParam}"
+@using Kelburg_frontend.Services
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+<PageTitle>View User</PageTitle>
+
+<div class="container">
+    
+    <div class="left-column">
+        <h2 class="column-title">User Profile</h2>
+        <p><strong>UserID:</strong> @selectedUser.Id</p>
+
+        <br/>
+        <hr class="name-hr-line"/>
+        <p class="username-field">@selectedUser.FirstName @selectedUser.LastName</p>
+        <hr class="name-hr-line"/>
+
+        <br/>
+        <div class="info-container">
+            <p><strong>Email: </strong>@selectedUser.Email</p>
+            <hr/>
+            <p><strong>Phone: </strong>@selectedUser.PhoneNumber</p>
+            <hr/>
+            <p><strong>Address: </strong>@selectedUser.Address</p>
+            <hr/>
+            <p><strong>City: </strong>@selectedUser.City</p>
+            <hr/>
+            <p><strong>Country: </strong>@selectedUser.Country</p>
+        </div>
+    </div>
+    
+    <div class="vertical-line"></div>
+    
+    
+    <div class="right-column">
+        <h2 class="column-title">Latest Bookings</h2>
+        @foreach (Models.Bookings booking in bookingsByUser)
+        {
+            <div class="booking-container">
+                <p class="booking-info"><strong>ID: </strong>@booking.Id - <strong>Date: </strong>@booking.StartDate.ToString("yyyy-MM-dd") → @booking.EndDate.ToString("yyyy-MM-dd")</p>
+                <button @onclick="() => ClickRedirect(booking)" class="view-booking-button">View</button>
+            </div>
+        }
+    </div>
+</div>
