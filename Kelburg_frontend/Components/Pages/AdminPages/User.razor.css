@@ -1,6 +1,7 @@
 ﻿.container {
+    width: 100%;
     display: flex;
-    height: 100vh;
+    height: 90vh;
     font-family: 'Albert Sans', sans-serif;
 }
 
@@ -10,9 +11,72 @@
     box-sizing: border-box;
 }
 
+.username-field {
+    font-size: 40px;
+}
+
+.name-hr-line {
+    margin-right: 10%;
+}
+
+.column-title {
+    font-weight: bold;
+}
+
 .vertical-line {
     width: 1px;
     background-color: #b8b8b8;
     margin: 35px 0;
     height: 85%;
 }
+
+.info-container {
+    background-color: #D9D9D9;
+    border-radius: 25px;
+    padding: 5%;
+    font-size: 20px;
+    margin-right: 10%
+}
+
+.booking-container {
+    background-color: #D9D9D9;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+    width: 90%;
+    margin-top: 5%;
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.4s ease;
+}
+
+.booking-container:hover {
+    transform: scale(1.04);
+}
+
+.booking-info {
+    margin: 0;
+    align-items: center;
+}
+
+.view-booking-button {
+    background-color: #C9A66B;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 2%;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.4s ease;
+}
+
+.view-booking-button:hover {
+    background-color: #A78A59;
+}
+
+.view-booking-button:active {
+    transform: translateY(2px);
+}
+
