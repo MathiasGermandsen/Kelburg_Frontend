@@ -12,61 +12,47 @@ namespace Kelburg_frontend.Components.Pages.UserPages;
 
 public partial class Login : ComponentBase
 {
-    public class LoginResponse
-    {
-        public string Token { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
-
-    Users LoggedInUsers = new Users();
+    Users UserLoggedIn = new Users();
+    
     private bool isLogginIn = false;
+    
     private string message = string.Empty;
-    private string loggedInUserName = string.Empty;
-    [Inject] private IJSRuntime JSRuntime { get; set; }
-    [Inject] private NavigationManager NavigationManager { get; set; }
-
-    private async Task LoggingIn()
+    
+    string inputEmail = string.Empty;
+    string inputPassword = string.Empty;
+    
+    private async Task LogIn()
     {
         isLogginIn = true;
         message = string.Empty;
-
-        Dictionary<string, object?> queryParams = new()
+        
+        var loginBody = new
         {
-            { "Email", LoggedInUsers.Email },
-            { "Password", LoggedInUsers.PasswordBackdoor },
+            Email = inputEmail,
+            Password = inputPassword
         };
-
-        var loginRequest = new
+        
+        string jwtToken = await APIHandler.RequestAPI<string>(eTables.Users.Login, null, HttpMethod.Post, loginBody);
+        
+        if (jwtToken != null)
         {
-            Email = LoggedInUsers.Email,
-            Password = LoggedInUsers.PasswordBackdoor
-        };
-
-        Console.WriteLine($"Request Data: {JsonSerializer.Serialize(queryParams)}");
-
-        LoginResponse? loginResponse =
-            await APIHandler.RequestAPI<LoginResponse>(eTables.Users.Login, queryParams, HttpMethod.Post, loginRequest);
-
-        if (loginResponse != null)
-        {
-            loggedInUserName = $"{loginResponse.FirstName} {loginResponse.LastName}";
-            message = "Logged in as: " + loginResponse.FirstName + " " + loginResponse.LastName;
-
-            string jwtToken = loginResponse.Token;
-            Console.WriteLine($"JWT Token: {jwtToken}");
+            UserLoggedIn = await AuthService.GetUser(jwtToken);
             
-            AuthService.SetUser(jwtToken, loggedInUserName);
+            await AuthService.SetUser(jwtToken, $"{UserLoggedIn.FirstName} {UserLoggedIn.LastName}");
 
-            string returnUrl = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "lastPageUrl");
-
-            if (!string.IsNullOrEmpty(returnUrl))
+            if (await AuthService.IsAdmin(UserLoggedIn))
             {
-                NavigationManager.NavigateTo(returnUrl, forceLoad: true);
-
-                return;
+                NavigationManager.NavigateTo("/staffLandingPage");
             }
-            StateHasChanged();
+            else
+            {
+                string returnUrl = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "lastPageUrl");
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    NavigationManager.NavigateTo(returnUrl, forceLoad: true);
+                }
+            }
         }
         else
         {

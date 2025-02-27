@@ -2,9 +2,9 @@
 @using Blazored.LocalStorage
 @using Kelburg_frontend.Services
 @inject HttpClient Http
-@inject NavigationManager NavigationManger
+@inject NavigationManager NavigationManager
 @inject AuthService AuthService
-
+@inject IJSRuntime JSRuntime
 
 <link rel="stylesheet" href="overflowhidden.css"/>
 
@@ -12,24 +12,19 @@
     <div class="hero-overlay"></div>
     <div class="form-container">
         <h3>Login</h3>
-        <EditForm Model="LoggedInUsers" OnValidSubmit="LoggingIn">
-            <DataAnnotationsValidator/>
-            <ValidationSummary/>
-            
+        
             <div class="form-row">
-                <input placeholder="Email" @bind="LoggedInUsers.Email"/>
+                <input placeholder="Email" @bind="inputEmail"/>
             </div>
 
-            <div class="form-row">
-                <input type="password" placeholder="Password" @bind="LoggedInUsers.PasswordBackdoor">
-            </div>
-
-
-            <button class="submit-button" type="submit" disabled="@isLogginIn">Login</button>
+        <div class="form-row">
+            <input type="password" placeholder="Password" @bind="inputPassword">
+        </div>
+        
+            <button class="submit-button" type="submit" disabled="@isLogginIn" @onclick="LogIn">Login</button>
             <p></p>
             <NavLink href="/SignUp">Sign Up?</NavLink>
             
-        </EditForm>
 
         @if (isLogginIn)
         {

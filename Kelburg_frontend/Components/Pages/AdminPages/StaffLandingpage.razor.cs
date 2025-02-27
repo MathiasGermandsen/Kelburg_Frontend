@@ -8,7 +8,7 @@ public partial class StaffLandingpage : ComponentBase
     {
         if (firstRender)
         {
-            await AuthService.VerifyAdmin();
+            await AuthService.EnsureAdminAccess();
             StateHasChanged();
         }
     }

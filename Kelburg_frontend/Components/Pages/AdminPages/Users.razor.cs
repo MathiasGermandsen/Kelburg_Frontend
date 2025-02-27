@@ -28,7 +28,7 @@ public partial class Users : ComponentBase
             isSearching = true;
             StateHasChanged();
 
-            await AuthService.VerifyAdmin();
+            await AuthService.EnsureAdminAccess();
             UserLoggedIn = await AuthService.GetUser();
             await SearchUsers(pageSize, 1);
 

@@ -19,8 +19,18 @@ public class AuthService
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "loggedInUserName", username);
     }
+
+    public async Task<bool> IsAdmin(Models.Users userToCheck)
+    {
+        if (userToCheck != null && userToCheck.AccountType.ToLower().Contains("admin"))
+        {
+            return true;
+        }
+        
+        return false;
+    }
     
-    public async Task VerifyAdmin()
+    public async Task EnsureAdminAccess()
     {
         Models.Users? userLoggedIn = await GetUser();
         
@@ -28,11 +38,18 @@ public class AuthService
         {
            _navigationManager.NavigateTo("/");
         }
+        else
+        {
+            _navigationManager.NavigateTo("/staffLandingpage");
+        }
     }
 
-    public async Task<Models.Users?> GetUser()
+    public async Task<Models.Users?> GetUser(string token = null)
     {
-        string? token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        if (string.IsNullOrEmpty(token))
+        {
+            token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        }
         
         if (string.IsNullOrEmpty(token))
         {
