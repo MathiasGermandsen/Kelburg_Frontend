@@ -7,6 +7,7 @@ public class Rooms : Common
     public string RoomType { get; set; }
     public string ViewType { get; set; }
     public int PricePrNight { get; set; }
+    public bool isBooked { get; set; }
     public string RoomImagePath { get; set; }
 
     private static readonly List<string> RoomImages = new List<string>()

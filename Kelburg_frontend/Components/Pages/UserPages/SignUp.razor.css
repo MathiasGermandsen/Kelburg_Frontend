@@ -5,17 +5,17 @@ body {
     font-family: 'Albert Sans', sans-serif;
 }
 
-/* Container styles */
+
 .hero {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full screen */
+    height: 100vh; 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
-    background-image: url('images/Hotel/Hotel3.jpg');
+    background-image: url('images/hero_image.jpg');
 }
 
 .hero-overlay {
@@ -25,10 +25,10 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1; /* Make sure the overlay is beneath the text but above the background */
+    z-index: 1;
 }
 
-/* Form container */
+
 .form-container {
     background: rgba(255, 255, 255, 0.9);
     padding: 30px;
@@ -39,21 +39,21 @@ body {
     z-index: 2;
 }
 
-/* Form title */
+
 .form-container h3 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
 }
 
-/* Form row */
+
 .form-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
 }
 
-/* Input fields */
+
 input {
     width: 100%;
     padding: 10px;
@@ -62,7 +62,7 @@ input {
     font-size: 14px;
 }
 
-/* Full-width inputs */
+
 input[placeholder="First Name"],
 input[placeholder="Last Name"],
 input[placeholder="Country"],
@@ -73,7 +73,7 @@ input[placeholder="Postal Code"] {
     margin-top: 10px;
 }
 
-/* Submit button */
+
 .submit-button {
     background-color: #C9A66B;
     color: black;

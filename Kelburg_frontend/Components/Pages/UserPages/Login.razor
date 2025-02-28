@@ -4,6 +4,8 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject AuthService AuthService
+
+                     
 @inject IJSRuntime JSRuntime
 
 <link rel="stylesheet" href="overflowhidden.css"/>
@@ -22,6 +24,7 @@
         </div>
         
             <button class="submit-button" type="submit" disabled="@isLogginIn" @onclick="LogIn">Login</button>
+
             <p></p>
             <NavLink href="/SignUp">Sign Up?</NavLink>
             
