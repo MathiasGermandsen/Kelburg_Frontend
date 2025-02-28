@@ -75,10 +75,16 @@ public static class APIHandler
     );    
     public static async Task<T?> RequestAPI<T>(string apiUrl, Dictionary<string, object?> queryParams, HttpMethod method, object? body = null, string? token = null)
     {
-        string queryParamString = string.Join("&", queryParams.Select(kvp => $"{HttpUtility.UrlEncode(kvp.Key)}={HttpUtility.UrlEncode(kvp.Value.ToString())}"));
-        string completeApiUrl = $"{apiUrl}?{queryParamString}";
+        string queryParamString = string.Empty;
+        string completeApiUrl = apiUrl;
+            
+        if (queryParams != null)
+        {
+            queryParamString = string.Join("&", queryParams.Select(kvp => $"{HttpUtility.UrlEncode(kvp.Key)}={HttpUtility.UrlEncode(kvp.Value.ToString())}"));
+            completeApiUrl = $"{apiUrl}?{queryParamString}";
+        }
+        
         Uri uri = new Uri(completeApiUrl);
-
         string json = string.Empty;
       
         try
@@ -100,6 +106,11 @@ public static class APIHandler
             json = await response.Content.ReadAsStringAsync();
             response.EnsureSuccessStatusCode();
             
+            if (typeof(T) == typeof(string))
+            {
+                return (T)(object)json;
+            }
+            
             return JsonConvert.DeserializeObject<T>(json);
         }
         catch (Exception ex)
@@ -117,8 +128,10 @@ public static class APIHandler
     {
         string completeApiUrl = $"{apiUrl}";
         Uri uri = new Uri(completeApiUrl);
+        
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(uri.AbsoluteUri, booking);
         string url = await response.Content.ReadAsStringAsync();
+        
         return url;
     }
 }

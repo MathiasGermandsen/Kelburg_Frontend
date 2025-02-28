@@ -19,20 +19,38 @@ public class AuthService
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "loggedInUserName", username);
     }
+
+    public async Task<bool> IsAdmin(Models.Users userToCheck)
+    {
+        if (userToCheck != null && userToCheck.AccountType.ToLower().Contains("admin"))
+        {
+            return true;
+        }
+        
+        return false;
+    }
     
-    public async Task VerifyAdmin()
+    public async Task EnsureAdminAccess()
     {
         Models.Users? userLoggedIn = await GetUser();
-
-        if (!userLoggedIn.AccountType.ToLower().Contains("admin"))
+        
+        if (userLoggedIn == null || !userLoggedIn.AccountType.ToLower().Contains("admin"))
         {
            _navigationManager.NavigateTo("/");
         }
     }
 
-    public async Task<Models.Users?> GetUser()
+    public async Task<Models.Users?> GetUser(string token = null)
     {
-        string? token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        if (string.IsNullOrEmpty(token))
+        {
+            token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        }
+        
+        if (string.IsNullOrEmpty(token))
+        {
+            return null;
+        }
         
         Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
@@ -53,5 +71,6 @@ public class AuthService
     {
         await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
         await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "loggedInUserName");
+        _navigationManager.NavigateTo("/login");
     }
 }
