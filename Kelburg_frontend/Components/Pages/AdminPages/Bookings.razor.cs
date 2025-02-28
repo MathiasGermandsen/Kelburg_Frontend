@@ -3,7 +3,7 @@ using Kelburg_frontend.Models;
 
 namespace Kelburg_frontend.Components.Pages.AdminPages;
 
-public partial class AdminBooking : ComponentBase
+public partial class Bookings : ComponentBase
 {
     private List<Models.Bookings> availableBookings = new List<Models.Bookings>();
     private int pageSize = 12;

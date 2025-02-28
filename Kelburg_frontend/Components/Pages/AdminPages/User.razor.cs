@@ -54,7 +54,7 @@ public partial class User : ComponentBase
         bookingsByUser = await APIHandler.RequestAPI<List<Models.Bookings>>(eTables.Bookings.Read, queryParams, HttpMethod.Get);
         if (bookingsByUser.Any())
         {
-            bookingsByUser = bookingsByUser.OrderByDescending(b => b.EndDate).ToList();
+            bookingsByUser = bookingsByUser.OrderByDescending(b => b.Id).ToList();
         }
     }
 

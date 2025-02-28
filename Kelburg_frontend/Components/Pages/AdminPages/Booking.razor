@@ -1,0 +1,81 @@
+﻿@page "/booking/{idParam}"
+@using Kelburg_frontend.Services
+@inject AuthService AuthService
+
+<div class="container">
+    <div class="left-column">
+        <hr/>
+        <p class="booking-date">Booking Date: @selectedBooking.StartDate.ToString("yyyy-MM-dd") → @selectedBooking.EndDate.ToString("yyyy-MM-dd")</p>
+        <hr/>
+        <button class="edit-btn" @onclick="EditBooking">Edit Details</button>
+
+        <div class="card">
+            @if (!string.IsNullOrEmpty(bookingRoom.RoomImagePath))
+            {
+                <img src="@bookingRoom.RoomImagePath" alt="Room Image" class="card-img"/>
+            }
+            else
+            {
+                <div class="no-image-placeholder">No Image Available</div>
+            }
+
+            <div class="card-body">
+                <h5 class="card-title">@bookingRoom.RoomType</h5>
+                <p class="card-text">
+                    <strong>Size:</strong> @bookingRoom.Size occupants
+                    <strong>Price:</strong> @bookingRoom.PricePrNight DKK pr.night
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="vertical-line"></div>
+
+    <div class="right-column">
+        <div class="name-container">
+            <strong>User: </strong>@bookingUser.FirstName @bookingUser.LastName
+        </div>
+        <div class="booking-info">
+            <p><strong>Customer Booking:</strong></p>
+            <hr/>
+            
+            <p><strong>Room:</strong></p>
+            <p>@bookingRoom.RoomType</p>
+            <p>@bookingRoom.ViewType</p>
+            <p>@bookingRoom.PricePrNight DKK pr.night</p>
+            <p>Size: @bookingRoom.Size Occupants</p>
+            <hr/>
+            
+            <p><strong>Service:</strong></p>
+            <p>@bookingService.PrettyName - @bookingService.PricePrPersonPrNight DKK pr.night pr.person</p>
+            <hr/>
+            
+            @if (bookingCar != null)
+            {
+                <p><strong>Car:</strong></p>
+                <p>@bookingCar.Manufacturer @bookingCar.Model - Size: @bookingCar.Size - @bookingCar.PricePrNight DKK pr.night</p>
+                <hr/>
+            }
+            
+            <p><strong>Total: </strong>@selectedBooking.BookingPrice DKK</p>
+        </div>
+    </div>
+</div>
+
+@if (modalVisible)
+{
+    <div class="modal-overlay">
+        <div class="modal">
+            <h2>Edit Booking</h2>
+            <label>Start Date:</label>
+            <input type="date" @bind="selectedBooking.StartDate"/>
+            <label>End Date:</label>
+            <input type="date" @bind="selectedBooking.EndDate"/>
+            <div class="modal-actions">
+                <button class="save-btn" @onclick="SaveChanges">Save</button>
+                <button class="close-btn" @onclick="CloseModal">Close</button>
+            </div>
+        </div>
+    </div>
+}
+
