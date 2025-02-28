@@ -7,106 +7,113 @@ namespace Kelburg_frontend.Components.Pages.AdminPages;
 
 public partial class AdminRoom : ComponentBase
 {
-    private List<Models.Rooms> allRooms = new();
-    private List<Models.Rooms> filteredRooms = new List<Models.Rooms>();
-
     private IReadOnlyList<DateTime?> dateRange;
-    private int occupantsNumber;
-    private bool isLoading = true;
-    private int pageSize = 12;
-    private int pageNumber = 1;
-    private string sortByBooked = "";
-    private string sortByOccupants = "";
+   private int occupantsNumber;
+   private List<Models.Rooms> availableRooms = new List<Models.Rooms>();
+   private int pageSize = 12;
+   private int pageNumber = 1;
+   bool isSearching = false;
+   private string sortOrder = "asc";
+   private bool filterBooked = false;
+   private string filterOption = "all";
 
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadAllRooms(pageSize, pageNumber);
-        filteredRooms = new List<Models.Rooms>(allRooms);
-        isLoading = false;
-    }
+   private async Task ClickRedirect(Models.Rooms room)
+   {
+      Bookings bookingStart = new Bookings()
+      {
+         StartDate = dateRange[0].Value.Date,
+         EndDate = dateRange[1].Value.Date,
+         PeopleCount = occupantsNumber,
+         RoomId = room.Id
+      };
+      
+      RoomsService.SetSelectedRoom(room);
+      BookingService.SetNewBooking(bookingStart);
+      
+      string? token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new object[] { "authToken" });
+      
+      if (!string.IsNullOrEmpty(token)) 
+      {
+         NavigationManager.NavigateTo($"/selectedRoom/{room.Id}");
+      }
+   }
 
-    private async Task LoadAllRooms(int pageSize, int pageNumber)
-    {
-        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
-        {
-            { "pageSize", pageSize },
-            { "pageNumber", pageNumber },
-        };
+   private async Task NextPage()
+   {
+      pageNumber++;
+      await SearchRooms(pageSize, pageNumber);
+   }
 
-        allRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.Read, queryParams, HttpMethod.Get);
-        filteredRooms = new List<Models.Rooms>(allRooms);
+   private async Task PreviousPage()
+   {
+      pageNumber--;
+      await SearchRooms(pageSize, pageNumber);
+   }
 
-        foreach (Models.Rooms room in allRooms)
-        {
-            room.RoomImagePath = room.GetRandomImagePath();
-        }
-    }
+   private async Task SearchClicked()
+   {
+      if (dateRange == null)
+      {
+         return;
+      }
+      
+      availableRooms.Clear();
+      isSearching = true;
+      await SearchRooms(pageSize, 1);
+      
+      await AddDelay(350, 750);
+      
+      isSearching = false;
+   }
 
-    private void SortByBookedChanged(ChangeEventArgs e)
-    {
-        sortByBooked = e.Value.ToString();
-        ApplySorting();
-    }
+   private async Task AddDelay(int min, int max)
+   {
+      Random random = new Random();
+      Thread.Sleep(random.Next(min, max));
+   }
 
-    private void SortByOccupantsChanged(ChangeEventArgs e)
-    {
-        sortByOccupants = e.Value.ToString();
-        ApplySorting();
-    }
+   private async Task SearchRooms(int pageSize, int pageNumber)
+   {
+      Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+      {
+         {"pageSize", pageSize},
+         {"pageNumber", pageNumber},
+         {"startDate", dateRange[0].Value.ToString("yyyy-MM-dd")},
+         {"endDate", dateRange[1].Value.ToString("yyyy-MM-dd")},
+      };
 
-
-    private async void ApplySorting()
-    {
-        filteredRooms = new List<Models.Rooms>(allRooms);
-        
-        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
-        {
-            { "sortByBooked", sortByBooked },
-            { "sortByOccupants", sortByOccupants },
-        };
-
-        List<Models.Rooms> rooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.UnavailableBetweenDates, queryParams, HttpMethod.Get);
-        
-
-        filteredRooms = new List<Models.Rooms>(rooms); // Clone the list
-
-        if (!string.IsNullOrEmpty(sortByBooked))
-        {
-            if (bool.TryParse(sortByBooked, out bool isBooked))
-            {
-                filteredRooms = filteredRooms.Where(room => room.isBooked == isBooked).ToList();
-            }
-        }
-
-        if (!string.IsNullOrEmpty(sortByOccupants))
-        {
-            if (!string.IsNullOrEmpty(sortByOccupants))
-            {
-                filteredRooms = sortByOccupants.Equals("asc", StringComparison.OrdinalIgnoreCase)
-                    ? filteredRooms.OrderBy(room => room.Size).ToList()
-                    : filteredRooms.OrderByDescending(room => room.Size).ToList();
-            }
-        }
-
-        StateHasChanged();
-    }
-
-
-    private async Task NextPage()
-    {
-        pageNumber++;
-        await LoadAllRooms(pageSize, pageNumber);
-    }
-
-    private async Task PreviousPage()
-    {
-        pageNumber--;
-        await LoadAllRooms(pageSize, pageNumber);
-    }
-
-    private async Task ClickRedirect(Models.Rooms room)
-    {
-        RoomsService.SetSelectedRoom(room);
-        NavigationManager.NavigateTo($"/roomDetails/{room.Id}");
-    }
+      if (occupantsNumber > 0)
+      {
+         queryParams.Add("Size", occupantsNumber);
+      }
+      
+      List<Models.Rooms> fetchedAvailableRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.AvailableBetweenDates, queryParams, HttpMethod.Get);
+      
+      List<Models.Rooms> bookedRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.UnavailableBetweenDates, queryParams, HttpMethod.Get);
+      foreach (Rooms? room in bookedRooms)
+      {
+         room.isBooked = true;
+      }
+      
+      //combine lists
+      availableRooms = fetchedAvailableRooms.Concat(bookedRooms).ToList();
+      
+      if (filterOption == "available")
+      {
+         availableRooms = availableRooms.Where(r => !r.isBooked).ToList();
+      }
+      else if (filterOption == "booked")
+      {
+         availableRooms = availableRooms.Where(r => r.isBooked).ToList();
+      }
+      
+      availableRooms = sortOrder == "asc"
+         ? availableRooms.OrderBy(r => r.Size).ToList()
+         : availableRooms.OrderByDescending(r => r.Size).ToList();
+      
+      foreach (Models.Rooms room in availableRooms)
+      {
+         room.RoomImagePath = room.GetRandomImagePath();
+      }
+   }
 }

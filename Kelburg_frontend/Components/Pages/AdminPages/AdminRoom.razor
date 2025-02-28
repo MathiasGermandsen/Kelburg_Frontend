@@ -6,43 +6,46 @@
 @inject BookingService BookingService
 @using Blazorise
 
-
 <div class="container">
-    <h3 style="font-weight: bold;">Browse All Rooms</h3>
-
-    <div class="sort-bar">
-        <label for="sortByBooked">Sort by Booked:</label>
-        <select id="sortByBooked" @onchange="SortByBookedChanged">
-            <option value="">All</option>
-            <option value="true">Booked</option>
-            <option value="false">Not Booked</option>
-        </select>
-
+    <div class="filter-div">
         <p class="date-input">*Start/End Date</p>
         <DatePicker class="date-input" Placeholder="Select Dates" TValue="DateTime?" @bind-Dates="dateRange" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range"/>
+        <p class="occ-text">*Occupants</p>
+        <input class="occ-input" type="number" @bind="occupantsNumber"/>
         
-        <label for="sortByOccupants">Sort by Occupants:</label>
-        <select id="sortByOccupants" @onchange="SortByOccupantsChanged">
-            <option value="">None</option>
+        <p class="sort-text">Sort by Occupants:</p>
+        <select class="sort-input" @bind="sortOrder">
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
         </select>
+
+        <p class="filter-text">Filter by:</p>
+        <select class="filter-input" @bind="filterOption">
+            <option value="all">All Rooms</option>
+            <option value="available">Only Available Rooms</option>
+            <option value="booked">Only Booked Rooms</option>
+        </select>
+        
+        <button @onclick="SearchClicked" class="search-btn">Search</button>
     </div>
 
-    @if (isLoading)
+    <h3 style="font-weight: bold;">Browse Rooms</h3>
+
+    @if (isSearching)
     {
         <div class="loader-container">
             <div class="loader"></div>
         </div>
     }
-    else if (!allRooms.Any())
+    else if (!availableRooms.Any())
     {
-        <h1 class="no-rooms-title">No rooms available</h1>
+        <h1 class="select-date-title">Select a Start/End Date and Occupants</h1>
     }
-    else
+
+    @if (availableRooms.Any())
     {
         <div class="room-grid">
-            @foreach (Models.Rooms room in filteredRooms.Any() ? filteredRooms : allRooms)
+            @foreach (Models.Rooms room in availableRooms)
             {
                 <div class="card">
                     @if (!string.IsNullOrEmpty(room.RoomImagePath))
@@ -59,7 +62,11 @@
                         <p class="card-text">
                             <strong>Size:</strong> @room.Size occupants
                         </p>
-                        <button @onclick="() => ClickRedirect(room)" class="book-btn">View Details</button>
+                        @if (room.isBooked)
+                        {
+                            <p class="booked-text">Booked </p>
+                        }
+                        <button @onclick="() => ClickRedirect(room)" class="book-btn">Room Details</button>
                     </div>
                 </div>
             }
@@ -76,8 +83,9 @@
             <li class="page-item">
                 <a class="page-link"
                    @onclick="NextPage"
-                   disabled="@(allRooms.Count < pageSize)">→</a>
+                   disabled="@(availableRooms.Count < pageSize)">→</a>
             </li>
         </ul>
     </nav>
 </div>
+

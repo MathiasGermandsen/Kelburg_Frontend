@@ -5,7 +5,6 @@
 @inject NavigationManager NavigationManger
 @inject AuthService AuthService
 
-
 <link rel="stylesheet" href="overflowhidden.css"/>
 
 <section class="hero">
@@ -23,8 +22,7 @@
             <div class="form-row">
                 <input type="password" placeholder="Password" @bind="LoggedInUsers.PasswordBackdoor">
             </div>
-
-
+            
             <button class="submit-button" type="submit" disabled="@isLogginIn">Login</button>
             <p></p>
             <NavLink href="/SignUp">Sign Up?</NavLink>
