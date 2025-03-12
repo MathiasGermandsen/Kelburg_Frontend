@@ -1,0 +1,59 @@
+﻿@page "/tickets"
+@using Kelburg_frontend.Services
+@inject NavigationManager NavigationManager
+@inject AuthService AuthService
+
+<PageTitle>Tickets</PageTitle>
+
+<div class="container">
+    <div class="filter-div">
+        <p class="date-input">Category</p>
+        <select class="categoryList" @bind="Category">
+            <option value="All">All</option>
+            @foreach (string category in allCategories)
+            {
+                <option value="@category">@category</option>
+            }
+        </select>
+        <button @onclick="SearchClicked" class="search-btn">Search</button>
+    </div>
+
+    <h3 style="font-weight: bold;">Browse Users</h3>
+
+    @if (isSearching)
+    {
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+    }
+    
+    @if (TicketsList.Any())
+    {
+        <div class="user-grid">
+            @foreach (Models.Tickets ticket in TicketsList)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Category: @ticket.Category</h5>
+                            <strong>Description:</strong> @ticket.Description
+                        <button @onclick="() => ClickRedirect(ticket)" class="inspect-btn">View Ticket</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    @* <nav class="pagination-container"> *@
+    @*     <ul class="pagination"> *@
+    @*         <li class="page-item"> *@
+    @*             <a class="page-link" *@
+    @*                @onclick="PreviousPage" *@
+    @*                disabled="@(pageNumber <= 1)">←</a> *@
+    @*         </li> *@
+    @*         <li class="page-item"> *@
+    @*             <a class="page-link" *@
+    @*                @onclick="NextPage" *@
+    @*                disabled="@(UsersList.Count < pageSize)">→</a> *@
+    @*         </li> *@
+    @*     </ul> *@
+    @* </nav> *@
+</div>
