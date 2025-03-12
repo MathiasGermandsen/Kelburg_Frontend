@@ -1,4 +1,4 @@
-@page "/AdminBooking"
+@page "/bookings"
 
 <div class="container">
     <div class="filter-div">
@@ -37,13 +37,12 @@
                             <strong>User ID:</strong> @booking.UserId <br/>
                             <strong>Room ID:</strong> @booking.RoomId <br/>
                         </p>
-                        <button @onclick="() => ClickRedirect(booking)" class="book-btn">Edit Booking</button>
+                        <button @onclick="() => ClickRedirect(booking)" class="book-btn">View</button>
                     </div>
                 </div>
             }
         </div>
     }
-    
     
     <nav class="pagination-container">
         <ul class="pagination">

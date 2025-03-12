@@ -19,27 +19,7 @@ public class AuthService
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "loggedInUserName", username);
     }
-
-    public async Task<bool> IsAdmin(Models.Users userToCheck)
-    {
-        if (userToCheck != null && userToCheck.AccountType.ToLower().Contains("admin"))
-        {
-            return true;
-        }
-        
-        return false;
-    }
     
-    public async Task EnsureAdminAccess()
-    {
-        Models.Users? userLoggedIn = await GetUser();
-        
-        if (userLoggedIn == null || !userLoggedIn.AccountType.ToLower().Contains("admin"))
-        {
-           _navigationManager.NavigateTo("/");
-        }
-    }
-
     public async Task<Models.Users?> GetUser(string token = null)
     {
         if (string.IsNullOrEmpty(token))
@@ -60,13 +40,33 @@ public class AuthService
         Models.Users? userLoggedIn = await APIHandler.RequestAPI<Models.Users>(eTables.Users.GetUserFromToken, queryParams, HttpMethod.Get);
         return userLoggedIn;
     }
-
+    
     public async Task<string> GetToken()
     {
         string? token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
         return token;
     }
 
+    public async Task<bool> IsAdmin(Models.Users userToCheck)
+    {
+        if (userToCheck != null && userToCheck.AccountType.ToLower().Contains("admin"))
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public async Task EnsureAdminAccess()
+    {
+        Models.Users? userLoggedIn = await GetUser();
+        
+        if (userLoggedIn == null || !userLoggedIn.AccountType.ToLower().Contains("admin"))
+        {
+           _navigationManager.NavigateTo("/");
+        }
+    }
+    
     public async Task Logout()
     {
         await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
