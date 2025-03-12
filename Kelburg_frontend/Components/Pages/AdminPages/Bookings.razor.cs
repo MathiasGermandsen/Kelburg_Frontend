@@ -95,6 +95,6 @@ public partial class Bookings : ComponentBase
             return;
         }
         
-        NavigationManager.NavigateTo($"/edit-booking/{booking.Id}");
+        NavigationManager.NavigateTo($"/booking/{booking.Id}");
     }
 }

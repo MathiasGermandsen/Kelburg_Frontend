@@ -9,11 +9,18 @@ public partial class Booking : ComponentBase
     public int BookingId { get; set; }
     
     private Models.Bookings selectedBooking = new Models.Bookings();
+    private Models.Bookings editedBooking = new Models.Bookings();
     private Models.Users bookingUser = new Models.Users();
     private Models.Rooms bookingRoom = new Models.Rooms();
+    
     private Models.HotelCars bookingCar = null;
+    private List<Models.HotelCars> carList = new List<Models.HotelCars>();
+    
     private Models.Services bookingService = new Models.Services();
+    private List<Models.Services> serviceList = new List<Models.Services>();
+    
     private bool modalVisible = false;
+    
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -82,48 +89,80 @@ public partial class Booking : ComponentBase
     
     private async Task GetCar()
     {
-        if (selectedBooking.CarId == null)
-        {
-            return;
-        }
-        
         Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
-            {"pageSize", 1},
-            {"pageNumber", 1},
-            {"carId", selectedBooking.CarId}
+            {"startDate", selectedBooking.StartDate.ToString("yyyy-MM-dd")},
+            {"endDate", selectedBooking.StartDate.ToString("yyyy-MM-dd")},
+            {"pageSize", 200},
+            {"pageNumber", 1}
         };
         
-        List<Models.HotelCars>? selectedCarList = await APIHandler.RequestAPI<List<Models.HotelCars>>(eTables.HotelCars.Read, queryParams, HttpMethod.Get);
-        bookingCar = selectedCarList.FirstOrDefault();
+        carList = await APIHandler.RequestAPI<List<Models.HotelCars>>(eTables.HotelCars.AvailableBetweenDates, queryParams, HttpMethod.Get);
+        bookingCar = carList.FirstOrDefault(c => c.Id == selectedBooking.CarId);
     }
     
     private async Task GetService()
     {
-        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+        Dictionary<string, object?> queryParams = new Dictionary<string, object?>();
+        
+        serviceList = await APIHandler.RequestAPI<List<Models.Services>>(eTables.Services.Read, queryParams, HttpMethod.Get);
+        bookingService = serviceList.FirstOrDefault(s => s.Id == selectedBooking.ServiceId);
+        
+        foreach (Models.Services service in serviceList)
         {
-            {"serviceId", selectedBooking.ServiceId}
-        };
-        
-        List<Models.Services> selectedServiceList = await APIHandler.RequestAPI<List<Models.Services>>(eTables.Services.Read, queryParams, HttpMethod.Get);
-        bookingService = selectedServiceList.FirstOrDefault();
-        
-        bookingService.PrettyName = bookingService.AllInclusive 
-            ? "All Inclusive" : bookingService.Breakfast 
-            ? "Breakfast" : bookingService.Dinner 
-            ? "Dinner" : bookingService.BreakfastAndDinner 
-            ? "Breakfast and Dinner" : "No service";
+            service.PrettyName = service.AllInclusive 
+                ? "All Inclusive" : service.Breakfast 
+                ? "Breakfast" : service.Dinner 
+                ? "Dinner" : service.BreakfastAndDinner 
+                ? "Breakfast and Dinner" : "No service";
+        }
     }
     
     private async Task EditBooking()
     {
+        editedBooking = selectedBooking;
         modalVisible = true;
         StateHasChanged();
+    }
+    
+    private void OnServiceChanged(ChangeEventArgs e)
+    {
+        editedBooking.ServiceId = Convert.ToInt32(e.Value);
+    }
+    
+    private void OnCarChanged(ChangeEventArgs e)
+    {
+        if (Convert.ToInt32(e.Value) == 0)
+        {
+            editedBooking.CarId = null;
+        }
+        else
+        {
+            editedBooking.CarId = Convert.ToInt32(e.Value);
+        }
     }
 
     private async Task SaveChanges()
     {
-        
+       Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+       {
+           {"bookingIdToChange", editedBooking.Id},
+           {"ServiceId", editedBooking.ServiceId},
+       };
+
+       if (editedBooking.CarId != null)
+       {
+           queryParams.Add("CarId", editedBooking.CarId);
+       }
+
+       Models.Bookings updatedBooking = await APIHandler.RequestAPI<Models.Bookings>(eTables.Bookings.Update, queryParams, HttpMethod.Put);
+       
+       if (updatedBooking != null)
+       {
+           await GetBooking();
+       }
+
+       NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
     private async Task CloseModal()
@@ -131,4 +170,5 @@ public partial class Booking : ComponentBase
         modalVisible = false;
         StateHasChanged();
     }
+
 }
