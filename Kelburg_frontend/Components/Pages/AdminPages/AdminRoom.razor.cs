@@ -34,7 +34,7 @@ public partial class AdminRoom : ComponentBase
       
       if (!string.IsNullOrEmpty(token)) 
       {
-         NavigationManager.NavigateTo($"/selectedRoom/{room.Id}");
+         NavigationManager.NavigateTo($"/AdminSelectedRoom/{room.Id}");
       }
    }
 

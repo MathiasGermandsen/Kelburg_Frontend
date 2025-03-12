@@ -1,0 +1,63 @@
+@page "/AdminSelectedRoom/{roomId}"
+<h3>AdminSelectedRoom</h3>
+
+<div class="selected-room-page bg-gray-900 text-white min-h-screen p-6">
+    <div class="header flex justify-between items-center bg-gray-300 text-black p-4 rounded-xl">
+        <button class="back-btn" @onclick="GoBack">⬅️ Back</button>
+        <h1 class="text-xl font-bold">KELBURG HOTEL</h1>
+        <span>{"staff name"}</span>
+    </div>
+
+    <div class="content grid grid-cols-3 gap-8 mt-8">
+        <!-- Room Information -->
+        <div class="room-info">
+            <h2 class="text-xl mb-4">Room status: Booked</h2>
+            <div class="room-card bg-gray-800 p-4 rounded-xl">
+                <img src="/images/queen-room.jpg" alt="Queen Room" class="rounded-lg mb-4" />
+                <p class="text-lg">Queen Room</p>
+                <p>Max: 2 Adults</p>
+            </div>
+        </div>
+
+        <!-- Next Available Dates -->
+        <div class="next-available">
+            <h2 class="text-xl mb-4">Next Available dates</h2>
+            <div class="space-y-4">
+                @if (nextAvailableDates.Any())
+                {
+                    @foreach (var date in nextAvailableDates)
+                    {
+                        <button class="date-btn bg-gray-600 p-2 rounded-lg">@date</button>
+                    }
+                }
+                else
+                {
+                    <p>No available dates.</p>
+                }
+                <button class="date-btn bg-gray-600 p-2 rounded-lg">...</button>
+            </div>
+        </div>
+
+        <!-- Dates Booked -->
+        <div class="dates-booked">
+            <h2 class="text-xl mb-4">Dates Booked:</h2>
+            <div class="space-y-4">
+                @if (bookedDates.Any())
+                {
+                    @foreach (var booking in bookedDates)
+                    {
+                        <div class="flex justify-between items-center bg-gray-700 p-2 rounded-lg">
+                            <span>@booking</span>
+                            <button class="view-btn bg-gray-500 p-1 rounded">View Details</button>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No bookings available.</p>
+                }
+                <button class="date-btn bg-gray-600 p-2 rounded-lg">...</button>
+            </div>
+        </div>
+    </div>
+</div>
