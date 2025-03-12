@@ -19,7 +19,7 @@ public partial class AdminRoom : ComponentBase
 
    private async Task ClickRedirect(Models.Rooms room)
    {
-      Bookings bookingStart = new Bookings()
+      Models.Bookings bookingStart = new Models.Bookings()
       {
          StartDate = dateRange[0].Value.Date,
          EndDate = dateRange[1].Value.Date,
