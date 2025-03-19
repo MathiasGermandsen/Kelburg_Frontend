@@ -7,53 +7,235 @@
 
 <div class="container">
     <div class="filter-div">
-        <p class="date-input">Category</p>
-        <select class="categoryList" @bind="Category">
+        
+        <p class="input-text">Category</p>
+        <select class="categoryList" @bind="TicketCategory">
             <option value="All">All</option>
             @foreach (string category in allCategories)
             {
                 <option value="@category">@category</option>
             }
         </select>
+
+        <p class="input-text">Status</p>
+        <select class="statusList" @bind="TicketStatus">
+            <option value="All">All</option>
+            @foreach (string status in allStatuses)
+            {
+                <option value="@status">@status</option>
+            }
+        </select>
+
+        <p class="input-text">Sort Date</p>
+        <select class="sort-list" @bind="sortBy">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+        
         <button @onclick="SearchClicked" class="search-btn">Search</button>
     </div>
 
-    <h3 style="font-weight: bold;">Browse Users</h3>
+    <h3 style="font-weight: bold;">Browse Tickets</h3>
 
     @if (isSearching)
     {
-    <div class="loader-container">
-        <div class="loader"></div>
-    </div>
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
     }
-    
+
     @if (TicketsList.Any())
     {
-        <div class="user-grid">
+        <div class="ticket-grid">
             @foreach (Models.Tickets ticket in TicketsList)
             {
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Category: @ticket.Category</h5>
-                            <strong>Description:</strong> @ticket.Description
-                        <button @onclick="() => ClickRedirect(ticket)" class="inspect-btn">View Ticket</button>
+                <div class="ticket-card">
+                    <div class="ticket-left">
+                        <div class="ticket-title">Category: @ticket.Category</div>
+                        <div class="ticket-description-label">Description:</div>
+                        <div class="ticket-description">@ticket.Description</div>
+                    </div>
+                    <div class="ticket-right">
+                        <div class="ticket-status"><strong>Status:</strong> <em>@ticket.Status</em></div>
+                        <div class="ticket-user"><strong>From UserId:</strong> @ticket.FromUser</div>
+                        <div class="ticket-date"><strong>Created:</strong> @ticket.CreatedAt.ToString("dd MMM yyyy")</div>
+                        <button @onclick="() => ClickRedirect(ticket)" class="inspect-btn">View Details</button>
                     </div>
                 </div>
             }
         </div>
     }
-    @* <nav class="pagination-container"> *@
-    @*     <ul class="pagination"> *@
-    @*         <li class="page-item"> *@
-    @*             <a class="page-link" *@
-    @*                @onclick="PreviousPage" *@
-    @*                disabled="@(pageNumber <= 1)">←</a> *@
-    @*         </li> *@
-    @*         <li class="page-item"> *@
-    @*             <a class="page-link" *@
-    @*                @onclick="NextPage" *@
-    @*                disabled="@(UsersList.Count < pageSize)">→</a> *@
-    @*         </li> *@
-    @*     </ul> *@
-    @* </nav> *@
+
+    <nav class="pagination-container">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link"
+                   @onclick="PreviousPage"
+                   disabled="@(pageNumber <= 1)">←</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   @onclick="NextPage"
+                   disabled="@(TicketsList.Count < pageSize)">→</a>
+            </li>
+        </ul>
+    </nav>
 </div>
+
+<style> @* The .css file stopped working?? *@
+
+    .search-btn {
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+        border-radius: 25px;
+        padding: 5px 10px;
+        background-color: #C9A66B;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.4s ease;
+    }
+
+    .search-btn:hover {
+        background-color: #A78A59;
+    }
+
+    .loader-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 25vh;
+    }
+
+    .loader {
+        width: 50px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 8px solid lightblue;
+        border-right-color: orange;
+        animation: l2 1s infinite linear;
+    }
+
+    @@keyframes l2 {to{transform: rotate(1turn)}}
+
+    @@keyframes l13{
+         100%{transform: rotate(1turn)}
+     }
+    
+    .ticket-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+        font-family: "Albert Sans", sans-serif;
+    }
+     
+    .ticket-card {
+        display: flex;
+        justify-content: space-between;
+        background-color: #e0e0e0;
+        border-radius: 1rem;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 1rem;
+        min-width: 350px;
+        transition: 0.4s ease;
+    }
+    
+    .ticket-card:hover {
+        transform: scale(1.04);
+    }
+
+    .ticket-left,
+    .ticket-right {
+        flex: 1;
+        padding: 0 1rem;
+    }
+
+    .ticket-left {
+        border-right: 1px solid #aaa;
+    }
+
+    .ticket-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .ticket-description-label {
+        font-weight: bold;
+        font-size: 0.95rem;
+    }
+
+    .ticket-description {
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .ticket-status,
+    .ticket-user,
+    .ticket-date {
+        margin-bottom: 0.3rem;
+    }
+
+    .inspect-btn {
+        background-color: #c59d5f;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 1rem;
+        float: right;
+    }
+
+    .inspect-btn:hover {
+        background-color: #b58c4f;
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 30px;
+        padding-right: 20px;
+    }
+
+    .pagination {
+        list-style: none;
+        display: flex;
+        gap: 10px;
+        padding: 0;
+    }
+
+    .page-item {
+        display: inline-block;
+    }
+
+    .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #A78A59;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background-color 0.3s ease-out;
+        cursor: pointer;
+        border: none;
+    }
+
+    .page-link:hover {
+        background-color: #8c7048;
+    }
+
+    .page-link[disabled] {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+</style>
