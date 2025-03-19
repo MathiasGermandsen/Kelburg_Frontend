@@ -1,0 +1,24 @@
+﻿@page "/ticket/{idParam}"
+@using Kelburg_frontend.Services
+@inject AuthService AuthService
+
+<h3><strong>Ticket</strong></h3>
+
+<div class="row">
+    @* Left Column *@
+    <div class="col-md-6">
+        <p><strong>UserId:</strong> @TicketUser.Id</p>
+        <p><strong>Category:</strong> @SelectedTicket.Category</p>
+        <p><strong>Guest Name:</strong> @TicketUser.FirstName @TicketUser.LastName</p>
+        <p><strong>Created:</strong> @SelectedTicket.CreatedAt</p>
+    </div>
+
+    <div class="col-md-1 d-flex justify-content-center">
+        <div style="border-left: 1px solid #ccc; height: 100%;"></div>
+    </div>
+
+    @* Right Column *@ 
+    <div class="col-md-5">
+        <p>@SelectedTicket.Description</p>
+    </div>
+</div>
