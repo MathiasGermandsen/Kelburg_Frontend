@@ -29,7 +29,7 @@ public partial class Rooms : ComponentBase
       
       string? token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new object[] { "authToken" });
       
-      if (!string.IsNullOrEmpty(token)) // User is logged in
+      if (!string.IsNullOrEmpty(token))
       {
          NavigationManager.NavigateTo("/createBooking");
       }

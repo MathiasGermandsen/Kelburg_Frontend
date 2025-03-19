@@ -55,6 +55,13 @@ public class PaymentAPI : APIData
     public string Checkout => $"{_urlPath}/checkout";
 }
 
+public class TicketAPI : APIData
+{
+    public TicketAPI(string urlPath) : base("Payment", urlPath) {}
+    
+    public string UpdateStatus => $"{_urlPath}/updateStatus";
+}
+
 public static class eTables
 {
     private const string APIBaseUrl = "https://localhost:44306/api";
@@ -63,7 +70,7 @@ public static class eTables
     public static readonly CarsAPI HotelCars = new($"{APIBaseUrl}/HotelCars");
     public static readonly RoomsAPI Rooms = new($"{APIBaseUrl}/Rooms"); 
     public static readonly ServicesAPI Services = new($"{APIBaseUrl}/Services");
-    public static readonly APIData Tickets = new("Tickets", $"{APIBaseUrl}/Tickets");
+    public static readonly TicketAPI Tickets = new($"{APIBaseUrl}/Tickets");
     public static readonly UsersAPI Users = new($"{APIBaseUrl}/Users");
     public static readonly PaymentAPI Payment = new($"{APIBaseUrl}/Payment");
 }

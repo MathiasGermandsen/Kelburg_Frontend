@@ -35,8 +35,7 @@ public partial class Users : ComponentBase
             StateHasChanged();
         }
     }
-
-
+    
     private async Task SearchClicked()
     {
         await SearchUsers(pageSize, 1);
