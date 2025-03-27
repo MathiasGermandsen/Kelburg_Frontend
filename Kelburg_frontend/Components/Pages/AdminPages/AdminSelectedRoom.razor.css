@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ddd;
+    padding: 10px 20px;
+    border-radius: 8px 8px 0 0;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.hotel-name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.staff-name {
+    font-size: 16px;
+}
+
+.room-status {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.room-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.room-details img {
+    width: 150px;
+    border-radius: 8px;
+}
+
+.room-info {
+    font-size: 16px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.section {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.available-dates, .booked-dates {
+    background: #eee;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.date-button {
+    display: block;
+    background: #ccc;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.view-details {
+    display: block;
+    background: #aaa;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.more-button {
+    text-align: center;
+    background: #bbb;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

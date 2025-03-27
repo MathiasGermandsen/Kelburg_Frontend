@@ -1,16 +1,22 @@
 @page "/AdminSelectedRoom/{roomId:int}"
+
 <h3>AdminSelectedRoom</h3>
 
 <div class="selected-room-page bg-gray-900 text-white min-h-screen p-6">
     <div class="header flex justify-between items-center bg-gray-300 text-black p-4 rounded-xl">
         <h1 class="text-xl font-bold">KELBURG HOTEL</h1>
-        <span>{"staff name"}</span>
+        <span>staff name</span>
     </div>
 
     <div class="content grid grid-cols-3 gap-8 mt-8">
         <!-- Room Information -->
         <div class="room-info">
-            <h2 class="text-xl mb-4">Room status: Booked</h2>
+            <h2 class="text-xl mb-4">Room status:
+                @if (room.isBooked)
+                {
+                    <p class="booked-text">Booked </p>
+                }</h2>
+            
             <div class="room-card bg-gray-800 p-4 rounded-xl">
                 @if (room != null && !string.IsNullOrEmpty(room.RoomImagePath))
                 {
@@ -20,8 +26,8 @@
                 {
                     <div class="no-image-placeholder bg-gray-600 p-4 rounded-lg mb-4">No Image Available</div>
                 }
-                <p class="text-lg">Queen Room</p>
-                <p>Max: 2 Adults</p>
+                <p class="text-lg">@room.RoomType</p>
+                <p>@room.Size</p>
             </div>
         </div>
 
