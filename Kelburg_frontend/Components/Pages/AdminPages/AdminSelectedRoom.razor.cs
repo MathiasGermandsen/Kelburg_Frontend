@@ -9,45 +9,59 @@ namespace Kelburg_frontend.Components.Pages.AdminPages;
 
 public partial class AdminSelectedRoom : ComponentBase
 {
-    private IReadOnlyList<DateTime?> dateRange;
     private List<string> nextAvailableDates = new();
-    private List<string> bookedDates = new();
+    private string latestBookingDate = string.Empty;
+    private string nextAvailableDate = string.Empty;
     
-    private Rooms room = new();
-    
-    
-    [Inject] private HttpClient Http { get; set; }
-    
-    [Parameter]
-    public int RoomId { get; set; }
+    private int occupantsNumber;
 
-    protected override async Task OnInitializedAsync()
+    private Models.Rooms selectedRoom;
+
+    List<Models.Bookings> bookingsForRoom = new List<Models.Bookings>();
+
+    [Inject] private HttpClient Http { get; set; }
+
+    [Parameter] public int RoomId { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await GetRoom();
+            await GetBookingForRoom();
+
+            if (bookingsForRoom.Any())
+            {
+                latestBookingDate = bookingsForRoom.First().EndDate.AddDays(1).ToString("dd/MM/yyyy");
+            }
+            
+            nextAvailableDates.Add(latestBookingDate);
+            
+            StateHasChanged();
+        }
+    }
+
+    private async Task GetRoom()
     {
         Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
-            {"startDate", dateRange[0].Value.ToString("yyyy-MM-dd")},
-            {"endDate", dateRange[1].Value.ToString("yyyy-MM-dd")},
+            { "roomId", RoomId }
+        };
+
+        List<Models.Rooms> selectedRoomList = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.Read, queryParams, HttpMethod.Get);
+        selectedRoom = selectedRoomList.FirstOrDefault();
+    }
+
+    private async Task GetBookingForRoom()
+    {
+        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+        {
+            { "roomId", RoomId }
         };
         
-        try
-        {
-            room = await Http.GetFromJsonAsync<Models.Rooms>($"/api/room/{RoomId}");
-            
-            List<Models.Rooms> fetchedAvailableRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.AvailableBetweenDates, queryParams, HttpMethod.Get);
-      
-            List<Models.Rooms> bookedRooms = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.UnavailableBetweenDates, queryParams, HttpMethod.Get);
-            
-            foreach (Rooms? room in bookedRooms)
-            {
-                room.isBooked = true;
-            }
-            
-            nextAvailableDates = await Http.GetFromJsonAsync<List<string>>("/api/room/next-available");
-            bookedDates = await Http.GetFromJsonAsync<List<string>>("/api/room/booked");
-        }
-        catch (Exception ex)
-        {
-            Console.Error.WriteLine($"Error fetching data: {ex.Message}");
-        }
+        bookingsForRoom = await APIHandler.RequestAPI<List<Models.Bookings>>(eTables.Bookings.Read, queryParams, HttpMethod.Get);
+        
+        bookingsForRoom = bookingsForRoom.OrderByDescending(b => b.EndDate).ToList();
     }
+    
 }
