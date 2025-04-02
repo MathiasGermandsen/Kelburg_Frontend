@@ -138,10 +138,7 @@
 
     private async Task Logout()
     {
-        // Call the logout method in AuthService
         await AuthService.Logout();
-
-        // Redirect to the login page
         NavigationManager.NavigateTo("/login", forceLoad: true);
     }
 }
