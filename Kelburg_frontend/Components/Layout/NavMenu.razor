@@ -33,10 +33,6 @@
                     <button class="nav-link btn" style="color: black;" @onclick="Logout">Logout</button>
                 </li>
             }
-
-            <li class="nav-item px-2">
-                <NavLink class="nav-link" href="/rooms" style="color: black;">Book Room</NavLink>
-            </li>
         </ul>
     </div>
 </nav>
@@ -51,7 +47,6 @@
     </div>
     <div class="offcanvas-body">
         <ul class="navbar-nav">
-            <!-- Added onClick handler to each NavLink -->
             <li class="nav-item">
                 <NavLink class="nav-link" to="/rooms" href="/rooms" onClick="closeOffcanvas()" style="color: black;">
                     Rooms
@@ -95,8 +90,8 @@
     .offcanvas .navbar-nav .nav-link {
         transition: background-color 0.3s;
         border-radius: 15px;
-        font-size: 1.2rem; /* Increased font size */
-        padding: 12px 20px; /* More padding for a larger clickable area */
+        font-size: 1.2rem;
+        padding: 12px 20px;
         background-color: #D9D9D9;
     }
 
@@ -107,10 +102,8 @@
 </style>
 
 <script>
-    // Define a function to close the offcanvas
     function closeOffcanvas() {
         const offcanvasElement = document.getElementById('offcanvasMenu');
-        // Get the existing instance or create a new one
         const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement) || new bootstrap.Offcanvas(offcanvasElement);
         offcanvasInstance.hide();
     }
