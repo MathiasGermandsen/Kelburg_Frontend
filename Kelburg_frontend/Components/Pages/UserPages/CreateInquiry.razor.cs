@@ -42,9 +42,11 @@ public partial class CreateInquiry : ComponentBase
             return;
         }
         
+        Models.Users loggedInUser = await AuthService.GetUser();
+        
         Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
-            {"FromUser",  AuthService.GetUser().Id},
+            {"FromUser", loggedInUser.Id},
             {"Description", Description},
             {"Category", SelectedCategory},
             {"Status", "Open"}

@@ -1,0 +1,149 @@
+﻿@page "/ticket/{idParam}"
+@using Kelburg_frontend.Services
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+<div class="ticket-container">
+    <h3 class="ticket-title">Ticket</h3>
+
+    <div class="ticket-content">
+        @* Left Column *@
+        <div class="ticket-left">
+            <p><strong>UserId:</strong> @TicketUser.Id</p>
+            <p><strong>Category:</strong> <em>@SelectedTicket.Category</em></p>
+            <p><strong>Guest Name:</strong> <em>@TicketUser.FirstName @TicketUser.LastName</em></p>
+            <p><strong>Created At:</strong> <em>@SelectedTicket.CreatedAt.ToString("dd-MM-yyyy")</em></p>
+        </div>
+
+        @* Right Column - Description *@
+        <div class="ticket-right">
+            <div class="ticket-description">
+                <strong>Description:</strong>
+                <p>@SelectedTicket.Description</p>
+            </div>
+        </div>
+    </div>
+
+    @* Ticket Status *@
+    <div class="ticket-status">
+        <label for="ticketStatus"><strong>Status On Ticket:</strong></label>
+        <select id="ticketStatus" class="ticket-select" @bind="selectedStatus">
+            @foreach (string status in statusList)
+            {
+                <option value="@status" selected="@(status == SelectedTicket.Status)">@status</option>
+            }
+        </select>
+        
+        @if (selectedStatus == SelectedTicket.Status)
+        {
+            <button class="save-btn" @onclick="SaveNewStatus" disabled>Save Status</button>
+        }
+        else
+        {
+            <button class="save-btn" @onclick="SaveNewStatus">Save Status</button> 
+        }
+
+        @if (errorEditing)
+        {
+            <p class="error-message">There was an error while changing the status. Please try again later</p>
+        }
+    </div>
+</div>
+
+<style>
+    .ticket-container {
+        font-family: "Albert Sans", sans-serif;
+        max-width: 65%;
+        margin: auto;
+        padding: 20px;
+        font-size: 24px;
+    }
+
+    .ticket-title {
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    .ticket-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .ticket-left {
+        width: 45%;
+    }
+
+    .ticket-right {
+        width: 50%;
+    }
+
+    .ticket-description {
+        background-color: #f1f1f1;
+        padding: 15px;
+        border-radius: 8px;
+        font-style: italic;
+        color: #6c757d;
+    }
+
+    .ticket-status {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 20px;
+        font-size: 24px;
+        gap: 10px;
+    }
+
+    .ticket-select {
+        background-color: #c59d5f;
+        color: black;
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-weight: bold;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .save-btn {
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 20px;
+        padding: 5px 10px;
+        background-color: #C9A66B;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.4s ease;
+    }
+
+    .save-btn:hover {
+        background-color: #A78A59;
+    }
+    
+    .save-btn:active {
+        transform: translateY(2px);
+    }
+
+    .save-btn:disabled {
+        background-color: #b0b0b0;
+        color: #727272;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+    
+    .save-btn:disabled:hover {
+        color: #727272;
+        cursor: not-allowed;
+    }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+</style>
