@@ -19,6 +19,9 @@ public partial class AdminSelectedRoom : ComponentBase
 
     List<Models.Bookings> bookingsForRoom = new List<Models.Bookings>();
 
+    [Inject] NavigationManager NavigationManager { get; set; }
+    
+    
     [Inject] private HttpClient Http { get; set; }
 
     [Parameter] public int RoomId { get; set; }
@@ -62,6 +65,11 @@ public partial class AdminSelectedRoom : ComponentBase
         bookingsForRoom = await APIHandler.RequestAPI<List<Models.Bookings>>(eTables.Bookings.Read, queryParams, HttpMethod.Get);
         
         bookingsForRoom = bookingsForRoom.OrderByDescending(b => b.EndDate).ToList();
+    }
+
+    void NavigateToBooking(int id)
+    {
+        NavigationManager.NavigateTo($"/Booking/{id}");
     }
     
 }

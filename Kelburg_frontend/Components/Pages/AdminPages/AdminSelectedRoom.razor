@@ -51,7 +51,7 @@
                 {
                     <div class="flex justify-between items-center bg-gray-700 p-2 rounded-lg">
                         <span>@booking.StartDate.ToString("dd/MM/yyyy") - @booking.EndDate.ToString("dd/MM/yyyy")</span>
-                        <button class="view-btn bg-gray-500 p-1 rounded">View Details</button>
+                        <button class="view-btn bg-gray-500 p-1 rounded" @onclick="() => NavigateToBooking(booking.Id)">View Details</button>
                     </div>
                 }
             }
