@@ -1,0 +1,27 @@
+﻿@page "/activities"
+
+<PageTitle>Activities</PageTitle>
+<h3 class="page-title">Activities</h3>
+
+<div class="activities-grid">
+    @foreach (Activity activity in activities)
+    {
+        <div class="activity-card">
+            <img src="@activity.Image" alt="@activity.Title"/>
+            <div class="activity-info">
+                <div class="activity-title">@activity.Title</div>
+                <button class="signup-button" @onclick="() => ShowPopup(activity.Title)">Sign up</button>
+            </div>
+        </div>
+    }
+</div>
+
+@if (showPopup)
+{
+    <div class="popup-overlay" @onclick="ClosePopup">
+        <div class="popup-content" @onclick:stopPropagation>
+            <p>You signed up for <strong>@selectedActivity</strong> 🎉</p>
+            <button class="close-button" @onclick="ClosePopup">Close</button>
+        </div>
+    </div>
+}
