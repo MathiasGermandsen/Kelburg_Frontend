@@ -42,7 +42,7 @@
     position: relative;
     z-index: 3;
     padding: 2rem;
-    font-family: 'Playfair Display', serif;
+    font-family: "Adamina", sans-serif;
     font-size: 1.5rem;
 }
 
@@ -54,4 +54,8 @@
     .hero-subtitle {
         font-size: 1rem;
     }
+}
+
+.career-text {
+    font-family: "Albert Sans", sans-serif;
 }
