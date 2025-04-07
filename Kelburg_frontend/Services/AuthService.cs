@@ -41,7 +41,7 @@ public class AuthService
         return userLoggedIn;
     }
     
-    public async Task<string> GetToken()
+    public async Task<string?> GetToken()
     {
         string? token = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
         return token;
