@@ -38,6 +38,11 @@ public partial class Login : ComponentBase
         {
             UserLoggedIn = await AuthService.GetUser(jwtToken);
             
+            if (UserLoggedIn == null)
+            {
+                return;
+            }
+            
             await AuthService.SetUser(jwtToken, $"{UserLoggedIn.FirstName} {UserLoggedIn.LastName}");
 
             if (await AuthService.IsAdmin(UserLoggedIn))
