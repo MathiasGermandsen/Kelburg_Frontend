@@ -6,6 +6,55 @@
 @inject BookingService BookingService
 @using Blazorise
 
+<PageTitle>Rooms</PageTitle>
+
+<div class="create-room-div">
+    <button class="create-room" @onclick="ShowCreateRoomModal">Add Room</button>
+</div>
+
+@if (showCreateRoomModal)
+{
+    <div class="popup-overlay" @onclick="CloseCreateRoomModal">
+        <div class="popup-content" @onclick:stopPropagation>
+            <p>Add room to Hotel</p>
+            
+            <input type="number" @bind="NewRoom.Size" min="0" max="12" onkeydown="return false;"/>
+            
+            @if (NewRoom.Size > 0 && NewRoom.Size <= 12)
+            {
+                <input type="text" placeholder="@RoomTypeMapping[NewRoom.Size].RoomType" disabled/>
+            }
+            else
+            {
+                <input type="text" disabled/>
+            }
+            
+            <select class="view-select" @bind="NewRoom.ViewType">
+                <option>Select View</option>
+                @foreach (string viewType in RoomViewTypeMapping.Keys.ToList())
+                {
+                    <option value="@viewType">@viewType</option>
+                }
+            </select>
+
+            @if (RoomTypeMapping.ContainsKey(NewRoom.Size) && !string.IsNullOrWhiteSpace(NewRoom.ViewType) && RoomViewTypeMapping.ContainsKey(NewRoom.ViewType))
+            {
+                <p><strong>Price Pr Night:</strong> @(RoomTypeMapping[NewRoom.Size].PricePrNight + RoomViewTypeMapping[NewRoom.ViewType]) DKK</p>
+            }
+            else
+            {
+                <p><strong>Price Pr Night:</strong> Select Size and Type</p>
+            }
+            @if (createdRoomFailed)
+            {
+                <p style="color: red; font-weight: bold;">@createdRoomErrorMessage</p>
+            }
+            <button class="close-button" @onclick="AddNewRoom">Add</button>
+            <button class="close-button" @onclick="CloseCreateRoomModal">Cancel</button>
+        </div>
+    </div>
+}
+
 <div class="container">
     <div class="filter-div">
         <p class="date-input">*Start/End Date</p>
