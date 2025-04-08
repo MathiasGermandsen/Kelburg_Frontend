@@ -53,7 +53,9 @@ public partial class AdminSelectedRoom : ComponentBase
 
         List<Models.Rooms> selectedRoomList = await APIHandler.RequestAPI<List<Models.Rooms>>(eTables.Rooms.Read, queryParams, HttpMethod.Get);
         selectedRoom = selectedRoomList.FirstOrDefault();
+        selectedRoom.RoomImagePath = selectedRoom.GetRandomImagePath();
     }
+    
 
     private async Task GetBookingForRoom()
     {

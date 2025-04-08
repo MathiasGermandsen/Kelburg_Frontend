@@ -1,7 +1,5 @@
 @page "/AdminSelectedRoom/{roomId:int}"
 
-<h3>AdminSelectedRoom</h3>
-
 <div class="content grid grid-cols-3 gap-8 mt-8">
     <!-- Room Information -->
     <div class="room-info">
@@ -72,104 +70,89 @@
         padding: 0;
     }
 
-    .container {
-        max-width: 1200px;
-        margin: 20px auto;
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #ddd;
-        padding: 10px 20px;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .back-button {
-        background: none;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    .hotel-name {
-        font-weight: bold;
-        font-size: 20px;
-    }
-
-    .staff-name {
-        font-size: 16px;
-    }
-
-    .room-status {
-        font-size: 18px;
-        font-weight: bold;
-        margin: 20px 0;
-    }
-
-    .room-details {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .room-details img {
-        width: 150px;
-        border-radius: 8px;
-    }
-
-    .room-info {
-        font-size: 16px;
-    }
-
     .content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-top: 2rem;
+        padding: 0 2rem;
+    }
+
+    /* Room Info Card */
+    .room-card {
+        background-color: #d9d9d9;
+        padding: 2rem;
+        border-radius: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .room-card img {
+        max-width: 250%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .no-image-placeholder {
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ccc;
+    }
+
+    /* Section Headings */
+    .next-available h2,
+    .dates-booked h2 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Buttons and Date Entries */
+    .date-btn {
+        display: block;
+        width: 100%;
+        background-color: #D9D9D9; /* Updated */
+        color: #000; /* darker text for contrast */
+        padding: 0.75rem;
+        border-radius: 0.75rem;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        transition: background 0.2s;
+    }
+
+    .date-btn:hover {
+        background-color: #c7c7c7; /* slightly darker on hover */
+    }
+
+    /* Booked Dates Row */
+    .dates-booked .flex {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+        align-items: center;
+        background-color: #D9D9D9; /* Updated */
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        color: #000; /* for better contrast */
     }
 
-    .section {
-        flex: 1;
-        margin: 0 10px;
-    }
-
-    .available-dates, .booked-dates {
-        background: #eee;
-        padding: 15px;
-        border-radius: 8px;
-    }
-
-    .date-button {
-        display: block;
-        background: #ccc;
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 5px;
-        text-align: center;
+    .view-btn {
+        background-color: #D9D9D9; /* Updated */
+        color: #000; /* dark text */
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        border: none;
         cursor: pointer;
+        font-size: 0.875rem;
+        transition: background 0.2s;
     }
 
-    .view-details {
-        display: block;
-        background: #aaa;
-        padding: 8px;
-        margin: 5px 0;
-        border-radius: 5px;
-        text-align: center;
-        cursor: pointer;
+    .view-btn:hover {
+        background-color: #c7c7c7; /* hover variant */
     }
 
-    .more-button {
-        text-align: center;
-        background: #bbb;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
 
 </style>
