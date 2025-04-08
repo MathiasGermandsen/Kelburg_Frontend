@@ -27,6 +27,7 @@ public partial class AdminRoom : ComponentBase
          RoomId = room.Id
       };
       
+      
       RoomsService.SetSelectedRoom(room);
       BookingService.SetNewBooking(bookingStart);
       
