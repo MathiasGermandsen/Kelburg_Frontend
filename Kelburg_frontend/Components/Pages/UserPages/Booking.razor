@@ -137,6 +137,10 @@
         <hr/>
         
         <div class="proceed-div">
+            @if (!serviceSelected)
+            {
+                <p style="color: red; font-weight: bold">Select a service!</p>
+            }
             @if (!isCheckingOut)
             {
                 <button class="proceed-btn" @onclick="CheckoutOrder">Proceed →</button>

@@ -63,12 +63,21 @@ public partial class BookingSuccess : ComponentBase
         };
         
         List<Models.Services>? service = await APIHandler.RequestAPI<List<Models.Services>>(eTables.Services.Read, queryParams, HttpMethod.Get);
-        
-        service[0].PrettyName = service[0].AllInclusive 
-            ? "All Inclusive" : service[0].Breakfast 
-            ? "Breakfast" : service[0].Dinner 
-            ? "Dinner" : service[0].BreakfastAndDinner 
-            ? "Breakfast and Dinner" : "No service";
+
+        if (service.Count > 0)
+        {
+            service[0].PrettyName = service[0].AllInclusive 
+                ? "All Inclusive" : service[0].Breakfast 
+                    ? "Breakfast" : service[0].Dinner 
+                        ? "Dinner" : service[0].BreakfastAndDinner 
+                            ? "Breakfast and Dinner" : "No service";
+        }
+        else
+        {
+            Models.Services emptyService = new Models.Services();
+            emptyService.PrettyName = "No Service";    
+            service.Add(emptyService);
+        }
         return service[0];
     }
 
