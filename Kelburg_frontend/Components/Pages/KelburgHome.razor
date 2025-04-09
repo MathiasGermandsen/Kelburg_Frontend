@@ -1,0 +1,63 @@
+@page "/Kelburg"
+@using Kelburg_frontend.Services
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject AuthService AuthService
+
+<PageTitle>Kelburg Hotel</PageTitle>
+
+<div class="hero-section">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title" style="font-size: 5rem;">KELBURG HOTEL</h1>
+        <p class="hero-subtitle">From Historic Charm to Modern Luxury</p>
+    </div>
+
+    <div class="hero-curve">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#fff" d="M0,320C480,320,960,0,1440,0V320H0Z"></path>
+        </svg>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row g-4">
+        <div class="col-6 d-flex justify-content-center">
+            <div class="feature-card" style="background-image: url('images/facilities.jpg');">
+                <span>FACILITIES</span>
+            </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <div class="feature-card" style="background-image: url('images/accommodation.jpg');">
+                <span>ACCOMMODATION</span>
+            </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <div class="feature-card" style="background-image: url('images/activities.jpg');">
+                <span>ACTIVITIES</span>
+            </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <div class="feature-card" style="background-image: url('images/roomsviews.jpg');">
+                <span>ROOM VIEWS</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer class="landing-footer">
+    <div class="container py-4">
+        <div class="text-center">
+            <NavLink class="text-muted" href="/StaffLandingpage">Admin Page</NavLink>
+        </div>
+
+
+        <div class="footer-brand text-center mt-3">
+            <img src="/images/logo.png" alt="Kelburg Hotel" style="height: 40px;">
+            <p class="mb-0 small">From Historic Charm to Modern Luxury</p>
+        </div>
+    </div>
+</footer>
+
