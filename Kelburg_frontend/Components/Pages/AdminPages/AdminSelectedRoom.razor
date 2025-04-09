@@ -1,75 +1,81 @@
 @page "/AdminSelectedRoom/{roomId:int}"
 
 <PageTitle>Selected Room</PageTitle>
-<div class="content grid grid-cols-3 gap-8 mt-8">
-    <!-- Room Information -->
-    <div class="room-info">
+<div class="flex justify-center items-center min-h-screen">
+    <div class="content grid grid-cols-3 gap-5 mt-5 w-full max-w-4xl">
+        <!-- Room Information -->
+        <div class="room-info">
 
-        <div class="room-card bg-gray-800 p-4 rounded-xl">
-            @if (selectedRoom != null)
-            {
-                @if (!string.IsNullOrEmpty(selectedRoom.RoomImagePath))
+            <div class="room-card bg-gray-800 p-4 rounded-xl">
+                @if (selectedRoom != null)
                 {
-                    <img src="@selectedRoom.RoomImagePath" alt="Room Image" class="rounded-lg mb-4"/>
+                    @if (!string.IsNullOrEmpty(selectedRoom.RoomImagePath))
+                    {
+                        <img src="@selectedRoom.RoomImagePath" alt="Room Image" class="rounded-lg mb-4"/>
+                    }
+                    else
+                    {
+                        <div class="no-image-placeholder bg-gray-600 p-4 rounded-lg mb-4">No Image Available</div>
+                    }
+
+                    <p class="text-lg">@selectedRoom.RoomType</p>
+                    <p>@selectedRoom.Size</p>
+
+                    <!-- Delete Button -->
+                    <button class="delete-btn mt-4" @onclick="DeleteRoom">
+                        Delete Room
+                    </button>
+                }
+            </div>
+        </div>
+
+        <!-- Next Available Dates -->
+        <div class="next-available">
+            <h2 class="text-xl mb-4">Next Available dates</h2>
+            <div class="space-y-4">
+                @if (nextAvailableDates.Any())
+                {
+                    @foreach (var date in nextAvailableDates)
+                    {
+                        <button class="date-btn bg-gray-600 p-2 rounded-lg">@date</button>
+                    }
                 }
                 else
                 {
-                    <div class="no-image-placeholder bg-gray-600 p-4 rounded-lg mb-4">No Image Available</div>
+                    <p>No available dates.</p>
                 }
-                <p class="text-lg">@selectedRoom.RoomType</p>
-                <p>@selectedRoom.Size</p>
-                
-                <!-- Delete Button -->
-                <button class="delete-btn mt-4" @onclick="DeleteRoom">
-                    Delete Room
-                </button>
-            }
+            </div>
         </div>
-    </div>
 
-    <!-- Next Available Dates -->
-    <div class="next-available">
-        <h2 class="text-xl mb-4">Next Available dates</h2>
-        <div class="space-y-4">
-            @if (nextAvailableDates.Any())
-            {
-                @foreach (var date in nextAvailableDates)
+        <!-- Dates Booked -->
+        <div class="dates-booked">
+            <h2 class="text-xl mb-4">Dates Booked:</h2>
+            <div class="space-y-4">
+                @if (bookingsForRoom.Any())
                 {
-                    <button class="date-btn bg-gray-600 p-2 rounded-lg">@date</button>
-                }
-            }
-            else
-            {
-                <p>No available dates.</p>
-            }
-        </div>
-    </div>
-    
-    <!-- Dates Booked -->
-    <div class="dates-booked">
-        <h2 class="text-xl mb-4">Dates Booked:</h2>
-        <div class="space-y-4">
-            @if (bookingsForRoom.Any())
-            {
-                @foreach (Models.Bookings booking in bookingsForRoom)
-                {
-                    <div class="booking-entry flex justify-between items-center space-x-2">
-                        <div class="date-range text-sm sm:text-base px-4 py-2 bg-gray-300 rounded-full">
-                            @booking.StartDate.ToString("dd/MM/yy") - @booking.EndDate.ToString("dd/MM/yy")
-                        </div>
-                        
-                        <button class="view-details-btn px-4 py-2 bg-gray-400 rounded-full text-sm hover:bg-gray-500 transition"
+                    @foreach (Models.Bookings booking in bookingsForRoom)
+                    {
+                        <div class="booking-entry flex justify-between items-center space-x-6">
+                            <div class="date-range text-sm sm:text-base px-4 py-2 bg-gray-300 rounded-full">
+                                @booking.StartDate.ToString("dd/MM/yy") - @booking.EndDate.ToString("dd/MM/yy")
+                            </div>
+                            <p></p>
+                            <button
+                                class="view-details-btn px-4 py-2 bg-gray-400 rounded-full text-sm hover:bg-gray-500 transition"
                                 @onclick="() => NavigateToBooking(booking.Id)">
-                            View Details
-                        </button>
-                    </div>
+                                View Details
+                            </button>
+                        </div>
+                    }
                 }
-            }
-            else
-            {
-                <p>No bookings available.</p>
-            }
-            <button class="date-btn bg-gray-600 p-2 rounded-lg">...</button>
+                else
+                {
+                    <p>No bookings available.</p>
+                }
+                <p></p>
+
+                <button class="date-btn bg-gray-600 p-2 rounded-lg">...</button>
+            </div>
         </div>
     </div>
 </div>
@@ -88,6 +94,7 @@
         gap: 3rem;
         margin-top: 2rem;
         padding: 0 2rem;
+        justify-content: space-evenly;
     }
 
     /* Room Info Card */
@@ -100,7 +107,7 @@
     }
 
     .room-card img {
-        max-width: 250%;
+        max-width: 354px;
         max-height: 300px;
         object-fit: cover;
         border-radius: 0.75rem;
@@ -126,7 +133,7 @@
     .date-btn {
         display: block;
         width: 100%;
-        background-color: #D9D9D9; /* Updated */
+        background-color: #c79d4d; /* Updated */
         color: #000; /* darker text for contrast */
         padding: 0.75rem;
         border-radius: 0.75rem;
@@ -137,7 +144,7 @@
     }
 
     .date-btn:hover {
-        background-color: #c7c7c7; /* slightly darker on hover */
+        background-color: #b6893d; /* slightly darker on hover */
     }
 
     .booking-entry {
@@ -155,7 +162,7 @@
     }
 
     .view-details-btn {
-        background-color: #D9D9D9;
+        background-color: #c79d4d;
         color: #000;
         border: none;
         border-radius: 9999px;
@@ -163,15 +170,16 @@
         font-weight: 500;
         cursor: pointer;
         transition: background-color 0.2s ease;
+        margin: 5px;
     }
 
     .view-details-btn:hover {
-        background-color: #c7c7c7;
+        background-color: #b6893d;
     }
 
 
     .delete-btn {
-        background-color: #D9D9D9;
+        background-color: #c79d4d;
         color: #000;
         padding: 0.75rem 1.5rem;
         border-radius: 0.75rem;
@@ -182,8 +190,8 @@
     }
 
     .delete-btn:hover {
-        background-color: #c7c7c7;
+        background-color: #b6893d;
         color: #b30000;
     }
-    
+
 </style>
