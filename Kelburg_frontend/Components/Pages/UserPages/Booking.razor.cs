@@ -13,6 +13,8 @@ public partial class Booking : ComponentBase
 
     private bool isCheckingOut = false;
     int amountOfDays;
+
+    private bool serviceSelected = true;
     
     int selectedServiceId;
     Models.Services selectedService;
@@ -55,7 +57,8 @@ public partial class Booking : ComponentBase
                 ? "All Inclusive" : service.Breakfast 
                 ? "Breakfast" : service.Dinner 
                 ? "Dinner" : service.BreakfastAndDinner 
-                ? "Breakfast and Dinner" : "No service";
+                ? "Breakfast and Dinner" : 
+                "No Service";
         }
         
         queryParams.Add("startDate", currentBooking.StartDate.ToString("yyyy-MM-dd"));
@@ -83,8 +86,16 @@ public partial class Booking : ComponentBase
     {
         if (selectedServiceId != 0)
         {
-            selectedService = availableServices.Where(s => s.Id == selectedServiceId).FirstOrDefault();
-            currentBooking.ServiceId = selectedService.Id;
+            if (selectedServiceId == 10)
+            {
+                selectedService = null;
+                currentBooking.ServiceId = 0;
+            }
+            else
+            {
+                selectedService = availableServices.Where(s => s.Id == selectedServiceId).FirstOrDefault();
+                currentBooking.ServiceId = selectedService.Id;   
+            }
         }
         else
         {
@@ -108,6 +119,12 @@ public partial class Booking : ComponentBase
 
     private async Task CheckoutOrder()
     {
+        if (selectedServiceId == 0)
+        {
+            serviceSelected = false;
+            return;
+        }
+        
         isCheckingOut = true;
         
         await BookingService.SetNewBooking(currentBooking);
