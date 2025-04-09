@@ -1,63 +1,49 @@
 @page "/"
-@using Kelburg_frontend.Services
-@inject NavigationManager NavigationManager
-@inject IJSRuntime JSRuntime
-@inject AuthService AuthService
 
-<PageTitle>Kelburg Hotel</PageTitle>
+<h2 class="text-center mb-4" style="padding-top: 50px">DESTINATION</h2>
 
-<div class="hero-section">
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-        <h1 class="hero-title" style="font-size: 5rem;">KELBURG HOTEL</h1>
-        <p class="hero-subtitle">From Historic Charm to Modern Luxury</p>
+<div class="destination-container">
+    <div class="destination-card">
+        <img src="images/hero_image.jpg" alt="Kelburg castle" />
+        <div class="card-body">
+            <h3>KELBURG</h3>
+            <NavLink class="plan-trip-btn" href="/Kelburg">Plan Trip</NavLink>
+        </div>
     </div>
-
-    <div class="hero-curve">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path fill="#fff" d="M0,320C480,320,960,0,1440,0V320H0Z"></path>
-        </svg>
+    
+    <div class="destination-card">
+        <img src="images/hero_image.jpg" alt="Ansburg castle" />
+        <div class="card-body">
+            <h3>ANSBURG</h3>
+            <NavLink class="plan-trip-btn" href="/Ansburg">Plan Trip</NavLink>
+        </div>
     </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row g-4">
-        <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/facilities.jpg');">
-                <span>FACILITIES</span>
-            </div>
-        </div>
-        <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/accommodation.jpg');">
-                <span>ACCOMMODATION</span>
-            </div>
-        </div>
-        <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/activities.jpg');">
-                <span>ACTIVITIES</span>
-            </div>
-        </div>
-        <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/roomsviews.jpg');">
-                <span>ROOM VIEWS</span>
-            </div>
+    
+    <div class="destination-card">
+        <img src="images/hero_image.jpg" alt="Silkeburg castle" />
+        <div class="card-body">
+            <h3>SILKEBURG</h3>
+            <NavLink class="plan-trip-btn" href="/silkeburg">Plan Trip</NavLink>
         </div>
     </div>
 </div>
 
+<style>
+    .plan-trip-btn {
+        display: inline-block;
+        background-color: #C9A66B;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 15px;
+        font-weight: 400;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-<footer class="landing-footer">
-    <div class="container py-4">
-        <div class="text-center">
-            <NavLink class="text-muted" href="/StaffLandingpage">Admin Page</NavLink>
-        </div>
-
-
-        <div class="footer-brand text-center mt-3">
-            <img src="/images/logo.png" alt="Kelburg Hotel" style="height: 40px;">
-            <p class="mb-0 small">From Historic Charm to Modern Luxury</p>
-        </div>
-    </div>
-</footer>
-
+    .plan-trip-btn:hover {
+        background-color: #b89058;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+</style>

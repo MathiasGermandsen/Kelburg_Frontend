@@ -1,112 +1,45 @@
-.hero-section {
-    position: relative;
-    background: url('images/hero_image.jpg') no-repeat center center;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.destination-title {
     text-align: center;
-    color: #fff;
-    margin-bottom: 40px;
-    overflow: hidden;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
 }
 
-.hero-curve {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    line-height: 0;
-    z-index: 2; 
-}
-
-.hero-curve svg {
-    display: block;
-    width: 100%;
-    height: 150px;
-}
-
-.hero-overlay {
-    background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.hero-content {
-    margin-bottom: 80px;
-    position: relative;
-    z-index: 3;
-    padding: 2rem;
-    font-family: "Adamina", sans-serif;
-    font-size: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-    .hero-subtitle {
-        font-size: 1rem;
-    }
-}
-
-.feature-card {
-    position: relative;
-    width: 70%;
-    height: 250px;
-    border-radius: 25px;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
+.destination-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 40px;
+    justify-content: center; 
+    gap: 1.5rem; 
+    padding: 1rem;
+    flex-wrap: wrap;
 }
 
-.feature-card span {
-    color: white;
-    font-size: clamp(1.5rem, 3vw, 3rem);
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+.destination-card {
+    width: 270px; 
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
 }
 
-.feature-card:hover {
-    cursor: pointer;
-    opacity: 0.6;
+.destination-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
 }
 
-@media (max-width: 768px) {
-    .feature-card {
-        width: 90%;
-        height: 200px;
-    }
+.destination-card img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-@media (max-width: 480px) {
-    .feature-card {
-        width: 100%;
-        height: 150px;
-    }
+.card-body {
+    padding: 1rem;
 }
 
-.landing-footer {
-    background-color: #f8f9fa;
-    border-top: 1px solid #ddd;
-    font-family: "Albert Sans", sans-serif;
+.card-body h3 {
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.25rem;
 }
 
-.landing-footer .text-muted {
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.landing-footer .text-muted:hover {
-    text-decoration: underline;
-}
