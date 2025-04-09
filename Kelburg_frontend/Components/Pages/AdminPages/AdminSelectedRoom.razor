@@ -18,6 +18,11 @@
                 }
                 <p class="text-lg">@selectedRoom.RoomType</p>
                 <p>@selectedRoom.Size</p>
+                
+                <!-- Delete Button -->
+                <button class="delete-btn mt-4" @onclick="DeleteRoom">
+                    Delete Room
+                </button>
             }
         </div>
     </div>
@@ -39,7 +44,7 @@
             }
         </div>
     </div>
-
+    
     <!-- Dates Booked -->
     <div class="dates-booked">
         <h2 class="text-xl mb-4">Dates Booked:</h2>
@@ -48,9 +53,15 @@
             {
                 @foreach (Models.Bookings booking in bookingsForRoom)
                 {
-                    <div class="flex justify-between items-center bg-gray-700 p-2 rounded-lg">
-                        <span>@booking.StartDate.ToString("dd/MM/yyyy") - @booking.EndDate.ToString("dd/MM/yyyy")</span>
-                        <button class="view-btn bg-gray-500 p-1 rounded" @onclick="() => NavigateToBooking(booking.Id)">View Details</button>
+                    <div class="booking-entry flex justify-between items-center space-x-2">
+                        <div class="date-range text-sm sm:text-base px-4 py-2 bg-gray-300 rounded-full">
+                            @booking.StartDate.ToString("dd/MM/yy") - @booking.EndDate.ToString("dd/MM/yy")
+                        </div>
+                        
+                        <button class="view-details-btn px-4 py-2 bg-gray-400 rounded-full text-sm hover:bg-gray-500 transition"
+                                @onclick="() => NavigateToBooking(booking.Id)">
+                            View Details
+                        </button>
                     </div>
                 }
             }
@@ -129,31 +140,50 @@
         background-color: #c7c7c7; /* slightly darker on hover */
     }
 
-    /* Booked Dates Row */
-    .dates-booked .flex {
+    .booking-entry {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #D9D9D9; /* Updated */
-        padding: 0.5rem 1rem;
-        border-radius: 0.75rem;
-        color: #000; /* for better contrast */
     }
 
-    .view-btn {
-        background-color: #D9D9D9; /* Updated */
-        color: #000; /* dark text */
+    .date-range {
+        background-color: #D9D9D9;
+        color: #000;
+        border-radius: 9999px;
         padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
+        font-weight: 500;
+    }
+
+    .view-details-btn {
+        background-color: #D9D9D9;
+        color: #000;
+        border: none;
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .view-details-btn:hover {
+        background-color: #c7c7c7;
+    }
+
+
+    .delete-btn {
+        background-color: #D9D9D9;
+        color: #000;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
         border: none;
         cursor: pointer;
-        font-size: 0.875rem;
-        transition: background 0.2s;
+        font-weight: 600;
+        transition: background 0.2s, color 0.2s;
     }
 
-    .view-btn:hover {
-        background-color: #c7c7c7; /* hover variant */
+    .delete-btn:hover {
+        background-color: #c7c7c7;
+        color: #b30000;
     }
-
-
+    
 </style>
