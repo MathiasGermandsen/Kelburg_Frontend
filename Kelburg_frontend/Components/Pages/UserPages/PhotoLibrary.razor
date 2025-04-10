@@ -1,0 +1,27 @@
+﻿@page "/photos"
+
+
+<PageTitle>Photo Library</PageTitle>
+
+<h2 class="page-title">Photos from Kelburg</h2>
+
+<div class="photo-grid">
+    @foreach (Photo photo in allPhotos)
+    {
+        <div class="photo-card" @onclick="() => ShowPhotoModal(photo)">
+            <img src="@photo.Image" alt="@photo.Title" />
+            <div class="photo-caption">@photo.Title</div>
+        </div>
+    }
+</div>
+
+@if (showPhotoModal)
+{
+    <div class="popup-overlay" @onclick="HidePhotoModal">
+        <div class="popup-content" @onclick:stopPropagation>
+            <h1>@selectedPhoto.Title</h1>
+            <p>This photo is beautiful and it is a beautiful view and it is very nice!</p>
+            <button class="close-button" @onclick="HidePhotoModal">Close</button>
+        </div>
+    </div>
+}
