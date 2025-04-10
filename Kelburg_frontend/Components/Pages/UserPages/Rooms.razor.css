@@ -146,10 +146,10 @@
     background-color: #C9A66B;
     border: none;
     cursor: pointer;
-    margin-left: 60%;
-    margin-bottom: 10px;
     transition: background-color 0.4s ease;
+    display: flex;
 }
+
 
 .book-btn:hover {
     background-color: #A78A59;
