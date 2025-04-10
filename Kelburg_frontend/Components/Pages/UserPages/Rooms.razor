@@ -11,14 +11,15 @@
 <div class="container">
     <div class="filter-div">
         <p class="date-input">*Start/End Date</p>
-        <DatePicker class="date-input" Placeholder="Select Dates" TValue="DateTime?" @bind-Dates="dateRange" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range"/>
+        <DatePicker class="date-input" Placeholder="Select Dates" TValue="DateTime?" @bind-Dates="dateRange"
+                    InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range"/>
         <p class="occ-text">*Occupants</p>
         <input class="occ-input" type="number" @bind="occupantsNumber"/>
         <button @onclick="SearchClicked" class="search-btn">Search</button>
     </div>
 
     <h3 style="font-weight: bold;">Browse Rooms</h3>
-    
+
     @if (isSearching)
     {
         <div class="loader-container">
@@ -29,7 +30,7 @@
     {
         <h1 class="select-date-title">Select a Start/End Date and Occupants</h1>
     }
-    
+
     @if (availableRooms.Any())
     {
         <div class="room-grid">
@@ -50,7 +51,11 @@
                         <p class="card-text">
                             <strong>Size:</strong> @room.Size occupants
                         </p>
-                        <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
+
+                        <div class="card-footer grid grid-cols-2 gap-2">
+                            <button class="book-btn">Compare</button>
+                            <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
+                        </div>
                     </div>
                 </div>
             }
