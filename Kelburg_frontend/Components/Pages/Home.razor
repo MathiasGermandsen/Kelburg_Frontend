@@ -24,23 +24,23 @@
 <div class="container-fluid">
     <div class="row g-4">
         <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/facilities.jpg');">
+            <div class="feature-card" @onclick='() => NavigateTo("facilities")' style="background-image: url('images/facilities.jpg');">
                 <span>FACILITIES</span>
             </div>
         </div>
         <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/accommodation.jpg');">
+            <div class="feature-card" @onclick='() => NavigateTo("accomodation")' style="background-image: url('images/accommodation.jpg');">
                 <span>ACCOMMODATION</span>
             </div>
         </div>
         <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/activities.jpg');">
+            <div class="feature-card" @onclick='() => NavigateTo("activities")' style="background-image: url('images/activities.jpg');">
                 <span>ACTIVITIES</span>
             </div>
         </div>
         <div class="col-6 d-flex justify-content-center">
-            <div class="feature-card" style="background-image: url('images/roomsviews.jpg');">
-                <span>ROOM VIEWS</span>
+            <div class="feature-card" @onclick='() => NavigateTo("photos")' style="background-image: url('images/roomsviews.jpg');">
+                <span>PHOTO LIBRARY</span>
             </div>
         </div>
     </div>

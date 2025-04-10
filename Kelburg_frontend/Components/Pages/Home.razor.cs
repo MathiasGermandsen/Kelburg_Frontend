@@ -76,4 +76,9 @@ public partial class Home : ComponentBase
     {
         NavigationManager.LocationChanged -= OnLocationchanged;
     }
+
+    public async Task NavigateTo(string location)
+    {
+        NavigationManager.NavigateTo($"/{location}");
+    }
 }
