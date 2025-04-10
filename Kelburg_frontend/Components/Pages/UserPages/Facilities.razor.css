@@ -1,0 +1,57 @@
+﻿.page-container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 2rem;
+    font-family: 'Albert Sans', sans-serif;
+}
+
+.facilities-header {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.facilities-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.facilities-text {
+    flex: 1 1 40%;
+    min-width: 300px;
+}
+
+.facilities-images {
+    flex: 1 1 50%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.facilities-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.facilities-list {
+    margin-top: 1rem;
+}
+
+.facilities-list li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .facilities-grid {
+        flex-direction: column;
+    }
+
+    .facilities-images {
+        grid-template-columns: 1fr;
+    }
+}
