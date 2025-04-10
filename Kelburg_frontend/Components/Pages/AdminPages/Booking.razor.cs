@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Kelburg_frontend.Components.Pages.AdminPages;
 
@@ -165,6 +166,25 @@ public partial class Booking : ComponentBase
        NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
+    private async Task DeleteBooking()
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"are you sure you want to delete booking {BookingId}?");
+        if (!confirmed) 
+            return;
+
+        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+        {
+            { "bookingId", BookingId }
+        };
+
+        var result = await APIHandler.RequestAPI<Models.Bookings>(eTables.Bookings.Delete, queryParams, HttpMethod.Delete);
+
+        if (result != null)
+        {
+            NavigationManager.NavigateTo("/bookings"); // Adjust path as needed
+        }
+    }
+    
     private async Task CloseModal()
     {
         modalVisible = false;
