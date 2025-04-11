@@ -1,0 +1,52 @@
+﻿@page "/roomcompare/{room1Id:int}&{room2Id:int}"
+@using Kelburg_frontend.Services
+@inject AuthService AuthService
+@inject BookingService BookingService
+@inject RoomsService RoomService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Compare Rooms</PageTitle>
+
+@if (isLoading)
+{
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+}
+else if (room1 == null || room2 == null)
+{
+    <p>One or both rooms could not be found.</p>
+}
+else
+{
+    <div class="comparison-container">
+        <h2 class="text-center mb-4"><strong>Room Comparison</strong></h2>
+        <div class="row">
+            <div class="col-md-6 room-card">
+                <div class="image-container">
+                    <img src="@room1.RoomImagePath" alt="Room 1" class="img-fluid"/>
+                </div>
+                <ul class="room-details">
+                    <li><strong>Size:</strong> @room1.Size People</li>
+                    <li><strong>Room Type:</strong> @room1.RoomType</li>
+                    <li><strong>View Type:</strong> @room1.ViewType</li>
+                    <li><strong>Price/Night:</strong> DKK @room1.PricePrNight</li>
+                </ul>
+                <button @onclick="() => SelectRoomForBooking(room1)" class="select-btn">Select for Booking</button>
+            </div>
+
+            <div class="col-md-6 room-card">
+                <div class="image-container">
+                    <img src="@room2.RoomImagePath" alt="Room 2" class="img-fluid"/>
+                </div>
+                <ul class="room-details">
+                    <li><strong>Size:</strong> @room2.Size People</li>
+                    <li><strong>Room Type:</strong> @room2.RoomType</li>
+                    <li><strong>View Type:</strong> @room2.ViewType</li>
+                    <li><strong>Price/Night:</strong> DKK @room2.PricePrNight</li>
+                </ul>
+                <button @onclick="() => SelectRoomForBooking(room2)" class="select-btn">Select for Booking</button>
+            </div>
+        </div>
+    </div>
+}

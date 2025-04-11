@@ -6,13 +6,13 @@ public class RoomsService
 
     public event Action OnChange;
 
-    public void SetSelectedRoom(Models.Rooms room)
+    public async Task SetSelectedRoom(Models.Rooms room)
     {
         SelectedRoom = room;
         NotifyStateChanged();
     }
 
-    public Models.Rooms GetSelectedRoom()
+    public async Task <Models.Rooms> GetSelectedRoom()
     {
         return SelectedRoom;
     }
