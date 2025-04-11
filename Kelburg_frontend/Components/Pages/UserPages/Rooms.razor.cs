@@ -125,5 +125,6 @@ public partial class Rooms : ComponentBase
       {
          NavigationManager.NavigateTo("/login");
       }
+      StateHasChanged();
    }
 }

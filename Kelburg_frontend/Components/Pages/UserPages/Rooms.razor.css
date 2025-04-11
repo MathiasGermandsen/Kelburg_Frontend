@@ -139,17 +139,8 @@
 }
 
 .book-btn {
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    font-weight: bold;
-    border-radius: 25px;
-    padding: 5px 10px;
-    background-color: #C9A66B;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.4s ease;
-    display: flex;
-}
 
+}
 
 .book-btn:hover {
     background-color: #A78A59;
@@ -157,6 +148,18 @@
 
 .book-btn:active {
     transform: translateY(2px);
+}
+
+.selected-btn {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 5px 10px;
+    background-color: #8a8a8a;
+    border: none;
+    cursor: not-allowed;
+    transition: background-color 0.4s ease;
+    display: flex;
 }
 
 .pagination-container {

@@ -62,7 +62,14 @@
                         </p>
 
                         <div class="card-footer grid grid-cols-2 gap-2">
-                            <button @onclick="() => AddRoomToCompare(room)" class="book-btn">Compare</button>
+                            @if (room == roomComparison1)
+                            {
+                                <button class="selected-btn" disabled>Selected</button>
+                            }
+                            else
+                            {
+                                <button @onclick="() => AddRoomToCompare(room)" class="book-btn">Compare</button>
+                            }
                             <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
                         </div>
                     </div>
