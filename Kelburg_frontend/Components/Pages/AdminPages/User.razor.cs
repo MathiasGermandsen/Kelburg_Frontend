@@ -8,6 +8,8 @@ public partial class User : ComponentBase
     [Parameter]
     public string idParam { get; set; }
     public int UserId { get; set; }
+
+    private bool showDeleteConfirmation = false;
     
     Models.Users selectedUser = new Models.Users();
     List<Models.Bookings> bookingsByUser = new List<Models.Bookings>();
@@ -62,4 +64,26 @@ public partial class User : ComponentBase
     {
         NavigationManager.NavigateTo($"/booking/{booking.Id}");
     }
+    
+    private async Task ConfirmDelete()
+    {
+        // Call the API to delete the user
+        var response = await APIHandler.RequestAPI<Models.Users>(
+            eTables.Users.Delete, 
+            new Dictionary<string, object?> { { "userId", selectedUser.Id } },
+            HttpMethod.Delete
+        );
+
+        if (response != null)
+        {
+            // Optionally, redirect to another page or update the UI after successful deletion
+            NavigationManager.NavigateTo("/users"); // Redirect to users list page or similar
+        }
+        else
+        {
+            // Handle failure (e.g., show a message)
+            Console.WriteLine("Failed to delete user.");
+        }
+    }
+
 }

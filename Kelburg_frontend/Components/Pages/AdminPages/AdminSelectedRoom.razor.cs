@@ -87,15 +87,15 @@ public partial class AdminSelectedRoom : ComponentBase
             { "roomId", RoomId }
         };
         
-        var result = await APIHandler.RequestAPI<Models.Bookings>(eTables.Rooms.Delete, queryParams, HttpMethod.Delete);
+        Models.Rooms deletedRoom = await APIHandler.RequestAPI<Models.Rooms>(eTables.Rooms.Delete, queryParams, HttpMethod.Delete);
 
-        if (result != null)
+        if (deletedRoom != null)
         {
             NavigationManager.NavigateTo("/AdminRoom");
         }
         else
         {
-            Console.WriteLine("Error couldnt delete room");
+            await JSRuntime.InvokeVoidAsync("alert", "Room cannot be deleted due to booking");
         }
     }
 }

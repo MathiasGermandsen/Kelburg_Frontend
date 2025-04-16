@@ -80,3 +80,85 @@
     transform: translateY(2px);
 }
 
+.delete-user-button {
+    background-color: #C9A66B;
+    border-radius: 25px;
+    border: none;
+}
+.delete-user-button:hover {
+    background-color: #A78A59
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 320px;
+    width: 90%;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.modal-title {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal-subtext {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.modal-actions {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.confirm-button,
+.cancel-button {
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.confirm-button {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.confirm-button:hover {
+    background-color: #b71c1c;
+}
+
+.cancel-button {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.cancel-button:hover {
+    background-color: #bdbdbd;
+}
+
+
+

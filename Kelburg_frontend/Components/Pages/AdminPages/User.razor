@@ -6,10 +6,11 @@
 <PageTitle>View User</PageTitle>
 
 <div class="container">
-    
+
     <div class="left-column">
         <h2 class="column-title">User Profile</h2>
         <p><strong>UserID:</strong> @selectedUser.Id</p>
+        <button @onclick="() => showDeleteConfirmation = true" class="delete-user-button">Delete User</button>
 
         <br/>
         <hr class="name-hr-line"/>
@@ -29,17 +30,43 @@
             <p><strong>Country: </strong>@selectedUser.Country</p>
         </div>
     </div>
-    
+
     <div class="vertical-line"></div>
-    
+
     <div class="right-column">
         <h2 class="column-title">Latest Bookings</h2>
         @foreach (Models.Bookings booking in bookingsByUser)
         {
             <div class="booking-container">
-                <p class="booking-info"><strong>ID: </strong>@booking.Id - <strong>Date: </strong>@booking.StartDate.ToString("yyyy-MM-dd") → @booking.EndDate.ToString("yyyy-MM-dd")</p>
+                <p class="booking-info"><strong>ID: </strong>@booking.Id -
+                    <strong>Date: </strong>@booking.StartDate.ToString("yyyy-MM-dd") → @booking.EndDate.ToString("yyyy-MM-dd")
+                </p>
                 <button @onclick="() => ClickRedirect(booking)" class="view-booking-button">View</button>
+
             </div>
         }
     </div>
+
+    @if (showDeleteConfirmation)
+    {
+        <div class="modal-backdrop">
+            <div class="modal-box">
+                <h3 class="modal-title">Delete User?</h3>
+                <p>
+                    Are you sure you want to delete
+                    <strong>@selectedUser.FirstName @selectedUser.LastName</strong>?
+                </p>
+                <p class="modal-subtext">
+                    This user has <strong>@bookingsByUser.Count</strong> booking(s).
+                </p>
+                <div class="modal-actions">
+                    <button class="confirm-button" @onclick="ConfirmDelete">Delete</button>
+                    <button class="cancel-button" @onclick="() => showDeleteConfirmation = false">Cancel</button>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
 </div>
