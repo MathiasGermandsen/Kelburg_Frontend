@@ -17,9 +17,18 @@
         <input class="occ-input" type="number" @bind="occupantsNumber"/>
         <button @onclick="SearchClicked" class="search-btn">Search</button>
         
-        @if (roomComparison1 != null)
+        @if (roomComparisonList.Count >= 2)
         {
-            <p class="compare-text">Compare Rooms (1/2)</p>
+            <button class="compare-btn" @onclick="GoToComparePage">Compare</button>
+        }
+        else
+        {
+            <button class="compare-btn" disabled="disabled">Compare</button>
+        }
+        
+        @if (roomComparisonList.Any())
+        {
+            <p class="compare-text">Compare Rooms (@roomComparisonList.Count/5)</p>
         }
         else
         {
@@ -62,7 +71,7 @@
                         </p>
 
                         <div class="card-footer grid grid-cols-2 gap-2">
-                            @if (room == roomComparison1)
+                            @if (roomComparisonList.Contains(room))
                             {
                                 <button class="selected-btn" disabled>Selected</button>
                             }
