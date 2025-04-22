@@ -30,7 +30,7 @@ public partial class Booking : ComponentBase
         currentBooking = await BookingService.GetBooking();
         currentBooking.UserId = User.Id;
         
-        currentRoom = RoomsService.GetSelectedRoom();
+        currentRoom = await RoomsService.GetSelectedRoom();
         amountOfDays = (currentBooking.EndDate - DateTime.Now).Days + 2; // +2 Because of startday and endday are not included without
         
         await PopulateLists();

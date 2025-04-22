@@ -16,6 +16,24 @@
         <p class="occ-text">*Occupants</p>
         <input class="occ-input" type="number" @bind="occupantsNumber"/>
         <button @onclick="SearchClicked" class="search-btn">Search</button>
+        
+        @if (roomComparisonList.Count >= 2)
+        {
+            <button class="compare-btn" @onclick="GoToComparePage">Compare</button>
+        }
+        else
+        {
+            <button class="compare-btn" disabled="disabled">Compare</button>
+        }
+        
+        @if (roomComparisonList.Any())
+        {
+            <p class="compare-text">Compare Rooms (@roomComparisonList.Count/5)</p>
+        }
+        else
+        {
+            <p class="compare-text">Select Rooms to Compare</p>
+        }
     </div>
 
     <h3 style="font-weight: bold;">Browse Rooms</h3>
@@ -53,7 +71,14 @@
                         </p>
 
                         <div class="card-footer grid grid-cols-2 gap-2">
-                            <button class="book-btn">Compare</button>
+                            @if (roomComparisonList.Contains(room))
+                            {
+                                <button class="selected-btn" disabled>Selected</button>
+                            }
+                            else
+                            {
+                                <button @onclick="() => AddRoomToCompare(room)" class="book-btn">Compare</button>
+                            }
                             <button @onclick="() => ClickRedirect(room)" class="book-btn">Book Now</button>
                         </div>
                     </div>

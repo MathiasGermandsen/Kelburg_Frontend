@@ -13,6 +13,7 @@ public partial class Rooms : ComponentBase
    private int pageNumber = 1;
    bool isSearching = false;
 
+   private List<Models.Rooms> roomComparisonList = new List<Models.Rooms>(); 
 
    private async Task ClickRedirect(Models.Rooms room)
    {
@@ -24,8 +25,8 @@ public partial class Rooms : ComponentBase
          RoomId = room.Id
       };
       
-      RoomsService.SetSelectedRoom(room);
-      BookingService.SetNewBooking(bookingStart);
+      await RoomsService.SetSelectedRoom(room);
+      await BookingService.SetNewBooking(bookingStart);
       
       string? token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new object[] { "authToken" });
       
@@ -92,4 +93,45 @@ public partial class Rooms : ComponentBase
          room.RoomImagePath = room.GetRandomImagePath();
       }
    }
+
+   private async Task AddRoomToCompare(Models.Rooms room)
+   {
+      try
+      {
+         if (room != null && roomComparisonList.Count < 5)
+         {
+            roomComparisonList.Add(room);
+            await RoomsService.SetCompareRoomToLocalstorage($"roomComparison{roomComparisonList.Count}", room);
+         }
+      }
+      catch (Exception ex)
+      {
+         string msg = ex.Message;
+      }
+      
+      StateHasChanged();
+   }
+
+   private async Task GoToComparePage()
+   {
+      string? token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", new object[] { "authToken" });
+
+      if (!string.IsNullOrEmpty(token))
+      {
+         Bookings bookingStart = new Bookings()
+         {
+            StartDate = dateRange[0].Value.Date,
+            EndDate = dateRange[1].Value.Date,
+            PeopleCount = occupantsNumber,
+         };
+         
+         await BookingService.SetNewBooking(bookingStart);
+         NavigationManager.NavigateTo($"/roomcompare");
+      }
+      else
+      {
+         NavigationManager.NavigateTo("/login");
+      }
+   }
+   
 }

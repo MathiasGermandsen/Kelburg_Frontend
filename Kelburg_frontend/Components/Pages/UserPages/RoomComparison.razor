@@ -1,0 +1,41 @@
+﻿@page "/roomcompare"
+@using Kelburg_frontend.Services
+@inject AuthService AuthService
+@inject BookingService BookingService
+@inject RoomsService RoomsService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Compare Rooms</PageTitle>
+
+@if (isLoading)
+{
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+}
+else if (!roomsToCompareList.Any())
+{
+    <p>Rooms could not be found.</p>
+}
+else
+{
+    <div class="comparison-container">
+        <div class="row">
+            @foreach (Models.Rooms room in roomsToCompareList)
+            {
+                <div class="room-card">
+                    <div class="image-container">
+                        <img src="@room.RoomImagePath" alt="Room Image" class="img-fluid"/>
+                    </div>
+                    <ul class="room-details">
+                        <li><strong>Size:</strong> @room.Size People</li>
+                        <li><strong>Room Type:</strong> @room.RoomType</li>
+                        <li><strong>View Type:</strong> @room.ViewType</li>
+                        <li><strong>Price/Night:</strong> DKK @room.PricePrNight</li>
+                    </ul>
+                    <button @onclick="() => SelectRoomForBooking(room)" class="select-btn">Select for Booking</button>
+                </div>
+            }
+        </div>
+    </div>
+}
