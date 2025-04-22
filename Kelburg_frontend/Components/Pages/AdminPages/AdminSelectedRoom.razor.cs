@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Kelburg_frontend.Models;
 using Blazorise;
 using Kelburg_frontend.Services;
+using Microsoft.JSInterop;
 
 namespace Kelburg_frontend.Components.Pages.AdminPages;
 
@@ -21,6 +22,7 @@ public partial class AdminSelectedRoom : ComponentBase
 
     [Inject] NavigationManager NavigationManager { get; set; }
     
+    [Inject] public IJSRuntime JSRuntime { get; set; }
     
     [Inject] private HttpClient Http { get; set; }
 
@@ -73,5 +75,27 @@ public partial class AdminSelectedRoom : ComponentBase
     {
         NavigationManager.NavigateTo($"/Booking/{id}");
     }
-    
+
+    private async Task DeleteRoom()
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete room {selectedRoom.RoomType}?");        
+        if (!confirmed)
+            return;
+
+        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
+        {
+            { "roomId", RoomId }
+        };
+        
+        Models.Rooms deletedRoom = await APIHandler.RequestAPI<Models.Rooms>(eTables.Rooms.Delete, queryParams, HttpMethod.Delete);
+
+        if (deletedRoom != null)
+        {
+            NavigationManager.NavigateTo("/AdminRoom");
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Room cannot be deleted due to booking");
+        }
+    }
 }

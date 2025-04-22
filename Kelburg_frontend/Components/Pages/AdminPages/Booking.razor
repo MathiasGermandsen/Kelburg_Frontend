@@ -2,6 +2,8 @@
 @using Kelburg_frontend.Services
 @inject AuthService AuthService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
 
 <PageTitle>View Booking</PageTitle>
 <div class="container">
@@ -10,6 +12,8 @@
         <p class="booking-date">Booking Date: @selectedBooking.StartDate.ToString("yyyy-MM-dd") → @selectedBooking.EndDate.ToString("yyyy-MM-dd")</p>
         <hr/>
         <button class="edit-btn" @onclick="EditBooking">Edit Details</button>
+        <button class="delete-btn" @onclick="DeleteBooking" style="background-color: #dc3545; color: white; margin-top: 10px;">Delete Booking</button>
+
 
         <div class="card">
             @if (!string.IsNullOrEmpty(bookingRoom.RoomImagePath))
