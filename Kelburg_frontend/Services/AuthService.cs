@@ -17,7 +17,7 @@ public class AuthService
     public async Task SetUser(string token, string username)
     {
         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
-        await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "loggedInUserName", username);
+        await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "loggedInUser", username);
     }
     
     public async Task<Models.Users?> GetUser(string token = null)
