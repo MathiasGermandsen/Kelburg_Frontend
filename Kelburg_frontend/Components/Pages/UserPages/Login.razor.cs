@@ -26,13 +26,13 @@ public partial class Login : ComponentBase
         isLogginIn = true;
         message = string.Empty;
         
-        var loginBody = new
+        Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
-            Email = inputEmail,
-            Password = inputPassword
+            {"email", inputEmail},
+            {"password", inputPassword}
         };
         
-        string jwtToken = await APIHandler.RequestAPI<string>(eTables.Users.Login, null, HttpMethod.Post, loginBody);
+        string jwtToken = await APIHandler.RequestAPI<string>(eTables.Users.Login, queryParams, HttpMethod.Post);
         
         if (jwtToken != null)
         {

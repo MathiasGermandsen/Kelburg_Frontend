@@ -40,7 +40,7 @@ public partial class User : ComponentBase
             {"userId", UserId}
         };
         
-        List<Models.Users> selectedUserList = await APIHandler.RequestAPI<List<Models.Users>>(eTables.Users.Read, queryParams, HttpMethod.Get, null, await AuthService.GetToken());
+        List<Models.Users> selectedUserList = await APIHandler.RequestAPI<List<Models.Users>>(eTables.Users.Read, queryParams, HttpMethod.Get, await AuthService.GetToken());
         selectedUser = selectedUserList.FirstOrDefault();
     }
 

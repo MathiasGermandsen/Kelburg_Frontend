@@ -5,6 +5,7 @@ using System.Web;
 using Newtonsoft.Json;
 using System.Text;
 using Kelburg_frontend.Models;
+using Kelburg_frontend.Services;
 
 namespace Kelburg_frontend;
 
@@ -79,8 +80,10 @@ public static class APIHandler
 {
     private static readonly HttpClient _httpClient = new HttpClient(
         new HttpClientHandler { ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true }
-    );    
-    public static async Task<T?> RequestAPI<T>(string apiUrl, Dictionary<string, object?> queryParams, HttpMethod method, object? body = null, string? token = null)
+    );
+
+    private static LogService LogService = new LogService();
+    public static async Task<T?> RequestAPI<T>(string apiUrl, Dictionary<string, object?> queryParams, HttpMethod method, string? token = null)
     {
         string queryParamString = string.Empty;
         string completeApiUrl = apiUrl;
@@ -97,19 +100,12 @@ public static class APIHandler
         try
         {
             using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);
-            
-            Console.WriteLine("-----------------------------------------------------------------------------");
-            Console.WriteLine($"Requesting API with URL: {uri.AbsoluteUri}");
-            Console.WriteLine("-----------------------------------------------------------------------------");
+        
+            LogService.LogMessageWithFrame($"Requesting API with URL: {uri.AbsoluteUri}");
             
             if (!string.IsNullOrEmpty(token))
             {
                 request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-            }
-            
-            if (body != null)
-            {   
-                request.Content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
             }
             
             HttpResponseMessage response = await _httpClient.SendAsync(request);
@@ -126,11 +122,8 @@ public static class APIHandler
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"API Request Failed - {ex.Message}");
-            Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine(json);
-            Console.WriteLine("----------------------------------------------------------");
-            
+            LogService.LogError($"API Request Failed - {ex.Message}");
+            LogService.LogMessageWithFrame(json);
             return default;
         }
     }

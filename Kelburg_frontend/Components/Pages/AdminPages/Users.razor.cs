@@ -67,7 +67,7 @@ public partial class Users : ComponentBase
         }
         isSearching = true;
         
-        UsersList = await APIHandler.RequestAPI<List<Models.Users>>(eTables.Users.Read, queryParams, HttpMethod.Get, null, await AuthService.GetToken());
+        UsersList = await APIHandler.RequestAPI<List<Models.Users>>(eTables.Users.Read, queryParams, HttpMethod.Get, await AuthService.GetToken());
         await AddDelay(350, 750); 
         
         isSearching = false;
