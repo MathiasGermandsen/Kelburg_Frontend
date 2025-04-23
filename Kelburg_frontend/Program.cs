@@ -20,7 +20,7 @@ builder.Services.AddScoped<RoomsService>();
 builder.Services.AddScoped<BookingService>();
 
 builder.Services.AddScoped<HttpClient>(sp =>
-    new HttpClient { BaseAddress = new Uri("https://localhost:44306/swagger/v1/swagger.json") }); // Replace with your API URL
+    new HttpClient { BaseAddress = new Uri("http://localhost:44306/swagger/v1/swagger.json") }); // Replace with your API URL
 
 builder.Services
     .AddBlazorise( options =>
