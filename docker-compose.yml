@@ -1,6 +1,7 @@
-﻿services:
+﻿version: "3.8"
+
+services:
   kelburg_frontend:
-    image: kelburg_frontend
-    build:
-      context: .
-      dockerfile: Kelburg_frontend/Dockerfile
+    image: kelburg_frontend:latest
+    ports:
+      - "80:80"

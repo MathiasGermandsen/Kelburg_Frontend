@@ -64,7 +64,7 @@ public class TicketAPI : APIData
 
 public static class eTables
 {
-    private const string APIBaseUrl = "https://localhost:44306/api";
+    private const string APIBaseUrl = "http://10.133.51.102:8080/api";
 
     public static readonly BookingsAPI Bookings = new($"{APIBaseUrl}/Bookings");
     public static readonly CarsAPI HotelCars = new($"{APIBaseUrl}/HotelCars");
