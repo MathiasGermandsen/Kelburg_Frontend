@@ -119,17 +119,26 @@ public partial class Booking : ComponentBase
 
     private async Task CheckoutOrder()
     {
-        if (selectedServiceId == 0)
+        try
         {
-            serviceSelected = false;
-            return;
+            if (selectedServiceId == 0)
+            {
+                serviceSelected = false;
+                return;
+            }
+        
+            isCheckingOut = true;
+        
+            await BookingService.SetNewBooking(currentBooking);
+            string checkoutUrl = await BookingService.GetCheckout();
+        
+            NavigationManager.NavigateTo(checkoutUrl);
         }
-        
-        isCheckingOut = true;
-        
-        await BookingService.SetNewBooking(currentBooking);
-        string checkoutUrl = await BookingService.GetCheckout();
-        
-        NavigationManager.NavigateTo(checkoutUrl);
+        catch (Exception ex)
+        {
+            Console.WriteLine("ERROR:");
+            Console.WriteLine(ex.Message);
+        }
+      
     }
 }

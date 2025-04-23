@@ -98,6 +98,8 @@ public static class APIHandler
         {
             using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);
             
+            Console.WriteLine($"Requesting API with URL: {uri.AbsoluteUri}");
+            
             if (!string.IsNullOrEmpty(token))
             {
                 request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
