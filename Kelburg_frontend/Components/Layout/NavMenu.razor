@@ -18,7 +18,15 @@
         </a>
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            @if (string.IsNullOrEmpty(loggedInUserName))
+
+            @if (loggedInUser != null && loggedInUser.AccountType.ToLower() == "admin")
+            {
+                <li class="nav-item px-2">
+                    <button class="nav-link btn" style="color: black;" @onclick="GoToAdminPage">Admin Page</button>
+                </li>
+            }
+            
+            @if (loggedInUser == null)
             {
                 <li class="nav-item px-2">
                     <NavLink class="nav-link" href="/Login" style="color: black;">Login</NavLink>
@@ -27,12 +35,13 @@
             else
             {
                 <li class="nav-item px-2">
-                    <span class="nav-link px-2" style="color: black;">@loggedInUserName</span>
+                    <span class="nav-link px-2" style="color: black;">@loggedInUser.FirstName @loggedInUser.LastName</span>
                 </li>
                 <li class="nav-item px-2">
                     <button class="nav-link btn" style="color: black;" @onclick="Logout">Logout</button>
                 </li>
             }
+
         </ul>
     </div>
 </nav>
@@ -120,18 +129,26 @@
 
 @code
 {
-    private string loggedInUserName;
+    private Models.Users? loggedInUser;
     [Inject] NavigationManager navigationManager { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        loggedInUserName = await JSRuntime.InvokeAsync<string>("getLoggedInUserName");
-        StateHasChanged();
+        if (firstRender)
+        {
+            loggedInUser = await AuthService.GetUser(await AuthService.GetToken());
+            StateHasChanged();
+        }
     }
 
     private async Task Logout()
     {
         await AuthService.Logout();
         NavigationManager.NavigateTo("/login", forceLoad: true);
+    }
+
+    private async Task GoToAdminPage()
+    {
+        NavigationManager.NavigateTo("/StaffLandingpage");
     }
 }
