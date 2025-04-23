@@ -121,6 +121,8 @@ public partial class Booking : ComponentBase
     {
         try
         {
+            Console.WriteLine($"Selected Service ID: {selectedServiceId}");
+            
             if (selectedServiceId == 0)
             {
                 serviceSelected = false;
@@ -128,10 +130,17 @@ public partial class Booking : ComponentBase
             }
         
             isCheckingOut = true;
-        
+            
+            Console.WriteLine("Checking out...");
+            
             await BookingService.SetNewBooking(currentBooking);
+            
+            Console.WriteLine($"Booking: {currentBooking}");
+            
             string checkoutUrl = await BookingService.GetCheckout();
-        
+            
+            Console.WriteLine($"Checkout URL: {checkoutUrl}");
+            
             NavigationManager.NavigateTo(checkoutUrl);
         }
         catch (Exception ex)
@@ -139,6 +148,5 @@ public partial class Booking : ComponentBase
             Console.WriteLine("ERROR:");
             Console.WriteLine(ex.Message);
         }
-      
     }
 }
