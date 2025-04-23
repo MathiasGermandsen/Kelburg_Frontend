@@ -98,7 +98,9 @@ public static class APIHandler
         {
             using HttpRequestMessage request = new HttpRequestMessage(method, uri.AbsoluteUri);
             
+            Console.WriteLine("-----------------------------------------------------------------------------");
             Console.WriteLine($"Requesting API with URL: {uri.AbsoluteUri}");
+            Console.WriteLine("-----------------------------------------------------------------------------");
             
             if (!string.IsNullOrEmpty(token))
             {
