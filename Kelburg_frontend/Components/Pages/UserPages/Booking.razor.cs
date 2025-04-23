@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Kelburg_frontend.Models;
 using Kelburg_frontend.Services;
-
+using System.Text.Json;
 namespace Kelburg_frontend.Components.Pages.UserPages;
 
 public partial class Booking : ComponentBase
@@ -135,7 +135,7 @@ public partial class Booking : ComponentBase
             
             await BookingService.SetNewBooking(currentBooking);
             
-            Console.WriteLine($"Booking: {currentBooking}");
+            Console.WriteLine($"Booking: {JsonSerializer.Serialize(currentBooking, new JsonSerializerOptions { WriteIndented = true })}");
             
             string checkoutUrl = await BookingService.GetCheckout();
             
