@@ -60,7 +60,7 @@ public partial class Ticket : ComponentBase
             {"userId", SelectedTicket.FromUser}
         };
         
-        List<Models.Users>? foundUser = await APIHandler.RequestAPI<List<Models.Users>>(eTables.Users.Read, queryParams, HttpMethod.Get, null, await AuthService.GetToken());
+        List<Models.Users>? foundUser = await APIHandler.RequestAPI<List<Models.Users>>(eTables.Users.Read, queryParams, HttpMethod.Get, await AuthService.GetToken());
         TicketUser = foundUser[0];
     }
 

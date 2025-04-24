@@ -121,7 +121,7 @@ public partial class Booking : ComponentBase
     {
         try
         {
-            Console.WriteLine($"Selected Service ID: {selectedServiceId}");
+            LogService.LogMessage($"Selected Service ID: {selectedServiceId}");
             
             if (selectedServiceId == 0)
             {
@@ -131,22 +131,21 @@ public partial class Booking : ComponentBase
         
             isCheckingOut = true;
             
-            Console.WriteLine("Checking out...");
+            LogService.LogMessage($"Checking out set to {isCheckingOut}");
             
             await BookingService.SetNewBooking(currentBooking);
             
-            Console.WriteLine($"Booking: {JsonSerializer.Serialize(currentBooking, new JsonSerializerOptions { WriteIndented = true })}");
+            LogService.LogMessageWithFrame($"Booking: {JsonSerializer.Serialize(currentBooking, new JsonSerializerOptions { WriteIndented = true })}");
             
             string checkoutUrl = await BookingService.GetCheckout();
             
-            Console.WriteLine($"Checkout URL: {checkoutUrl}");
+            LogService.LogMessageWithFrame($"Checkout URL: {checkoutUrl}");
             
             NavigationManager.NavigateTo(checkoutUrl);
         }
         catch (Exception ex)
         {
-            Console.WriteLine("ERROR:");
-            Console.WriteLine(ex.Message);
+            LogService.LogError(ex.Message);
         }
     }
 }
