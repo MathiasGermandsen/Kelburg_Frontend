@@ -21,6 +21,7 @@ public partial class Booking : ComponentBase
     private List<Models.Services> serviceList = new List<Models.Services>();
     
     private bool modalVisible = false;
+    private bool showDeleteBooking = false;
     
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -168,10 +169,6 @@ public partial class Booking : ComponentBase
 
     private async Task DeleteBooking()
     {
-        bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"are you sure you want to delete booking {BookingId}?");
-        if (!confirmed) 
-            return;
-
         Dictionary<string, object?> queryParams = new Dictionary<string, object?>()
         {
             { "bookingId", BookingId }
@@ -181,7 +178,7 @@ public partial class Booking : ComponentBase
 
         if (result != null)
         {
-            NavigationManager.NavigateTo("/bookings"); // Adjust path as needed
+            NavigationManager.NavigateTo("/bookings");
         }
     }
     

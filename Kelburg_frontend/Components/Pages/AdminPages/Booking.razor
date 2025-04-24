@@ -12,7 +12,7 @@
         <p class="booking-date">Booking Date: @selectedBooking.StartDate.ToString("yyyy-MM-dd") → @selectedBooking.EndDate.ToString("yyyy-MM-dd")</p>
         <hr/>
         <button class="edit-btn" @onclick="EditBooking">Edit Details</button>
-        <button class="delete-btn" @onclick="DeleteBooking" style="background-color: #dc3545; color: white; margin-top: 10px;">Delete Booking</button>
+        <button class="delete-btn" @onclick="() => showDeleteBooking = true">Delete Booking</button>
 
 
         <div class="card">
@@ -108,10 +108,28 @@
                         }
                     }
                 </select>           
-                </div>
+            </div>
 
             <div style="display:flex; justify-content:flex-end; margin-top:20px; gap:10px;">
                 <button class="save-btn" @onclick="SaveChanges">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
+    
+}
+@if (showDeleteBooking)
+{
+    <div class="modal-backdrop">
+        <div class="modal-box">
+            <h3 class="modal-title">Delete User?</h3>
+            <p>
+                Are you sure you want to delete
+                <strong>@bookingRoom.RoomType for @bookingUser.FirstName @bookingUser.LastName</strong>?
+            </p>
+            <div class="modal-actions">
+                <button class="confirm-button" @onclick="DeleteBooking">Delete</button>
+                <button class="cancel-button" @onclick="() => showDeleteBooking = false">Cancel</button>
             </div>
         </div>
     </div>
