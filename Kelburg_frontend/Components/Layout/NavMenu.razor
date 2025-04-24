@@ -125,15 +125,43 @@
 @code
 {
     private Models.Users? loggedInUser;
-    [Inject] NavigationManager navigationManager { get; set; }
+    private bool hasLoadedInitially = false;
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (!hasLoadedInitially)
+        {
+            hasLoadedInitially = true;
+            await LoadUserAsync();
+        }
+    }
+
+    private async void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        await LoadUserAsync();
+    }
+
+    private async Task LoadUserAsync()
+    {
+        try
         {
             loggedInUser = await AuthService.GetUser(await AuthService.GetToken());
             StateHasChanged();
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error loading user: " + ex.Message);
+        }
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
     }
 
     private async Task Logout()
